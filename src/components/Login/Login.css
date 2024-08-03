@@ -23,7 +23,7 @@
   color: #fff;
 }
 
-/* .login-al-aqsa-wrapper {
+.login-al-aqsa-wrapper {
   position: fixed;
   bottom: 0;
   display: flex;
@@ -31,11 +31,37 @@
   justify-content: center;
   width: 100%;
   z-index: 10000;
-} */
+}
 
-.login-al-aqsa-wrapper {
+.login-al-aqsa-wrapper img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.login-al-aqsa-map {
+  position: absolute;
+  left: 47px;
+  bottom: 43px;
+  transform: scale(0.9);
+}
+
+.login-al-aqsa-map svg {
+  opacity: 0.15;
+}
+
+/* .login-al-aqsa-wrapper {
   background-image: url(../../images/al-aqsa-min.png);
   height: 100%;
   background-position: bottom center;
   background-repeat: no-repeat;
+} */
+
+.logo {
+  position: fixed;
+  left: 4rem;
+  top: 4rem;
+  width: 115px;
+  height: 115px;
+  background-color: #d9d9d9;
+  color: #202020;
 }
