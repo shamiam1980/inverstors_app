@@ -1,0 +1,41 @@
+.login {
+  width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  background-color: #0b0b27;
+  color: #fff;
+  background-image: url(../../images/bg-space.png);
+}
+
+.login-svg-wrapper {
+  background-image: url(../../images/bg-galaxy-min.svg);
+  height: 100%;
+  background-position: top right;
+  background-size: cover;
+}
+
+.login-content {
+  padding-top: 2rem;
+}
+
+.login-home-navlink {
+  color: #fff;
+}
+
+/* .login-al-aqsa-wrapper {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  z-index: 10000;
+} */
+
+.login-al-aqsa-wrapper {
+  background-image: url(../../images/al-aqsa-min.png);
+  height: 100%;
+  background-position: bottom center;
+  background-repeat: no-repeat;
+}
