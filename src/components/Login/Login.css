@@ -2,7 +2,6 @@
   width: 100%;
   height: 100vh;
   max-height: 100vh;
-  overflow: hidden;
   background-color: #0b0b27;
   color: #fff;
   background-image: url(../../images/bg-space.png);
@@ -16,7 +15,7 @@
 }
 
 .login-content {
-  padding-top: 2rem;
+  height: 100%;
 }
 
 .login-home-navlink {
@@ -30,7 +29,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  z-index: 10000;
+  z-index: 10;
 }
 
 .login-al-aqsa-wrapper img {
@@ -45,23 +44,111 @@
   transform: scale(0.9);
 }
 
-.login-al-aqsa-map svg {
+.login-al-aqsa-map img {
   opacity: 0.15;
 }
 
 /* .login-al-aqsa-wrapper {
-  background-image: url(../../images/al-aqsa-min.png);
+  background-image: url(../../images/login-al-aqsa-min.png);
   height: 100%;
   background-position: bottom center;
   background-repeat: no-repeat;
 } */
 
-.logo {
+.login-logo,
+.login-lang-sel {
   position: fixed;
-  left: 4rem;
-  top: 4rem;
+  background-color: #dedede;
+  color: #202020;
+  font-weight: 500;
+}
+
+.login-logo {
   width: 115px;
   height: 115px;
-  background-color: #d9d9d9;
+  left: 4rem;
+  top: 4rem;
+}
+
+.login-lang-sel {
+  width: 100px;
+  height: 45px;
+  right: 5rem;
+  bottom: 4rem;
+  flex-direction: row-reverse;
+  border-radius: 4px;
+  z-index: 1000000;
+  cursor: pointer;
+}
+
+.login-lang-sel-text {
+  padding: 0 10px;
+}
+
+#login-lang-sel-tooltip,
+#login-form-submit-btn {
+  font-family: "GHAITHSANS", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+}
+
+#login-lang-sel-tooltip {
+  width: 100px;
+}
+
+.login-form-wrapper {
+  width: 450px;
+  height: 500px;
+  padding: 50px 30px 60px 30px;
+  border-radius: 8px;
+  background-color: #f8f8f8;
+  -webkit-box-shadow: 5px 5px 30px 0px rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 30px 0px rgba(0, 0, 0, 0.05);
+}
+
+.login-form-label {
   color: #202020;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 0.75rem 0 1.5rem 0;
+}
+
+.login-form-input-wrapper {
+  height: 56px;
+  margin-bottom: 1.5rem;
+}
+
+.login-form-input-label {
+  position: absolute;
+  color: #232323;
+  padding-right: 10px;
+  padding-top: 3px;
+}
+
+.login-form-input-wrapper input {
+  width: 100%;
+  height: 100%;
+  background-color: #ececec;
+  color: #202020;
+  border: 0;
+  outline: 0;
+  padding: 22px 12px 4px 12px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.login-form-input-wrapper input::-webkit-input-placeholder {
+  color: #8f8f8f;
+  opacity: 1 !important; /* Chrome */
+}
+
+.login-form-input-wrapper input::placeholder {
+  color: #8f8f8f;
+  opacity: 1 !important; /* Firefox */
+}
+
+.login-form-input-wrapper input::-ms-input-placeholder {
+  /* Edge 12 -18 */
+  color: #8f8f8f;
+  opacity: 1 !important;
 }

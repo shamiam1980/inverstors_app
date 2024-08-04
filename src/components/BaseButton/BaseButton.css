@@ -1,0 +1,31 @@
+button.button {
+  transition: all 0.4s;
+  display: flex;
+  /* HQ -- Adjust all button font */
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  height: 40px;
+  width: 100%;
+}
+
+.is-hidden {
+  visibility: hidden;
+}
+
+.basebtn-display-icon {
+  position: relative;
+  left: -6px;
+}
+
+/* HQ -- Adjust all button widths */
+@media only screen and (max-width: 610px) {
+  button.button {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .basebtn-display-icon {
+    left: 0;
+  }
+}
