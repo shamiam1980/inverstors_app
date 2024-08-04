@@ -80,6 +80,10 @@ html {
   scrollbar-width: none; /* FF */
 }
 
+.button.is-success {
+  background-color: #00d1b2 !important;
+}
+
 /* Helper Classes */
 .flex-it {
   display: flex;

@@ -12,11 +12,6 @@ button.button {
   visibility: hidden;
 }
 
-.basebtn-display-icon {
-  position: relative;
-  left: -6px;
-}
-
 /* HQ -- Adjust all button widths */
 @media only screen and (max-width: 610px) {
   button.button {

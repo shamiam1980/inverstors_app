@@ -37,20 +37,20 @@ const BaseButton = ({
       <img
         src={displayIcon}
         style={{
-          visibility: loading || error || success ? "hidden" : "visible",
+          display: loading || error || success ? "none" : "block",
         }}
       />
+      <img
+        className={classNames("mx-2", { "is-hidden": !error })}
+        src={errorIcon}
+        width='20'
+      />
+      <img
+        className={classNames("mx-2", { "is-hidden": !success })}
+        src={successIcon}
+        width='20'
+      />
     </span>
-    <img
-      className={classNames("mx-2", { "is-hidden": !error })}
-      src={errorIcon}
-      width='20'
-    />
-    <img
-      className={classNames("mx-2", { "is-hidden": !success })}
-      src={successIcon}
-      width='20'
-    />
     {text}
   </button>
 );

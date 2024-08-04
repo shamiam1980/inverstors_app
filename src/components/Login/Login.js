@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { useHistory, useRouteMatch } from "react-router";
 import { NavLink } from "react-router-dom";
 import Overlay from "react-bootstrap/Overlay";
 import Tooltip from "react-bootstrap/Tooltip";
@@ -11,6 +12,9 @@ import "./Login.css";
 
 const Login = () => {
   const [show, setShow] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [pwInputType, setPwInputType] = useState("password");
   const [emailIsValid, setEmailIsValid] = useState(true);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -18,6 +22,33 @@ const Login = () => {
   const [errMsg, setErrMsg] = useState("");
 
   const target = useRef(null);
+  const loginBtn = useRef(null);
+
+  const history = useHistory();
+
+  const validateEmail = (val) => {
+    let emailValidate =
+      /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i;
+    if (emailValidate.test(val)) {
+      setErrMsg("");
+      return true;
+    } else {
+      setErrMsg("يرجى إدخال بريد إلكتروني صحيح!");
+      return false;
+    }
+  };
+
+  const handleShowPw = () => {
+    if (pwInputType === "password") {
+      setPwInputType("text");
+    } else {
+      setPwInputType("password");
+    }
+  };
+
+  const handlePwOnChange = (e) => {
+    setPassword(e.target.value);
+  };
 
   const handleLoginSubmit = () => {
     setLoading(true);
@@ -25,11 +56,23 @@ const Login = () => {
     setSuccess(false);
     setTimeout(() => {
       setLoading(false);
-      setError(true);
+      // setError(true);
+      setSuccess(true);
       setTimeout(() => {
-        setError(false);
-      }, 2000);
+        history.push("/home");
+      }, 2800);
+      setTimeout(() => {
+        // setError(false);
+        setSuccess(false);
+      }, 50000);
     }, 3000);
+  };
+
+  // Submit login when clicking Enter
+  const handleKeyboardSubmit = (e) => {
+    if (e.code === "Enter" || e.code === "NumpadEnter") {
+      loginBtn.current.click();
+    }
   };
 
   return (
@@ -93,7 +136,20 @@ const Login = () => {
               <div className='login-form-label'>تسجيل دخول مستثمر</div>
               <div className='login-form-input-wrapper'>
                 <div className='login-form-input-label'>البريد الإلكتروني</div>
-                <input type='text' placeholder='يرجى إدخال بريدك الإلكتروني' />
+                <input
+                  className={email !== "" && "unempty"}
+                  type='text'
+                  placeholder='يرجى إدخال بريدك الإلكتروني'
+                  // style={{
+                  //   direction: "rtl",
+                  //   textAlign: email === "" ? "right" : "left",
+                  // }}
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value.replace(" ", ""));
+                    validateEmail(e.target.value.replace(" ", ""));
+                  }}
+                />
                 <div
                   style={{
                     border: "1.5px solid",
@@ -102,24 +158,64 @@ const Login = () => {
               </div>
               <div className='login-form-input-wrapper'>
                 <div className='login-form-input-label'>كلمة السر</div>
-                <input type='text' placeholder='يرجى إدخال كلمة السر' />
+                <input
+                  className={password !== "" && "unempty"}
+                  placeholder='يرجى إدخال كلمة السر'
+                  // style={{
+                  //   direction: "rtl",
+                  //   textAlign: password === "" ? "right" : "left",
+                  // }}
+                  type={pwInputType}
+                  maxLength='20'
+                  onChange={handlePwOnChange}
+                  onKeyUp={(e) => handleKeyboardSubmit(e)}
+                  value={password}
+                />
+                <svg
+                  id='auth-toggle-show-pw-icon'
+                  width='38'
+                  height='38'
+                  viewBox='0 0 38 38'
+                  fill='none'
+                  className='eye-icon'
+                  alt='Show password'
+                  onClick={handleShowPw}
+                  xmlns='http://www.w3.org/2000/svg'>
+                  <rect
+                    width='38'
+                    height='38'
+                    viewBox='0 0 38 38'
+                    x='0'
+                    y='0'
+                    fill='#ececec'></rect>
+                  <path
+                    fillRule='evenodd'
+                    clipRule='evenodd'
+                    d='M12 5C7 5 2.73 8.11 1 12.5C2.73 16.89 7 20 12 20C17 20 21.27 16.89 23 12.5C21.27 8.11 17 5 12 5ZM12 17.5C9.24 17.5 7 15.26 7 12.5C7 9.74 9.24 7.5 12 7.5C14.76 7.5 17 9.74 17 12.5C17 15.26 14.76 17.5 12 17.5ZM12 9.5C10.34 9.5 9 10.84 9 12.5C9 14.16 10.34 15.5 12 15.5C13.66 15.5 15 14.16 15 12.5C15 10.84 13.66 9.5 12 9.5Z'
+                    fill={pwInputType === "password" ? "#757575" : "#1DE9B6"}
+                  />
+                </svg>
                 <div
                   style={{
                     border: "1.5px solid",
                     borderColor: emailIsValid ? "#08D7BD" : "red",
                   }}></div>
               </div>
-              <BaseButton
-                id='login-form-submit-btn'
-                onClick={handleLoginSubmit}
-                loading={loading}
-                success={success}
-                error={error}
-                text='دخول'
-                textColor='#fff'
-                displayIcon={LoginPalestineOldKeyIcon}
-              />
-              {/* <NavLink
+              <div className='login-form-submit-wrapper'>
+                <BaseButton
+                  id='login-form-submit-btn'
+                  onClick={handleLoginSubmit}
+                  loading={loading}
+                  success={success}
+                  error={error}
+                  text='دخول'
+                  textColor='#fff'
+                  display={true}
+                  displayIcon={LoginPalestineOldKeyIcon}
+                  loginBtn={loginBtn}
+                />
+                <span className={`splash ${success && "expanded"}`}></span>
+                {/* <NavLink
                 to='/home'
                 exact
                 className='home-navlink'
@@ -127,6 +223,7 @@ const Login = () => {
                 activeStyle={{ color: "#f7f7f7", fontWeight: "bold" }}>
                 دخول
               </NavLink> */}
+              </div>
             </div>
           </div>
         </div>
