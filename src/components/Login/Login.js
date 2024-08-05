@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useHistory, useRouteMatch } from "react-router";
 import { NavLink } from "react-router-dom";
 import Overlay from "react-bootstrap/Overlay";
@@ -8,6 +8,7 @@ import AlAqsa from "../../images/login-al-aqsa-min.png";
 import LoginPalestineMap from "../../images/login-palestine-map.svg";
 import LoginPalestineOldKeyIcon from "../../images/login-palestine-old-key.svg";
 import LoginFormIcon from "../../images/login-form-icon.png";
+import baseURL from "../../baseURL";
 import "./Login.css";
 
 const Login = () => {
@@ -15,25 +16,50 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [pwInputType, setPwInputType] = useState("password");
-  const [emailIsValid, setEmailIsValid] = useState(true);
+  const [emailIsValid, setEmailIsValid] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [errMsg, setErrMsg] = useState("");
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    getCSRFToken();
+  }, []);
 
   const target = useRef(null);
   const loginBtn = useRef(null);
 
   const history = useHistory();
 
+  const getCSRFToken = () => {
+    const url = new URL("./api/get_csrf_token/", baseURL);
+
+    fetch(url, { method: "GET" })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch.");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setToken(data.csrfToken);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const validateEmail = (val) => {
+    setEmailIsValid(false);
     let emailValidate =
       /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i;
     if (emailValidate.test(val)) {
-      setErrMsg("");
+      setEmailIsValid(true);
+      // setErrMsg("");
       return true;
     } else {
-      setErrMsg("يرجى إدخال بريد إلكتروني صحيح!");
+      // setErrMsg("يرجى إدخال بريد إلكتروني صحيح!");
       return false;
     }
   };
@@ -47,25 +73,78 @@ const Login = () => {
   };
 
   const handlePwOnChange = (e) => {
+    setErrMsg("");
     setPassword(e.target.value);
   };
 
-  const handleLoginSubmit = () => {
-    setLoading(true);
-    setError(false);
-    setSuccess(false);
-    setTimeout(() => {
-      setLoading(false);
-      // setError(true);
-      setSuccess(true);
+  const handleLoginSubmit = async () => {
+    if (email === "" && password === "") {
+      setErrMsg("لم يتم إدخال أيّة بيانات!");
+    } else if (!emailIsValid || password.length < 6) {
+      setErrMsg("يرجى إدخال بريد إلكتروني صحيح و كلمة سر  لا تقل عن 6 أحرف!");
+    } else {
+      setErrMsg("");
+      setLoading(true);
+      // TEMP
       setTimeout(() => {
-        history.push("/home");
-      }, 2800);
-      setTimeout(() => {
-        // setError(false);
-        setSuccess(false);
-      }, 50000);
-    }, 3000);
+        setLoading(false);
+        setSuccess(true);
+        setTimeout(() => {
+          history.push("/home");
+        }, 3000);
+      }, 1800);
+      // True Request
+      // try {
+      //   const url = new URL("./login", baseURL);
+      //   const response = await fetch(url, {
+      //     method: "POST",
+      //     headers: {
+      //       Accept: "application/json",
+      //       "Content-Type": "application/json",
+      //       "X-CSRFToken": token,
+      //     },
+      //     body: JSON.stringify({
+      //       email: email,
+      //       password: password,
+      //     }),
+      //   });
+
+      //   if (!response.ok) {
+      //     setLoading(false);
+      //     setSuccess(false);
+      //     setError(true);
+      //     setTimeout(() => {
+      //       setError(false);
+      //     }, 3000);
+      //     throw new Error("Failed to fetch.");
+      //   } else {
+      //     setLoading(false);
+      //     setSuccess(true);
+      //     setTimeout(() => {
+      //       history.push("/home");
+      //     }, 2800);
+      //   }
+      // } catch (err) {
+      //   setLoading(false);
+      //   setError(true);
+      //   setSuccess(false);
+      //   setErrMsg(
+      //     <span>
+      //       بيانات الدخول غير صحيحة! يرجي التواصل مع{" "}
+      //       <a
+      //         className='login-err-msg-email eng-text'
+      //         onClick={() => (window.location = "mailto:support@m.shokry.com")}>
+      //         support@mshokry.com
+      //       </a>{" "}
+      //       للمساعدة
+      //     </span>
+      //   );
+      //   setTimeout(() => {
+      //     setError(false);
+      //   }, 3000);
+      //   console.log(err);
+      // }
+    }
   };
 
   // Submit login when clicking Enter
@@ -91,7 +170,7 @@ const Login = () => {
               setShow(!show),
               setTimeout(() => {
                 setShow(false);
-              }, 2000)
+              }, 2500)
             )}>
             <svg
               width='31'
@@ -124,7 +203,7 @@ const Login = () => {
           <Overlay target={target.current} show={show} placement='top'>
             {(props) => (
               <Tooltip id='login-lang-sel-tooltip' {...props}>
-                قريباً إن شاء الله!
+                قريباً إن شاء الله! فاجعل اللهم زوال الكيان أقرب!
               </Tooltip>
             )}
           </Overlay>
@@ -137,15 +216,17 @@ const Login = () => {
               <div className='login-form-input-wrapper'>
                 <div className='login-form-input-label'>البريد الإلكتروني</div>
                 <input
-                  className={email !== "" && "unempty"}
+                  className={email !== "" ? "unempty" : ""}
                   type='text'
                   placeholder='يرجى إدخال بريدك الإلكتروني'
-                  // style={{
-                  //   direction: "rtl",
-                  //   textAlign: email === "" ? "right" : "left",
-                  // }}
+                  style={{
+                    direction: "ltr",
+                    // textAlign: email === "" ? "right" : "left",
+                    textAlign: "right",
+                  }}
                   value={email}
                   onChange={(e) => {
+                    setErrMsg("");
                     setEmail(e.target.value.replace(" ", ""));
                     validateEmail(e.target.value.replace(" ", ""));
                   }}
@@ -153,13 +234,14 @@ const Login = () => {
                 <div
                   style={{
                     border: "1.5px solid",
-                    borderColor: emailIsValid ? "#08D7BD" : "red",
+                    borderColor:
+                      email === "" || emailIsValid ? "#08D7BD" : "#f14668",
                   }}></div>
               </div>
               <div className='login-form-input-wrapper'>
                 <div className='login-form-input-label'>كلمة السر</div>
                 <input
-                  className={password !== "" && "unempty"}
+                  className={password !== "" ? "unempty" : ""}
                   placeholder='يرجى إدخال كلمة السر'
                   // style={{
                   //   direction: "rtl",
@@ -198,7 +280,10 @@ const Login = () => {
                 <div
                   style={{
                     border: "1.5px solid",
-                    borderColor: emailIsValid ? "#08D7BD" : "red",
+                    borderColor:
+                      password === "" || password.length > 5
+                        ? "#08D7BD"
+                        : "#f14668",
                   }}></div>
               </div>
               <div className='login-form-submit-wrapper'>
@@ -213,8 +298,10 @@ const Login = () => {
                   display={true}
                   displayIcon={LoginPalestineOldKeyIcon}
                   loginBtn={loginBtn}
+                  disabled={loading || error}
                 />
-                <span className={`splash ${success && "expanded"}`}></span>
+                <p className='login-err-msg'>{errMsg}</p>
+                <span className={`splash ${success ? "expanded" : ""}`}></span>
                 {/* <NavLink
                 to='/home'
                 exact

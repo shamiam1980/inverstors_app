@@ -13,7 +13,7 @@ const Home = () => {
           className='login-navlink'
           title='To Login'
           activeStyle={{ color: "#f7f7f7", fontWeight: "bold" }}>
-          عودة
+          تسجيل خروج
         </NavLink>
       </div>
     </div>

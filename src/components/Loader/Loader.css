@@ -11,7 +11,7 @@
 
 .loader-palestine-map .al-aqsa {
   opacity: 0;
-  animation: myAnim2 1s ease 2s 1 normal forwards;
+  animation: myAnim2 1.1s ease 2s 1 normal forwards;
   animation-iteration-count: infinite;
 }
 
