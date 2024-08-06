@@ -86,64 +86,72 @@ const Login = () => {
       setErrMsg("");
       setLoading(true);
       // TEMP
-      setTimeout(() => {
-        setLoading(false);
-        setSuccess(true);
-        setTimeout(() => {
-          history.push("/home");
-        }, 3000);
-      }, 1800);
-      // True Request
-      // try {
-      //   const url = new URL("./login", baseURL);
-      //   const response = await fetch(url, {
-      //     method: "POST",
-      //     headers: {
-      //       Accept: "application/json",
-      //       "Content-Type": "application/json",
-      //       "X-CSRFToken": token,
-      //     },
-      //     body: JSON.stringify({
-      //       email: email,
-      //       password: password,
-      //     }),
-      //   });
-
-      //   if (!response.ok) {
-      //     setLoading(false);
-      //     setSuccess(false);
-      //     setError(true);
-      //     setTimeout(() => {
-      //       setError(false);
-      //     }, 3000);
-      //     throw new Error("Failed to fetch.");
-      //   } else {
-      //     setLoading(false);
-      //     setSuccess(true);
-      //     setTimeout(() => {
-      //       history.push("/home");
-      //     }, 2800);
-      //   }
-      // } catch (err) {
+      // setTimeout(() => {
       //   setLoading(false);
-      //   setError(true);
-      //   setSuccess(false);
-      //   setErrMsg(
-      //     <span>
-      //       بيانات الدخول غير صحيحة! يرجي التواصل مع{" "}
-      //       <a
-      //         className='login-err-msg-email eng-text'
-      //         onClick={() => (window.location = "mailto:support@m.shokry.com")}>
-      //         support@mshokry.com
-      //       </a>{" "}
-      //       للمساعدة
-      //     </span>
-      //   );
+      //   setSuccess(true);
       //   setTimeout(() => {
-      //     setError(false);
-      //   }, 3000);
-      //   console.log(err);
-      // }
+      //     history.push("/home");
+      //   }, 2600);
+      // }, 2000);
+      // True Request
+      try {
+        const url = new URL("./login", baseURL);
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "X-CSRFToken": token,
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        });
+
+        if (!response.ok) {
+          setTimeout(() => {
+            setLoading(false);
+            setSuccess(false);
+            setError(true);
+            setTimeout(() => {
+              setError(false);
+            }, 3000);
+          }, 1500);
+          throw new Error("Failed to fetch.");
+        } else {
+          setTimeout(() => {
+            setLoading(false);
+            setSuccess(true);
+            setTimeout(() => {
+              history.push("/home");
+            }, 2800);
+          }, 1500);
+        }
+      } catch (err) {
+        setTimeout(() => {
+          setLoading(false);
+          setError(true);
+          setSuccess(false);
+          setErrMsg(
+            <span>
+              بيانات الدخول غير صحيحة! يرجي التواصل مع{" "}
+              <a
+                className='login-err-msg-email eng-text'
+                onClick={() =>
+                  (window.location = "mailto:support@m.shokry.com")
+                }>
+                support@mshokry.com
+              </a>{" "}
+              للمساعدة
+            </span>
+          );
+          setTimeout(() => {
+            setError(false);
+          }, 3000);
+        }, 1500);
+        console.log(err);
+      }
     }
   };
 
@@ -203,7 +211,9 @@ const Login = () => {
           <Overlay target={target.current} show={show} placement='top'>
             {(props) => (
               <Tooltip id='login-lang-sel-tooltip' {...props}>
-                قريباً إن شاء الله! فاجعل اللهم زوال الكيان أقرب!
+                قريباً إن شاء الله!
+                <br />
+                اللهم اجعل زوال الكيان اللقيط أقرب!
               </Tooltip>
             )}
           </Overlay>
