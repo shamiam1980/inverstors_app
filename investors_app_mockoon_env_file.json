@@ -1,0 +1,154 @@
+{
+  "uuid": "34c25cae-ced8-4eba-8932-f8187f3656b1",
+  "lastMigration": 25,
+  "name": "shokry",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 8005,
+  "hostname": "0.0.0.0",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "efd1799b-95c1-4480-9e76-a9ebb4cb74c2",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "login",
+      "responses": [
+        {
+          "uuid": "cf1d752c-c12f-4f08-a199-cca6d3fb3b9e",
+          "body": "\"ok\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Access-Control-Allow-Methods",
+              "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+            },
+            {
+              "key": "Access-Control-Allow-Headers",
+              "value": "Content-Type, Origin, Accept,Authorization,Content-Length, X-Requested-With, x-csrftoken"
+            },
+            {
+              "key": "",
+              "value": ""
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "b2edae8d-b15e-4b74-be86-e07e43028049",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/get_csrf_token",
+      "responses": [
+        {
+          "uuid": "3bec0e77-2281-4c1d-a19f-8d026954558a",
+          "body": "{\n  \"csrfToken\": \"AAAAAAAAAAAAAAAAAAAAA\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "b2edae8d-b15e-4b74-be86-e07e43028049"
+    },
+    {
+      "type": "route",
+      "uuid": "efd1799b-95c1-4480-9e76-a9ebb4cb74c2"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With, x-csrftoken"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": []
+}
