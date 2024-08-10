@@ -83,6 +83,7 @@
     "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
     "Helvetica Neue", sans-serif;
   color: #fff;
+  /* background: var(--primary-color); */
 }
 
 #login-lang-sel-tooltip {
@@ -99,11 +100,16 @@
   box-shadow: 5px 5px 30px 0px rgba(0, 0, 0, 0.05);
 }
 
+.login-form-icon {
+  text-align: center;
+}
+
 .login-form-label {
   color: #202020;
   font-size: 24px;
   font-weight: bold;
   padding: 0.75rem 0 1.5rem 0;
+  text-align: center;
 }
 
 .login-form-input-wrapper {

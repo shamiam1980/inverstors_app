@@ -1,6 +1,6 @@
-.App {
+/* .App {
   text-align: center;
-}
+} */
 
 .App * {
   box-sizing: border-box;
@@ -8,4 +8,16 @@
 
 * {
   transition: color 0.2s, background-color 0.2s, fill 0.2s, stroke 0.2s;
+}
+
+:root {
+  --primary-color: #08d7bd;
+  --primary-gradient: linear-gradient(
+    90deg,
+    #0ae7cc 0%,
+    #34ecec 29%,
+    #67e1e2 55%,
+    #61d3d5 79%,
+    #1bd9dd 100%
+  );
 }

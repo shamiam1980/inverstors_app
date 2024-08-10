@@ -1,0 +1,152 @@
+#navbar {
+  border-bottom: 1px solid rgb(209 213 219/1);
+  background: var(--primary-gradient) !important;
+  height: 100px;
+  position: relative;
+}
+
+.nav-submit-btn {
+  margin: 0 1.25rem;
+  width: auto;
+  height: 45px;
+  color: #000;
+  font-size: 0.9rem;
+}
+
+.nav-submit-btn:hover {
+  color: #000;
+}
+
+.nav-submit-btn:first-child:active,
+:not(.nav-submit-btn-check) + .nav-submit-btn:active {
+  color: #000;
+  background-color: var(--primary-color) !important;
+}
+
+.nav-logo {
+  background-color: #dedede;
+  color: #202020;
+  font-weight: 500;
+  font-size: 10px;
+  width: 65px;
+  height: 65px;
+}
+
+#navbar .nav-link {
+  font-size: 0.95rem;
+  margin: 0 6px;
+  color: #083937 !important;
+}
+
+#navbar .nav-link.active {
+  color: var(--primary-color) !important;
+}
+
+.nav-link.nav-link-custom {
+  display: inline-block;
+  font-weight: normal;
+  margin-left: 0;
+}
+
+.nav-link a {
+  text-decoration: none;
+}
+
+#navbar .nav-item {
+  margin: 0 75px;
+  cursor: pointer !important;
+}
+
+.nav-username {
+  margin-right: 3rem;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  direction: rtl !important;
+}
+
+.nav-username .nav-username-text {
+  color: white;
+}
+
+.nav-username .nav-username-name {
+  color: #083937;
+  padding: 0 3px;
+}
+
+.nav-item-text {
+  padding: 0 4px;
+  text-decoration: underline;
+}
+
+/* MEDIA QUERIES */
+
+@media (min-width: 1400px) {
+  .container-xxl {
+    max-width: 1350px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .container-xxl {
+    max-width: 1550px;
+  }
+}
+
+@media (max-width: 992px) {
+  #navbar {
+    direction: ltr !important;
+  }
+  #navbar .container-xxl {
+    padding: 0;
+  }
+  #navbar .navbar-toggler,
+  #navbar .navbar-toggler:focus {
+    border: none;
+    box-shadow: none;
+  }
+  #navbar .navbar-collapse {
+    direction: ltr;
+    background: #f7f2fa;
+    border-bottom: 1px solid #ddd;
+    z-index: 10000;
+  }
+  #navbar .navbar-collapse .nav-link {
+    margin: 10px 12px;
+    direction: rtl;
+    font-size: 12px;
+    text-align: right;
+  }
+  #navbar .nav-link.active {
+    color: inherit !important;
+    font-weight: normal !important;
+  }
+  #nav {
+    padding: 1rem;
+    align-items: end;
+  }
+  #navbar .nav-logo {
+    margin-left: 2rem;
+  }
+  #navbar .nav-username {
+    position: absolute;
+    right: 2rem;
+    top: calc(50% - 14px);
+  }
+}
+
+@media (max-width: 768px) {
+  #navbar .navbar-brand {
+    margin-right: 1rem;
+  }
+}
+
+@media (max-width: 485px) {
+  #navbar .nav-submit-btn {
+    display: none;
+  }
+  #navbar .nav-submit-btn.nav-submit-btn-mobile {
+    display: block;
+    margin: 0;
+  }
+}

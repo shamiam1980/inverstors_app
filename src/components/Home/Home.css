@@ -1,5 +1,4 @@
 .home {
-  padding-top: 2rem;
   min-height: 100vh;
   background-color: #0b0b27;
   background-image: url(../../images/bg-space.png);
@@ -19,13 +18,22 @@
   background-size: contain;
   background-position: bottom left;
   width: 100%;
-  height: 100%;
-  opacity: 0.2;
+  height: 80%;
+  opacity: 0.25;
   position: absolute;
-  left: -5rem;
+  left: 0;
+  bottom: 0;
+  filter: drop-shadow(10px 5px 40px #000);
 }
 
 .home-content {
   position: relative;
   z-index: 10;
+  padding-top: 4rem;
+}
+
+.home-title {
+  color: #f2f2f2;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #bbbbbb;
 }
