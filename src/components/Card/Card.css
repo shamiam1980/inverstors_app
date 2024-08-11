@@ -1,0 +1,35 @@
+#home-card {
+  width: 420px;
+  height: 150px;
+  background-color: #fef7ff;
+  border: 2px solid #cac4d0;
+  border-radius: 12px;
+  color: #1d1b20;
+  padding: 1rem;
+  position: relative;
+}
+
+#home-card .home-card-title {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+#home-card .row {
+  margin: 0;
+}
+
+#home-card .home-card-value {
+  font-size: 36px;
+  font-weight: 500;
+  direction: rtl;
+}
+
+#home-card .home-card-icon-wrapper {
+  position: absolute;
+  left: 0;
+  width: 80px;
+  height: 100%;
+  background-color: #dadce0;
+  border-bottom-left-radius: 12px;
+  border-top-left-radius: 12px;
+}

@@ -30,6 +30,7 @@
   font-size: 10px;
   width: 65px;
   height: 65px;
+  text-align: center;
 }
 
 #navbar .nav-link {
@@ -162,6 +163,12 @@
   }
 }
 
+@media (width: 992px) {
+  #nav {
+    flex-direction: row-reverse;
+  }
+}
+
 @media (max-width: 992px) {
   #navbar {
     direction: ltr !important;
@@ -173,12 +180,6 @@
   #navbar .navbar-toggler:focus {
     border: none;
     box-shadow: none;
-  }
-  #navbar .navbar-collapse {
-    direction: ltr;
-    background: #f7f2fa;
-    border-bottom: 1px solid #ddd;
-    z-index: 10000;
   }
   #navbar .navbar-collapse .nav-link {
     margin: 10px 12px;

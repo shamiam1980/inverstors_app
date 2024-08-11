@@ -16,6 +16,30 @@ html {
   scrollbar-width: none; /* FF */
 }
 
+@font-face {
+  font-family: "Rubik";
+  src: url("./fonts/Rubik-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src: url("./fonts/Rubik-Bold.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src: url("./fonts/Rubik-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 .button.is-success {
   background-color: #00d1b2 !important;
 }
@@ -70,30 +94,6 @@ html {
   @font-face {
     font-family: "GHAITHSANS";
     src: url("./fonts/GHAITHSANS-Regular.woff2") format("woff2");
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
-
-  @font-face {
-    font-family: "Rubik";
-    src: url("./fonts/Rubik-Medium.woff2") format("woff2");
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-  }
-
-  @font-face {
-    font-family: "Rubik";
-    src: url("./fonts/Rubik-Bold.woff2") format("woff2");
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-  }
-
-  @font-face {
-    font-family: "Rubik";
-    src: url("./fonts/Rubik-Regular.woff2") format("woff2");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
