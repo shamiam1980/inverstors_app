@@ -1,0 +1,36 @@
+#custom-modal .modal-card {
+  border-radius: 28px;
+}
+
+#custom-modal .modal-card-foot,
+#custom-modal .modal-card-head,
+#custom-modal .modal-card-body {
+  background-color: #efefef;
+}
+
+#custom-modal .modal-card-body {
+  color: #49454f;
+}
+
+#custom-modal .modal-card-title {
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+#custom-modal button.button {
+  font-family: inherit;
+  color: var(--primary-color);
+}
+
+/* Hide upper close button */
+#custom-modal .delete {
+  display: none;
+}
+
+/* MEDIA QUERIES */
+
+@media (max-width: 768px) {
+  #custom-modal .modal-card {
+    max-width: 80%;
+  }
+}
