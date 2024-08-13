@@ -94,18 +94,6 @@ const AppNavbar = (props) => {
             <span className='nav-username-name'>هشام إبراهيم القرم</span>
             <span className='nav-username-text'>,</span>
           </div>
-          {/* <NavLink
-            to='/submit'
-            exact
-            className='nav-link nav-link-custom'
-            onClick={() => (
-              setActivePrompt(false), setActiveBlog(false), setExpanded(false)
-            )}
-            activeStyle={{ color: "var(--primary-color)", fontWeight: "bold" }}>
-            <Button className='nav-submit-btn p-ar' variant='warning'>
-              أضف مقترح نصي
-            </Button>
-          </NavLink> */}
         </Navbar.Brand>
         <Navbar.Toggle onClick={openNav} />
         <Navbar.Collapse>
@@ -116,11 +104,7 @@ const AppNavbar = (props) => {
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link
-                to='/'
-                exact
-                as={Link}
-                className='nav-link nav-link-custom'>
+              <Nav.Link to='/' as={Link} className='nav-link nav-link-custom'>
                 {JSXLogout}
               </Nav.Link>
             </Nav.Item>
@@ -159,11 +143,7 @@ const AppNavbar = (props) => {
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link
-                  to='/'
-                  exact
-                  as={Link}
-                  className='nav-link nav-link-custom'>
+                <Nav.Link to='/' as={Link} className='nav-link nav-link-custom'>
                   {JSXLogout}
                 </Nav.Link>
               </Nav.Item>

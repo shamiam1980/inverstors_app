@@ -8,6 +8,11 @@
   background-color: #efefef;
 }
 
+#custom-modal .modal-card-head {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 #custom-modal .modal-card-body {
   color: #49454f;
 }
@@ -15,6 +20,13 @@
 #custom-modal .modal-card-title {
   margin-top: 1rem;
   font-weight: bold;
+}
+
+#custom-modal .modal-card-sub-title {
+  font-size: 14px;
+  color: #49454f;
+  font-weight: 300;
+  margin-bottom: 10px;
 }
 
 #custom-modal button.button {

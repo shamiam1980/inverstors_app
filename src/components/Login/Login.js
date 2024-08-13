@@ -312,14 +312,6 @@ const Login = () => {
                 />
                 <p className='login-err-msg'>{errMsg}</p>
                 <span className={`splash ${success ? "expanded" : ""}`}></span>
-                {/* <NavLink
-                to='/home'
-                exact
-                className='home-navlink'
-                title='To Home'
-                activeStyle={{ color: "#f7f7f7", fontWeight: "bold" }}>
-                دخول
-              </NavLink> */}
               </div>
             </div>
           </div>

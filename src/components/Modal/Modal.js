@@ -18,6 +18,9 @@ const Modal = (props) => {
       <div className='modal-card'>
         <header className='modal-card-head'>
           <p className='modal-card-title'>{props.title}</p>
+          {props.subTitle && (
+            <p className='modal-card-sub-title'>{props.subTitle}</p>
+          )}
           <button
             className='delete'
             aria-label='close'

@@ -58,6 +58,16 @@ html {
   direction: ltr;
 }
 
+.ara-text {
+  font-family: "GHAITHSANS", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif !important;
+}
+
+.rtl {
+  direction: rtl !important;
+}
+
 @media only screen and (max-width: 1200px) {
   @font-face {
     font-family: "GHAITHSANS";

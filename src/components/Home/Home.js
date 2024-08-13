@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import { NavLink } from "react-router-dom";
 import Row from "react-bootstrap/Row";
@@ -7,16 +7,41 @@ import Col from "react-bootstrap/Col";
 import Navbar from "../Navbar/Navbar";
 import Card from "../Card/Card";
 import Modal from "../Modal/Modal";
+import Form from "react-bootstrap/Form";
+import Accordion from "react-bootstrap/Accordion";
+import baseURL from "../../baseURL";
 import "./Home.css";
 
 const Home = () => {
   const [isModal, setIsModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [modalTitle, setModalTitle] = useState("");
+  const [modalSubTitle, setModalSubTitle] = useState(null);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const url = new URL("./get_data", baseURL);
+
+    fetch(url, { method: "GET" })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch.");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("🚀 ~ .then ~ data:", data);
+        setData(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const handleOpenSupportModal = () => {
     setIsModal(true);
     setModalTitle("تواصل معنا");
+    setModalSubTitle(null);
     setModalMessage(
       <span>
         اضغط على الرابط لإرسال بريد إلكتروني إلى{" "}
@@ -28,6 +53,28 @@ const Home = () => {
         للمساعدة
       </span>
     );
+  };
+
+  const handleOpenCardInfoModal = () => {
+    setIsModal(true);
+    setModalTitle("إجمالي دفعات الأرباح المستلمة والمتبقية");
+    setModalSubTitle(
+      "هنا تظهر تفاصيل دفعات الأرباح المستلمة و المخططة مستقبلاً إن وجد"
+    );
+    // Placeholder
+    // setModalMessage(<span>بيانات دفعات الأرباح</span>);
+    // Real data
+    setModalMessage(JSXCardInfoModalData);
+  };
+
+  const handleOpenProfitDetailsModal = () => {
+    setIsModal(true);
+    setModalTitle("الأرباح السنوية");
+    setModalSubTitle("هنا تظهر تفاصيل الأرباح لكل سنـة");
+    // Placeholder
+    // setModalMessage(<span>بيانات تفاصيل الأرباح سنوياً</span>);
+    // Real data
+    setModalMessage(JSXCardProfitDetailsData);
   };
 
   const handleCloseModal = () => {
@@ -125,6 +172,100 @@ const Home = () => {
     </svg>
   );
 
+  const JSXCapitalCardSubData = (
+    <div id='capital-sub-data'>
+      <div className='custom-column'>
+        <div className='row'>إجمالي المسترد منه</div>
+        <div className='row eng-text rtl'>0 $</div>
+      </div>
+      <div className='custom-column'>
+        <div className='row'>الرصيد المتبقي منه</div>
+        <div className='row eng-text rtl'>10,000 $</div>
+      </div>
+    </div>
+  );
+
+  const JSXInvestTypeCardSubData = (
+    <span className='eng-text rtl p-0'>PROCYON ENERGY, CAMEROON</span>
+  );
+
+  const JSXCardInfoModalData =
+    data.length !== 0 &&
+    data.data.profitAccount.paymentsHistory.length !== 0 ? (
+      <div id='payments-history'>
+        {data.data.profitAccount.paymentsHistory.map((obj, index) => {
+          return (
+            <div className='row eng-text rtl'>
+              <div className='right'>
+                <div className='circle flex-it'>{index + 1} </div>
+                <div className='value'>
+                  <span className='eng-text rtl'>
+                    {obj.value}
+                    {" $"}
+                  </span>
+                  {!obj.done && (
+                    <span className='upcoming ara-text'>قادمة</span>
+                  )}
+                </div>
+              </div>
+              <div className='left'>
+                <div className='eng-text rtl'>{obj.date}</div>
+                <Form.Check
+                  inline
+                  disabled
+                  type='checkbox'
+                  id='payments-history-checkbox'
+                  checked={obj.done}
+                />
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    ) : (
+      <span className='eng-text rtl'>N/A</span>
+    );
+
+  const JSXCardProfitDetailsData =
+    data.length !== 0 ? (
+      <Accordion
+        id='annual-profil-accordion'
+        defaultActiveKey={["0"]}
+        alwaysOpen>
+        <Accordion.Item eventKey='0'>
+          <Accordion.Header>
+            السنة الحالية{" "}
+            <span className='year eng-text rtl pr-1'>
+              {data.data.profitDetails.currYear.year}
+            </span>
+          </Accordion.Header>
+          <Accordion.Body>الربح وما صرف منه</Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item eventKey='1'>
+          <Accordion.Header>
+            {" "}
+            السنة السابقة{" "}
+            <span className='year eng-text rtl pr-1'>
+              {data.data.profitDetails.lastYear.year}
+            </span>
+          </Accordion.Header>
+          <Accordion.Body>الربح وما صرف منه</Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item eventKey='2'>
+          <Accordion.Header>
+            {" "}
+            السنة قبل السابقة{" "}
+            <span className='year eng-text rtl pr-1'>
+              {data.data.profitDetails.yearBefore.year}
+            </span>
+          </Accordion.Header>
+          <Accordion.Body>الربح وما صرف منه</Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
+    ) : (
+      <span className='eng-text rtl'>N/A</span>
+    );
+
   return (
     <div id='home-wrapper' className='home wrapper'>
       <div className='qobba wrapper'> </div>
@@ -139,6 +280,8 @@ const Home = () => {
                   title='رأس المال'
                   titleValue='10,000 $'
                   icon={SVGCapitalIcon}
+                  hasSubData={true}
+                  subDataValue={JSXCapitalCardSubData}
                 />
               </Col>
               <Col className='main-col'>
@@ -146,6 +289,8 @@ const Home = () => {
                   title='نوع الاستثمار'
                   titleValue='PROJECT'
                   icon={SVGProjectTypeIcon}
+                  hasSubData={true}
+                  subDataValue={JSXInvestTypeCardSubData}
                 />
               </Col>
             </Row>
@@ -165,12 +310,17 @@ const Home = () => {
                   title='موعد الصرف المتوقع'
                   titleValue='9/2024'
                   icon={SVGProfitAccountIcon}
+                  hasInfoIcon={true}
+                  action={handleOpenCardInfoModal}
                 />
               </Col>
             </Row>
             <Row>
               <Col xs={12} lg={8} className='home-details-col-wrapper'>
-                <Button className='home-details-button' variant='warning'>
+                <Button
+                  className='home-details-button'
+                  variant='warning'
+                  onClick={handleOpenProfitDetailsModal}>
                   تفاصيل الأرباح السنوية
                 </Button>
               </Col>
@@ -181,6 +331,7 @@ const Home = () => {
       </Container>
       <Modal
         title={modalTitle}
+        subTitle={modalSubTitle}
         modalMessage={modalMessage}
         isModal={isModal}
         handleCloseModal={handleCloseModal}

@@ -95,6 +95,42 @@
       ],
       "enabled": true,
       "responseMode": null
+    },
+    {
+      "uuid": "8f9c36de-ed40-45be-a0af-177fb282bf59",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "get_data",
+      "responses": [
+        {
+          "uuid": "9d90d0be-82e9-4567-9969-1d065ce6367d",
+          "body": "{\n  \"user\": {\n    \"id\": 1,\n    \"fullName\": \"هشام إبراهيم القرم\",\n    \"email\": \"el_erm@yahoo.com\"\n  },\n  \"data\": {\n    \"capital\": {\n      \"capitalVal\": 1000,\n      \"invType\": \"project\",\n      \"invSubType\": \"PROCYON ENERGY, CAMEROON\"\n    },\n    \"profitAccount\": {\n      \"profitVal\": 2000,\n      \"paymentDue\": \"9/2024\",\n      \"paymentsHistory\": [\n        {\n          \"value\": 1000,\n          \"date\": \"3/2024\",\n          \"done\": true\n        },\n        {\n          \"value\": 2000,\n          \"date\": \"5/2024\",\n          \"done\": true\n        },\n        {\n          \"value\": 2000,\n          \"date\": \"9/2024\",\n          \"done\": false\n        }\n      ]\n    },\n    \"profitDetails\": {\n      \"currYear\": {\n        \"year\": 2024,\n        \"profit\": 1000,\n        \"paid\": 1000\n      },\n      \"lastYear\": {\n        \"year\": 2023,\n        \"profit\": 1000,\n        \"paid\": 500\n      },\n      \"yearBefore\": {\n        \"year\": 2022,\n        \"profit\": 1000,\n        \"paid\": 0\n      }\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
     }
   ],
   "rootChildren": [
@@ -105,6 +141,10 @@
     {
       "type": "route",
       "uuid": "efd1799b-95c1-4480-9e76-a9ebb4cb74c2"
+    },
+    {
+      "type": "route",
+      "uuid": "8f9c36de-ed40-45be-a0af-177fb282bf59"
     }
   ],
   "proxyMode": false,

@@ -93,6 +93,136 @@
   transition: 0s;
 }
 
+/* Capital Card Sub Data */
+#capital-sub-data {
+  width: calc(100% - 80px);
+  display: flex;
+  margin-top: 8px;
+}
+
+#capital-sub-data .custom-column {
+  width: 50%;
+}
+
+#capital-sub-data .custom-column .row:first-child {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+#capital-sub-data .custom-column .row:last-child {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+/* Payments history Modal */
+#payments-history {
+  width: 100%;
+}
+
+#payments-history .row {
+  height: 56px;
+  border-bottom: 1px solid #cac4d0;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+#payments-history .row .left,
+#payments-history .row .right {
+  display: flex;
+  align-items: center;
+  width: auto;
+}
+
+#payments-history .row:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+#payments-history .circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #eaddff;
+  color: #21005d;
+  margin-left: 1rem;
+}
+
+#payments-history .value {
+  position: relative;
+}
+
+#payments-history .upcoming {
+  position: absolute;
+  right: 0;
+  top: -16px;
+  font-size: 12px;
+}
+
+#payments-history #payments-history-checkbox {
+  transform: scale(1.5);
+}
+
+#payments-history #payments-history-checkbox:checked {
+  background-color: #6b6b6b;
+  border-color: #565656;
+}
+
+/* Annual Profi Modal */
+#annual-profil-accordion {
+  width: 100%;
+}
+
+#annual-profil-accordion .accordion-item {
+  border: 0;
+  border-radius: 0;
+}
+
+#annual-profil-accordion .accordion-button {
+  background-color: #e4e4e4;
+  color: #202020;
+  border-radius: 0;
+  border-bottom: 1px solid #cac4d0;
+  box-shadow: none !important;
+}
+
+#annual-profil-accordion .accordion-button:focus {
+  box-shadow: none;
+}
+
+#annual-profil-accordion .accordion-button:focus-visible {
+  outline: 0;
+}
+
+#annual-profil-accordion .accordion-button::after {
+  filter: brightness(0.4);
+}
+
+#annual-profil-accordion .accordion-button .year {
+  position: relative;
+  top: -1px;
+}
+
+#annual-profil-accordion .accordion-body {
+  background-color: #efefef;
+  color: #1d1b20;
+}
+
+#annual-profil-accordion .accordion-button::after {
+  margin-left: unset;
+  margin-right: auto;
+}
+
+#annual-profil-accordion .accordion-item .accordion-collapse {
+  border: 0 !important;
+  outline: 0 !important;
+}
+
+#annual-profil-accordion .accordion-item:last-of-type > .accordion-collapse {
+  border-bottom-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
 /* MEDIA QUERIES */
 
 @media only screen and (min-width: 992px) and (max-width: 1399px) {
