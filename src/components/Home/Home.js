@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import Container from "react-bootstrap/Container";
 import { NavLink } from "react-router-dom";
 import Row from "react-bootstrap/Row";
@@ -17,9 +17,10 @@ const Home = () => {
   const [modalMessage, setModalMessage] = useState("");
   const [modalTitle, setModalTitle] = useState("");
   const [modalSubTitle, setModalSubTitle] = useState(null);
+  // Data
   const [data, setData] = useState([]);
 
-  useEffect(() => {
+  const getData = () => {
     const url = new URL("./get_data", baseURL);
 
     fetch(url, { method: "GET" })
@@ -30,18 +31,24 @@ const Home = () => {
         return response.json();
       })
       .then((data) => {
-        console.log("🚀 ~ .then ~ data:", data);
+        console.log("🚀 data:", data);
         setData(data);
       })
       .catch((err) => {
+        setIsModal(true);
+        setModalTitle("خطأ!");
+        setModalMessage("فشل طلب البيانات! حاول مرة أخرى!");
         console.log(err);
       });
+  };
+
+  useEffect(() => {
+    getData();
   }, []);
 
-  const handleOpenSupportModal = () => {
-    setTimeout(() => {
-      setIsModal(true);
-    }, 300);
+  const beautifyNum = (num) => num.toLocaleString() + " $";
+
+  const openSupportModal = () => {
     setModalTitle("تواصل معنا");
     setModalSubTitle(null);
     setModalMessage(
@@ -55,6 +62,18 @@ const Home = () => {
         للمساعدة
       </span>
     );
+  };
+
+  const handleOpenSupportModal = () => {
+    setIsModal(true);
+    openSupportModal();
+  };
+
+  const handleOpenSupportModalMobile = () => {
+    setTimeout(() => {
+      setIsModal(true);
+    }, 300);
+    openSupportModal();
   };
 
   const handleOpenCardInfoModal = () => {
@@ -81,9 +100,7 @@ const Home = () => {
 
   const handleCloseModal = () => {
     setIsModal(false);
-    // setTimeout(() => {
-    //   setModalTitle("");
-    // }, 1000);
+    data.length === 0 && getData();
   };
 
   const SVGCapitalIcon = (
@@ -177,18 +194,18 @@ const Home = () => {
   const JSXCapitalCardSubData = (
     <div id='capital-sub-data'>
       <div className='custom-column'>
-        <div className='row'>إجمالي المسترّد منه</div>
-        <div className='row eng-text rtl'>0 $</div>
+        <div className='row ara-text'>إجمالي المسترّد منه</div>
+        <div className='row eng-text rtl'>
+          {data.length !== 0 && beautifyNum(data.data.capital.capitalValBack)}
+        </div>
       </div>
       <div className='custom-column'>
-        <div className='row'>الرصيد المتبقي منه</div>
-        <div className='row eng-text rtl'>10,000 $</div>
+        <div className='row ara-text'>الرصيد المتبقي منه</div>
+        <div className='row eng-text rtl'>
+          {data.length !== 0 && beautifyNum(data.data.capital.capitalValRem)}
+        </div>
       </div>
     </div>
-  );
-
-  const JSXInvestTypeCardSubData = (
-    <span className='eng-text rtl p-0'>PROCYON ENERGY, CAMEROON</span>
   );
 
   const JSXCardInfoModalData =
@@ -197,14 +214,11 @@ const Home = () => {
       <div id='data-row' className='payments-history'>
         {data.data.profitAccount.paymentsHistory.map((obj, index) => {
           return (
-            <div className='row eng-text rtl'>
+            <div className='row eng-text rtl' key={index}>
               <div className='right'>
                 <div className='circle flex-it'>{index + 1} </div>
                 <div className='value'>
-                  <span className='eng-text rtl'>
-                    {obj.value}
-                    {" $"}
-                  </span>
+                  <span className='eng-text rtl'>{beautifyNum(obj.value)}</span>
                   {!obj.done && (
                     <span className='upcoming ara-text'>قادمة</span>
                   )}
@@ -247,7 +261,7 @@ const Home = () => {
                 <div className='right'>
                   <div className='value'>
                     <span>
-                      {data.data.profitDetails.currYear.profit} {" $"}
+                      {beautifyNum(data.data.profitDetails.currYear.profit)}
                     </span>
                     <span className='upcoming ara-text'>الربح</span>
                   </div>
@@ -255,31 +269,45 @@ const Home = () => {
                 <div className='left'>
                   <div className='value'>
                     <span>
-                      {data.data.profitDetails.currYear.paid} {" $"}
+                      {beautifyNum(data.data.profitDetails.currYear.paid)}
                     </span>
                     <span className='upcoming ara-text'>صُرف منه</span>
                   </div>
                 </div>
               </div>
+              {data.data.profitDetails.currYear.profit != 0 &&
+                data.data.profitDetails.currYear.profit ==
+                  data.data.profitDetails.currYear.paid && (
+                  <svg
+                    width='32'
+                    height='32'
+                    viewBox='0 0 32 32'
+                    fill='none'
+                    className='profit-fully-paid-svg'
+                    xmlns='http://www.w3.org/2000/svg'>
+                    <path
+                      d='M16 2C13.2311 2 10.5243 2.82109 8.22202 4.35943C5.91973 5.89777 4.12532 8.08427 3.06569 10.6424C2.00607 13.2006 1.72882 16.0155 2.26901 18.7313C2.80921 21.447 4.14258 23.9416 6.10051 25.8995C8.05845 27.8574 10.553 29.1908 13.2687 29.731C15.9845 30.2712 18.7994 29.9939 21.3576 28.9343C23.9157 27.8747 26.1022 26.0803 27.6406 23.778C29.1789 21.4757 30 18.7689 30 16C30 12.287 28.525 8.72601 25.8995 6.1005C23.274 3.475 19.713 2 16 2ZM14 21.59L9.00001 16.59L10.59 15L14 18.41L21.41 11L23.006 12.586L14 21.59Z'
+                      fill='#7AC142'
+                    />
+                  </svg>
+                )}
             </div>
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey='1'>
           <Accordion.Header>
-            {" "}
             السنة السابقة{" "}
             <span className='year eng-text rtl pr-1'>
               {data.data.profitDetails.lastYear.year}
             </span>
           </Accordion.Header>
           <Accordion.Body>
-            {" "}
             <div id='data-row' className='profit-by-year'>
               <div className='row eng-text rtl'>
                 <div className='right'>
                   <div className='value'>
                     <span>
-                      {data.data.profitDetails.lastYear.profit} {" $"}
+                      {beautifyNum(data.data.profitDetails.lastYear.profit)}
                     </span>
                     <span className='upcoming ara-text'>الربح</span>
                   </div>
@@ -287,18 +315,33 @@ const Home = () => {
                 <div className='left'>
                   <div className='value'>
                     <span>
-                      {data.data.profitDetails.lastYear.paid} {" $"}
+                      {beautifyNum(data.data.profitDetails.lastYear.paid)}
                     </span>
                     <span className='upcoming ara-text'>صُرف منه</span>
                   </div>
                 </div>
               </div>
+              {data.data.profitDetails.lastYear.profit != 0 &&
+                data.data.profitDetails.lastYear.profit ==
+                  data.data.profitDetails.lastYear.paid && (
+                  <svg
+                    width='32'
+                    height='32'
+                    viewBox='0 0 32 32'
+                    fill='none'
+                    className='profit-fully-paid-svg'
+                    xmlns='http://www.w3.org/2000/svg'>
+                    <path
+                      d='M16 2C13.2311 2 10.5243 2.82109 8.22202 4.35943C5.91973 5.89777 4.12532 8.08427 3.06569 10.6424C2.00607 13.2006 1.72882 16.0155 2.26901 18.7313C2.80921 21.447 4.14258 23.9416 6.10051 25.8995C8.05845 27.8574 10.553 29.1908 13.2687 29.731C15.9845 30.2712 18.7994 29.9939 21.3576 28.9343C23.9157 27.8747 26.1022 26.0803 27.6406 23.778C29.1789 21.4757 30 18.7689 30 16C30 12.287 28.525 8.72601 25.8995 6.1005C23.274 3.475 19.713 2 16 2ZM14 21.59L9.00001 16.59L10.59 15L14 18.41L21.41 11L23.006 12.586L14 21.59Z'
+                      fill='#7AC142'
+                    />
+                  </svg>
+                )}
             </div>
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey='2'>
           <Accordion.Header>
-            {" "}
             السنة قبل السابقة{" "}
             <span className='year eng-text rtl pr-1'>
               {data.data.profitDetails.yearBefore.year}
@@ -310,7 +353,7 @@ const Home = () => {
                 <div className='right'>
                   <div className='value'>
                     <span>
-                      {data.data.profitDetails.yearBefore.profit} {" $"}
+                      {beautifyNum(data.data.profitDetails.yearBefore.profit)}
                     </span>
                     <span className='upcoming ara-text'>الربح</span>
                   </div>
@@ -318,12 +361,28 @@ const Home = () => {
                 <div className='left'>
                   <div className='value'>
                     <span>
-                      {data.data.profitDetails.yearBefore.paid} {" $"}
+                      {beautifyNum(data.data.profitDetails.yearBefore.paid)}
                     </span>
                     <span className='upcoming ara-text'>صُرف منه</span>
                   </div>
                 </div>
               </div>
+              {data.data.profitDetails.yearBefore.profit != 0 &&
+                data.data.profitDetails.yearBefore.profit ==
+                  data.data.profitDetails.yearBefore.paid && (
+                  <svg
+                    width='32'
+                    height='32'
+                    viewBox='0 0 32 32'
+                    fill='none'
+                    className='profit-fully-paid-svg'
+                    xmlns='http://www.w3.org/2000/svg'>
+                    <path
+                      d='M16 2C13.2311 2 10.5243 2.82109 8.22202 4.35943C5.91973 5.89777 4.12532 8.08427 3.06569 10.6424C2.00607 13.2006 1.72882 16.0155 2.26901 18.7313C2.80921 21.447 4.14258 23.9416 6.10051 25.8995C8.05845 27.8574 10.553 29.1908 13.2687 29.731C15.9845 30.2712 18.7994 29.9939 21.3576 28.9343C23.9157 27.8747 26.1022 26.0803 27.6406 23.778C29.1789 21.4757 30 18.7689 30 16C30 12.287 28.525 8.72601 25.8995 6.1005C23.274 3.475 19.713 2 16 2ZM14 21.59L9.00001 16.59L10.59 15L14 18.41L21.41 11L23.006 12.586L14 21.59Z'
+                      fill='#7AC142'
+                    />
+                  </svg>
+                )}
             </div>
           </Accordion.Body>
         </Accordion.Item>
@@ -335,66 +394,80 @@ const Home = () => {
   return (
     <div id='home-wrapper' className='home wrapper'>
       <div className='qobba wrapper'> </div>
-      <Navbar handleOpenSupportModal={handleOpenSupportModal} />
-      <Container fluid='sm'>
-        <div className='home-content'>
-          <div className='home-title'>رأس المال ونوع الاستثمار</div>
-          <div className='home-section home-section-1'>
-            <Row className='main-row'>
-              <Col className='main-col'>
-                <Card
-                  title='رأس المال'
-                  titleValue='10,000 $'
-                  icon={SVGCapitalIcon}
-                  hasSubData={true}
-                  subDataValue={JSXCapitalCardSubData}
-                />
-              </Col>
-              <Col className='main-col'>
-                <Card
-                  title='نوع الاستثمار'
-                  titleValue='PROJECT'
-                  icon={SVGProjectTypeIcon}
-                  hasSubData={true}
-                  subDataValue={JSXInvestTypeCardSubData}
-                />
-              </Col>
-            </Row>
-          </div>
-          <div className='home-title'>حساب الأرباح</div>
-          <div className='home-section home-section-2'>
-            <Row className='main-row'>
-              <Col className='main-col'>
-                <Card
-                  title='الربح التالي المستحق'
-                  titleValue='2,000 $'
-                  icon={SVGProfitAccountIcon}
-                />
-              </Col>
-              <Col className='main-col'>
-                <Card
-                  title='موعد الصرف المتوقع'
-                  titleValue='9/2024'
-                  icon={SVGProfitAccountIcon}
-                  hasInfoIcon={true}
-                  action={handleOpenCardInfoModal}
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={12} lg={8} className='home-details-col-wrapper'>
-                <Button
-                  className='home-details-button'
-                  variant='warning'
-                  onClick={handleOpenProfitDetailsModal}>
-                  تفاصيل الأرباح السنوية
-                </Button>
-              </Col>
-              {/* <Row xs={12} lg={4}></Row> */}
-            </Row>
-          </div>
+      {data.length !== 0 ? (
+        <Fragment>
+          <Navbar
+            handleOpenSupportModal={handleOpenSupportModal}
+            handleOpenSupportModalMobile={handleOpenSupportModalMobile}
+            userFullName={data.user.fullName}
+          />
+          <Container fluid='sm'>
+            <div className='home-content'>
+              <div className='home-title'>رأس المال ونوع الاستثمار</div>
+              <div className='home-section home-section-1'>
+                <Row className='main-row'>
+                  <Col className='main-col'>
+                    <Card
+                      title='رأس المال'
+                      titleValue={beautifyNum(data.data.capital.capitalVal)}
+                      icon={SVGCapitalIcon}
+                      hasSubData={true}
+                      subDataValue={JSXCapitalCardSubData}
+                    />
+                  </Col>
+                  <Col className='main-col'>
+                    <Card
+                      title='نوع الاستثمار'
+                      titleValue={data.data.capital.invType}
+                      icon={SVGProjectTypeIcon}
+                      hasSubData={true}
+                      subDataValue={data.data.capital.invSubType}
+                    />
+                  </Col>
+                </Row>
+              </div>
+              <div className='home-title'>حساب الأرباح</div>
+              <div className='home-section home-section-2'>
+                <Row className='main-row'>
+                  <Col className='main-col'>
+                    <Card
+                      title='الربح التالي المستحق'
+                      titleValue={beautifyNum(
+                        data.data.profitAccount.profitVal
+                      )}
+                      icon={SVGProfitAccountIcon}
+                    />
+                  </Col>
+                  <Col className='main-col'>
+                    <Card
+                      title='موعد الصرف المتوقع'
+                      titleValue={data.data.profitAccount.paymentDue}
+                      icon={SVGProfitAccountIcon}
+                      hasInfoIcon={true}
+                      action={handleOpenCardInfoModal}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12} lg={8} className='home-details-col-wrapper'>
+                    <Button
+                      className='home-details-button'
+                      variant='warning'
+                      onClick={handleOpenProfitDetailsModal}>
+                      تفاصيل الأرباح السنوية
+                    </Button>
+                  </Col>
+                  {/* <Row xs={12} lg={4}></Row> */}
+                </Row>
+              </div>
+            </div>
+          </Container>
+        </Fragment>
+      ) : (
+        <div className='flex-it' style={{ height: "100vh" }}>
+          <span class='loader'></span>
         </div>
-      </Container>
+      )}
       <Modal
         title={modalTitle}
         subTitle={modalSubTitle}

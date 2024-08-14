@@ -6,12 +6,17 @@ import Home from "./components/Home/Home";
 import "./App.css";
 
 const App = () => {
-  const [screenLoading, setScreenLoading] = useState(true);
+  const [screenLoading, setScreenLoading] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
-      setScreenLoading(false);
-    }, 6000);
+    if (window.location.pathname.replace(/\/+$/, "").length === 0) {
+      setScreenLoading(true);
+      setTimeout(() => {
+        setScreenLoading(false);
+        setLoaded(true);
+      }, 6000);
+    }
   }, []);
 
   return (
@@ -21,7 +26,7 @@ const App = () => {
       ) : (
         <BrowserRouter>
           <Switch>
-            <Route path='/' exact component={() => <Login />} />
+            {loaded && <Route path='/' exact component={() => <Login />} />}
             <Route path='/home' exact component={() => <Home />} />
           </Switch>
         </BrowserRouter>

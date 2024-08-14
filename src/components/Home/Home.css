@@ -228,6 +228,10 @@
   border-bottom-left-radius: 0 !important;
 }
 
+#data-row.profit-by-year {
+  position: relative;
+}
+
 #data-row.profit-by-year .row {
   width: 70%;
 }
@@ -237,13 +241,34 @@
   min-width: 115px;
 }
 
-/* MEDIA QUERIES */
+.profit-fully-paid-svg {
+  position: absolute;
+  left: -10px;
+  top: 4px;
+}
 
-@media only screen and (max-width: 476px) {
-  #data-row.profit-by-year .row {
-    width: auto;
+/* Await data fetch spinner loader */
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  border-top: 3px solid #fff;
+  border-right: 3px solid transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
+
+/* MEDIA QUERIES */
 
 @media only screen and (min-width: 992px) and (max-width: 1399px) {
   #home-wrapper .main-row .main-col {
@@ -283,5 +308,20 @@
   #home-card,
   .home-details-button {
     width: 85vw;
+  }
+  #data-row.profit-by-year .row {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 476px) {
+  #data-row.profit-by-year .row {
+    width: auto;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  #data-row.payments-history {
+    padding: 0;
   }
 }

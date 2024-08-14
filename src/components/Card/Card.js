@@ -1,7 +1,9 @@
 import React from "react";
 import "./Card.css";
 
-const Login = (props) => {
+const Card = (props) => {
+  let arabicChars = /[\u0600-\u06FF]/;
+
   return (
     <div
       id='home-card'
@@ -11,7 +13,10 @@ const Login = (props) => {
       </div>
       <div className='col'>
         <div className='row home-card-title'>{props.title}</div>
-        <div className='row home-card-value eng-text rtl'>
+        <div
+          className={`row home-card-value text-uppercase rtl ${
+            !arabicChars.test(props.titleValue) && "eng-text"
+          }`}>
           {props.titleValue}
           {props.hasInfoIcon && (
             <span className='home-card-info-icon' onClick={props.action}>
@@ -30,11 +35,16 @@ const Login = (props) => {
           )}
         </div>
         {props.hasSubData && (
-          <div className='row card-sub-data'>{props.subDataValue}</div>
+          <div
+            className={`row card-sub-data text-uppercase rtl ${
+              !arabicChars.test(props.subDataValue) && "eng-text"
+            }`}>
+            {props.subDataValue}
+          </div>
         )}
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Card;

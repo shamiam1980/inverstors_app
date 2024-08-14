@@ -12,8 +12,10 @@ const AppNavbar = (props) => {
 
   const sideNavRef = useRef(null);
 
-  const isLargeMobile = useMediaQuery({ maxWidth: 992 });
+  const isMobileNav = useMediaQuery({ maxWidth: 992 });
   const isSmlMobile = useMediaQuery({ maxWidth: 470 });
+
+  let arabicChars = /[\u0600-\u06FF]/;
 
   useEffect(() => {
     // Add event listener to the document object
@@ -84,7 +86,12 @@ const AppNavbar = (props) => {
           </div>
           <div className='nav-username'>
             <span className='nav-username-text'>أهلاً</span>{" "}
-            <span className='nav-username-name'>هشام إبراهيم القرم</span>
+            <span
+              className={`nav-username-name ${
+                !arabicChars.test(props.userFullName) && "eng-text rtl pb-1"
+              }`}>
+              {props.userFullName}
+            </span>
             <span className='nav-username-text'>,</span>
           </div>
         </Navbar.Brand>
@@ -117,7 +124,7 @@ const AppNavbar = (props) => {
             <Nav
               id='nav-mobile'
               className='me-auto flex-grow-1 justify-content-end'>
-              {isLargeMobile && (
+              {isMobileNav && (
                 <Nav.Item className='noclick'>
                   <Nav.Link disabled>
                     <div className='nav-username-mobile'>
@@ -132,7 +139,12 @@ const AppNavbar = (props) => {
               )}
               <Nav.Item>
                 <Nav.Link
-                  onClick={() => (props.handleOpenSupportModal(), closeNav())}>
+                  onClick={() => (
+                    isMobileNav
+                      ? props.handleOpenSupportModalMobile()
+                      : props.handleOpenSupportModal(),
+                    closeNav()
+                  )}>
                   {JSXSupport}
                 </Nav.Link>
               </Nav.Item>
