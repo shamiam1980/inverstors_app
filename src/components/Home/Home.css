@@ -114,12 +114,16 @@
   font-weight: 500;
 }
 
-/* Payments history Modal */
-#payments-history {
+/* Payments History Modal */
+#data-row {
   width: 100%;
 }
 
-#payments-history .row {
+#data-row.payments-history {
+  padding: 0 1rem;
+}
+
+#data-row .row {
   height: 56px;
   border-bottom: 1px solid #cac4d0;
   margin-bottom: 1rem;
@@ -127,19 +131,19 @@
   justify-content: space-between;
 }
 
-#payments-history .row .left,
-#payments-history .row .right {
+#data-row .row .left,
+#data-row .row .right {
   display: flex;
   align-items: center;
   width: auto;
 }
 
-#payments-history .row:last-of-type {
+#data-row .row:last-of-type {
   border-bottom: none;
   margin-bottom: 0;
 }
 
-#payments-history .circle {
+#data-row .circle {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -148,37 +152,38 @@
   margin-left: 1rem;
 }
 
-#payments-history .value {
+#data-row .value {
   position: relative;
 }
 
-#payments-history .upcoming {
+#data-row .upcoming {
   position: absolute;
   right: 0;
   top: -16px;
   font-size: 12px;
+  min-width: 70px;
 }
 
-#payments-history #payments-history-checkbox {
+#data-row #data-row-checkbox {
   transform: scale(1.5);
 }
 
-#payments-history #payments-history-checkbox:checked {
+#data-row #data-row-checkbox:checked {
   background-color: #6b6b6b;
   border-color: #565656;
 }
 
-/* Annual Profi Modal */
-#annual-profil-accordion {
+/* Annual Profit Modal */
+#annual-profit-accordion {
   width: 100%;
 }
 
-#annual-profil-accordion .accordion-item {
+#annual-profit-accordion .accordion-item {
   border: 0;
   border-radius: 0;
 }
 
-#annual-profil-accordion .accordion-button {
+#annual-profit-accordion .accordion-button {
   background-color: #e4e4e4;
   color: #202020;
   border-radius: 0;
@@ -186,44 +191,59 @@
   box-shadow: none !important;
 }
 
-#annual-profil-accordion .accordion-button:focus {
+#annual-profit-accordion .accordion-button:focus {
   box-shadow: none;
 }
 
-#annual-profil-accordion .accordion-button:focus-visible {
+#annual-profit-accordion .accordion-button:focus-visible {
   outline: 0;
 }
 
-#annual-profil-accordion .accordion-button::after {
+#annual-profit-accordion .accordion-button::after {
   filter: brightness(0.4);
 }
 
-#annual-profil-accordion .accordion-button .year {
+#annual-profit-accordion .accordion-button .year {
   position: relative;
   top: -1px;
 }
 
-#annual-profil-accordion .accordion-body {
+#annual-profit-accordion .accordion-body {
   background-color: #efefef;
   color: #1d1b20;
 }
 
-#annual-profil-accordion .accordion-button::after {
+#annual-profit-accordion .accordion-button::after {
   margin-left: unset;
   margin-right: auto;
 }
 
-#annual-profil-accordion .accordion-item .accordion-collapse {
+#annual-profit-accordion .accordion-item .accordion-collapse {
   border: 0 !important;
   outline: 0 !important;
 }
 
-#annual-profil-accordion .accordion-item:last-of-type > .accordion-collapse {
+#annual-profit-accordion .accordion-item:last-of-type > .accordion-collapse {
   border-bottom-right-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
 }
 
+#data-row.profit-by-year .row {
+  width: 70%;
+}
+
+#data-row.profit-by-year .right,
+#data-row.profit-by-year .left {
+  min-width: 115px;
+}
+
 /* MEDIA QUERIES */
+
+@media only screen and (max-width: 476px) {
+  #data-row.profit-by-year .row {
+    width: auto;
+  }
+}
 
 @media only screen and (min-width: 992px) and (max-width: 1399px) {
   #home-wrapper .main-row .main-col {

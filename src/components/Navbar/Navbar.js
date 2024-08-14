@@ -2,20 +2,17 @@ import React, { useState, useEffect, useRef, Fragment } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { NavLink, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import "./Navbar.css";
 // import logo from "../../images/logo.png";
 
 const AppNavbar = (props) => {
-  const [activePrompt, setActivePrompt] = useState(false);
-  const [activeBlog, setActiveBlog] = useState(false);
-  const [expanded, setExpanded] = useState(false);
   const [navbarOpen, setNavbarOpen] = useState(false);
 
   const sideNavRef = useRef(null);
 
-  const isMobileNav = useMediaQuery({ maxWidth: 992 });
+  const isLargeMobile = useMediaQuery({ maxWidth: 992 });
   const isSmlMobile = useMediaQuery({ maxWidth: 470 });
 
   useEffect(() => {
@@ -77,11 +74,7 @@ const AppNavbar = (props) => {
   );
 
   return (
-    <Navbar
-      collapseOnSelect
-      expand='lg'
-      expanded={isMobileNav ? expanded : null}
-      id='navbar'>
+    <Navbar collapseOnSelect expand='lg' expanded={null} id='navbar'>
       <Container fluid='xxl'>
         <Navbar.Brand>
           <div className='nav-logo flex-it'>
@@ -124,7 +117,7 @@ const AppNavbar = (props) => {
             <Nav
               id='nav-mobile'
               className='me-auto flex-grow-1 justify-content-end'>
-              {isMobileNav && (
+              {isLargeMobile && (
                 <Nav.Item className='noclick'>
                   <Nav.Link disabled>
                     <div className='nav-username-mobile'>
@@ -138,7 +131,8 @@ const AppNavbar = (props) => {
                 </Nav.Item>
               )}
               <Nav.Item>
-                <Nav.Link onClick={props.handleOpenSupportModal}>
+                <Nav.Link
+                  onClick={() => (props.handleOpenSupportModal(), closeNav())}>
                   {JSXSupport}
                 </Nav.Link>
               </Nav.Item>

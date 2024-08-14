@@ -39,7 +39,9 @@ const Home = () => {
   }, []);
 
   const handleOpenSupportModal = () => {
-    setIsModal(true);
+    setTimeout(() => {
+      setIsModal(true);
+    }, 300);
     setModalTitle("تواصل معنا");
     setModalSubTitle(null);
     setModalMessage(
@@ -175,7 +177,7 @@ const Home = () => {
   const JSXCapitalCardSubData = (
     <div id='capital-sub-data'>
       <div className='custom-column'>
-        <div className='row'>إجمالي المسترد منه</div>
+        <div className='row'>إجمالي المسترّد منه</div>
         <div className='row eng-text rtl'>0 $</div>
       </div>
       <div className='custom-column'>
@@ -192,7 +194,7 @@ const Home = () => {
   const JSXCardInfoModalData =
     data.length !== 0 &&
     data.data.profitAccount.paymentsHistory.length !== 0 ? (
-      <div id='payments-history'>
+      <div id='data-row' className='payments-history'>
         {data.data.profitAccount.paymentsHistory.map((obj, index) => {
           return (
             <div className='row eng-text rtl'>
@@ -214,7 +216,7 @@ const Home = () => {
                   inline
                   disabled
                   type='checkbox'
-                  id='payments-history-checkbox'
+                  id='data-row-checkbox'
                   checked={obj.done}
                 />
               </div>
@@ -229,7 +231,7 @@ const Home = () => {
   const JSXCardProfitDetailsData =
     data.length !== 0 ? (
       <Accordion
-        id='annual-profil-accordion'
+        id='annual-profit-accordion'
         defaultActiveKey={["0"]}
         alwaysOpen>
         <Accordion.Item eventKey='0'>
@@ -239,7 +241,28 @@ const Home = () => {
               {data.data.profitDetails.currYear.year}
             </span>
           </Accordion.Header>
-          <Accordion.Body>الربح وما صرف منه</Accordion.Body>
+          <Accordion.Body>
+            <div id='data-row' className='profit-by-year'>
+              <div className='row eng-text rtl'>
+                <div className='right'>
+                  <div className='value'>
+                    <span>
+                      {data.data.profitDetails.currYear.profit} {" $"}
+                    </span>
+                    <span className='upcoming ara-text'>الربح</span>
+                  </div>
+                </div>
+                <div className='left'>
+                  <div className='value'>
+                    <span>
+                      {data.data.profitDetails.currYear.paid} {" $"}
+                    </span>
+                    <span className='upcoming ara-text'>صُرف منه</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey='1'>
           <Accordion.Header>
@@ -249,7 +272,29 @@ const Home = () => {
               {data.data.profitDetails.lastYear.year}
             </span>
           </Accordion.Header>
-          <Accordion.Body>الربح وما صرف منه</Accordion.Body>
+          <Accordion.Body>
+            {" "}
+            <div id='data-row' className='profit-by-year'>
+              <div className='row eng-text rtl'>
+                <div className='right'>
+                  <div className='value'>
+                    <span>
+                      {data.data.profitDetails.lastYear.profit} {" $"}
+                    </span>
+                    <span className='upcoming ara-text'>الربح</span>
+                  </div>
+                </div>
+                <div className='left'>
+                  <div className='value'>
+                    <span>
+                      {data.data.profitDetails.lastYear.paid} {" $"}
+                    </span>
+                    <span className='upcoming ara-text'>صُرف منه</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey='2'>
           <Accordion.Header>
@@ -259,7 +304,28 @@ const Home = () => {
               {data.data.profitDetails.yearBefore.year}
             </span>
           </Accordion.Header>
-          <Accordion.Body>الربح وما صرف منه</Accordion.Body>
+          <Accordion.Body>
+            <div id='data-row' className='profit-by-year'>
+              <div className='row eng-text rtl'>
+                <div className='right'>
+                  <div className='value'>
+                    <span>
+                      {data.data.profitDetails.yearBefore.profit} {" $"}
+                    </span>
+                    <span className='upcoming ara-text'>الربح</span>
+                  </div>
+                </div>
+                <div className='left'>
+                  <div className='value'>
+                    <span>
+                      {data.data.profitDetails.yearBefore.paid} {" $"}
+                    </span>
+                    <span className='upcoming ara-text'>صُرف منه</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Accordion.Body>
         </Accordion.Item>
       </Accordion>
     ) : (
@@ -301,7 +367,7 @@ const Home = () => {
               <Col className='main-col'>
                 <Card
                   title='الربح التالي المستحق'
-                  titleValue='2,000$'
+                  titleValue='2,000 $'
                   icon={SVGProfitAccountIcon}
                 />
               </Col>
