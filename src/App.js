@@ -15,7 +15,9 @@ const App = () => {
       setTimeout(() => {
         setScreenLoading(false);
         setLoaded(true);
-      }, 6000);
+      }, 6500);
+    } else {
+      setLoaded(true);
     }
   }, []);
 

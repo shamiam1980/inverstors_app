@@ -98,6 +98,7 @@
   width: calc(100% - 80px);
   display: flex;
   margin-top: 8px;
+  padding-right: 4px;
 }
 
 #capital-sub-data .custom-column {
@@ -323,5 +324,30 @@
 @media only screen and (max-width: 425px) {
   #data-row.payments-history {
     padding: 0;
+  }
+  .home-section {
+    padding: 1rem 0;
+  }
+  #home-card,
+  .home-details-button {
+    width: 90vw;
+  }
+  #home-card.has-sub {
+    height: 155px;
+  }
+  #home-card .home-card-value {
+    font-size: 32px;
+  }
+  #capital-sub-data .custom-column .row:first-child {
+    font-size: 10px;
+  }
+  #capital-sub-data .custom-column .row:last-child {
+    font-size: 18px;
+  }
+  #home-card .card-sub-data {
+    font-size: 12px;
+  }
+  #home-card .home-card-icon {
+    transform: scale(0.8);
   }
 }

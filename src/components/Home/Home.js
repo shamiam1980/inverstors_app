@@ -465,7 +465,7 @@ const Home = () => {
         </Fragment>
       ) : (
         <div className='flex-it' style={{ height: "100vh" }}>
-          <span class='loader'></span>
+          <span className='loader'></span>
         </div>
       )}
       <Modal
