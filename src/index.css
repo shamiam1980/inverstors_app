@@ -16,6 +16,10 @@ html {
   scrollbar-width: none; /* FF */
 }
 
+html:has(.modal.is-active) {
+  overflow: hidden !important;
+}
+
 @font-face {
   font-family: "Rubik";
   src: url("./fonts/Rubik-Medium.woff2") format("woff2");
