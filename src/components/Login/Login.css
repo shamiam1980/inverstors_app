@@ -1,9 +1,10 @@
 .login {
   width: 100%;
-  height: 100vh;
-  max-height: 100vh;
+  height: 100svh;
+  max-height: 100svh;
+  overflow: hidden;
   background-color: #0b0b27;
-  background-image: url(../../images/bg-space.png);
+  background-image: url(../../images/bg-space-desktop.png);
 }
 
 .login-svg-wrapper {
@@ -29,18 +30,21 @@
   justify-content: center;
   width: 100%;
   z-index: 10;
+  mix-blend-mode: hard-light;
 }
 
 .login-al-aqsa-wrapper img.login-al-aqsa {
   max-width: 100%;
   max-height: 100%;
+  opacity: 0.2;
 }
 
 .login-al-aqsa-map {
   position: absolute;
   left: 52px;
-  bottom: 50px;
+  bottom: 68px;
   transform: scale(0.9);
+  transform-origin: bottom;
 }
 
 .login-al-aqsa-map img {
@@ -58,8 +62,8 @@
 .login-logo {
   width: 115px;
   height: 115px;
-  left: 4rem;
   top: 4rem;
+  left: 4rem;
   text-align: center;
 }
 
@@ -162,12 +166,13 @@
 
 .login-form-submit-wrapper {
   position: relative;
+  z-index: 10000;
 }
 
 .eye-icon {
   position: absolute;
-  left: 8px;
   top: 8px;
+  left: 8px;
   cursor: pointer;
 }
 
@@ -194,8 +199,8 @@
   display: block;
   width: 0;
   height: 0;
-  left: 50%;
   top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
   transition: 0.8s ease;
@@ -266,5 +271,106 @@
     width: 1000%;
     padding-bottom: 1000%;
     background-color: #0b0b27;
+  }
+}
+
+/* Fix login input autocomplete native colors */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+input:-webkit-autofill {
+  -webkit-text-fill-color: #202020 !important;
+}
+
+/* MEDIA QUERIES */
+
+@media only screen and (max-width: 820px) {
+  .login {
+    background-image: url(../../images/bg-space-mobile.png);
+    background-size: 100% 100%;
+  }
+  .login-svg-wrapper {
+    background-image: none;
+  }
+  .login-logo {
+    width: 65px;
+    height: 65px;
+    font-size: 12px;
+    top: 2rem;
+    left: 2rem;
+  }
+  .login-lang-sel {
+    bottom: 2rem;
+    right: 2rem;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .login-form-wrapper {
+    width: 75%;
+  }
+}
+
+@media only screen and (max-width: 525px) {
+  .login-form-wrapper {
+    width: 70%;
+    padding: 25px 25px 80px 25px;
+  }
+  .login-form-icon img {
+    width: 85px;
+  }
+  .login-form-label {
+    font-size: 20px;
+  }
+  .login-form-input-label {
+    font-size: 10px;
+    padding-top: 8px;
+  }
+  .login-form-input-wrapper input {
+    font-size: 14px;
+  }
+  #login-form-submit-btn {
+    font-size: 14px;
+  }
+  .login-err-msg {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .login-form-wrapper {
+    width: 80%;
+  }
+  .login-form-icon img {
+    width: 75px;
+  }
+}
+
+@media only screen and (orientation: landscape) and (max-height: 650px) {
+  .login-logo {
+    width: 65px;
+    height: 65px;
+    font-size: 12px;
+    top: 2rem;
+    left: 2rem;
+  }
+  .login-lang-sel {
+    bottom: 2rem;
+    right: 2rem;
+  }
+}
+
+@media only screen and (max-width: 820px) {
+  .login-svg-wrapper {
+    background-image: url(../../images/bg-galaxy-mob.svg);
+    background-position: top center;
+  }
+  .login-al-aqsa-map {
+    display: none;
   }
 }

@@ -464,7 +464,7 @@ const Home = () => {
           </Container>
         </Fragment>
       ) : (
-        <div className='flex-it' style={{ height: "100vh" }}>
+        <div className='flex-it' style={{ height: "100svh" }}>
           <span className='loader'></span>
         </div>
       )}

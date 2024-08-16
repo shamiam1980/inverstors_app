@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import Overlay from "react-bootstrap/Overlay";
 import Tooltip from "react-bootstrap/Tooltip";
 import BaseButton from "../BaseButton/BaseButton";
-import AlAqsa from "../../images/login-al-aqsa-min.png";
+import AlAqsaMob from "../../images/login-al-aqsa-mobile.png";
 import LoginPalestineMap from "../../images/login-palestine-map.svg";
 import LoginPalestineOldKeyIcon from "../../images/login-palestine-old-key.svg";
 import LoginFormIcon from "../../images/login-form-icon.png";
@@ -163,7 +163,19 @@ const Login = () => {
   };
 
   return (
-    <div style={{ overflow: "hidden" }}>
+    <div>
+      <div className='login-al-aqsa-wrapper'>
+        <div style={{ position: "relative", display: "flex" }}>
+          <img
+            className='login-al-aqsa'
+            src={AlAqsaMob}
+            alt='al aqsa al qibly'
+          />
+          <div className='login-al-aqsa-map'>
+            <img src={LoginPalestineMap} alt='palestine map with stars' />
+          </div>
+        </div>
+      </div>
       <div className='login wrapper'>
         <div className='login-svg-wrapper'>
           <div className='login-logo flex-it'>
@@ -279,7 +291,7 @@ const Login = () => {
                     viewBox='0 0 38 38'
                     x='0'
                     y='0'
-                    fill='#ececec'></rect>
+                    fill='none'></rect>
                   <path
                     fillRule='evenodd'
                     clipRule='evenodd'
@@ -314,14 +326,6 @@ const Login = () => {
                 <span className={`splash ${success ? "expanded" : ""}`}></span>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div className='login-al-aqsa-wrapper'>
-        <div style={{ position: "relative", display: "flex" }}>
-          <img className='login-al-aqsa' src={AlAqsa} alt='al aqsa al qibly' />
-          <div className='login-al-aqsa-map'>
-            <img src={LoginPalestineMap} alt='palestine map with stars' />
           </div>
         </div>
       </div>
