@@ -125,7 +125,7 @@ const Login = () => {
             setSuccess(true);
             setTimeout(() => {
               history.push("/home");
-            }, 2800);
+            }, 1800);
           }, 1500);
         }
       } catch (err) {
@@ -163,19 +163,7 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <div className='login-al-aqsa-wrapper'>
-        <div style={{ position: "relative", display: "flex" }}>
-          <img
-            className='login-al-aqsa'
-            src={AlAqsaMob}
-            alt='al aqsa al qibly'
-          />
-          <div className='login-al-aqsa-map'>
-            <img src={LoginPalestineMap} alt='palestine map with stars' />
-          </div>
-        </div>
-      </div>
+    <div style={{ position: "relative" }}>
       <div className='login wrapper'>
         <div className='login-svg-wrapper'>
           <div className='login-logo flex-it'>
@@ -326,6 +314,18 @@ const Login = () => {
                 <span className={`splash ${success ? "expanded" : ""}`}></span>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div className='login-al-aqsa-wrapper'>
+        <div style={{ position: "relative", display: "flex" }}>
+          <img
+            className='login-al-aqsa'
+            src={AlAqsaMob}
+            alt='al aqsa al qibly'
+          />
+          <div className='login-al-aqsa-map'>
+            <img src={LoginPalestineMap} alt='palestine map with stars' />
           </div>
         </div>
       </div>

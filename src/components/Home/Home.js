@@ -31,7 +31,6 @@ const Home = () => {
         return response.json();
       })
       .then((data) => {
-        console.log("🚀 data:", data);
         setData(data);
       })
       .catch((err) => {
