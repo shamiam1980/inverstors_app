@@ -125,7 +125,7 @@ const Login = () => {
             setSuccess(true);
             setTimeout(() => {
               history.push("/home");
-            }, 1800);
+            }, 2300);
           }, 1500);
         }
       } catch (err) {
