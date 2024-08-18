@@ -19,6 +19,24 @@ const Home = () => {
   const [modalSubTitle, setModalSubTitle] = useState(null);
   // Data
   const [data, setData] = useState([]);
+  // Arabic Numerals
+  const [isAraNum, setIsAraNum] = useState(false);
+
+  String.prototype.EngNumbersToArabic = function () {
+    return this.replace(/\d/g, (d) => String.fromCharCode("0x066" + d));
+  };
+
+  const reverseDateText = (text) => {
+    const insert = (arr, index, newItem) => [
+      // part of the array before the specified index
+      ...arr.slice(0, index),
+      // inserted item
+      newItem,
+      // part of the array after the specified index
+      ...arr.slice(index),
+    ];
+    return insert(text.split("/").reverse(), 1, "/");
+  };
 
   const getData = () => {
     const url = new URL("./get_data", baseURL);
@@ -195,13 +213,23 @@ const Home = () => {
       <div className='custom-column'>
         <div className='row ara-text'>إجمالي المسترّد منه</div>
         <div className='row eng-text rtl'>
-          {data.length !== 0 && beautifyNum(data.data.capital.capitalValBack)}
+          {data.length !== 0 &&
+            (isAraNum
+              ? beautifyNum(
+                  data.data.capital.capitalValBack
+                ).EngNumbersToArabic()
+              : beautifyNum(data.data.capital.capitalValBack))}
         </div>
       </div>
       <div className='custom-column'>
         <div className='row ara-text'>الرصيد المتبقي منه</div>
         <div className='row eng-text rtl'>
-          {data.length !== 0 && beautifyNum(data.data.capital.capitalValRem)}
+          {data.length !== 0 &&
+            (isAraNum
+              ? beautifyNum(
+                  data.data.capital.capitalValRem
+                ).EngNumbersToArabic()
+              : beautifyNum(data.data.capital.capitalValRem))}
         </div>
       </div>
     </div>
@@ -217,14 +245,26 @@ const Home = () => {
               <div className='right'>
                 <div className='circle flex-it'>{index + 1} </div>
                 <div className='value'>
-                  <span className='eng-text rtl'>{beautifyNum(obj.value)}</span>
+                  <span className='eng-text rtl'>
+                    {isAraNum
+                      ? beautifyNum(obj.value).EngNumbersToArabic()
+                      : beautifyNum(obj.value)}
+                  </span>
                   {!obj.done && (
                     <span className='upcoming ara-text'>قادمة</span>
                   )}
                 </div>
               </div>
               <div className='left'>
-                <div className='eng-text rtl'>{obj.date}</div>
+                <div className='eng-text rtl'>
+                  <span>
+                    {isAraNum
+                      ? reverseDateText(
+                          obj.date.toString().EngNumbersToArabic()
+                        )
+                      : obj.date}
+                  </span>
+                </div>
                 <Form.Check
                   inline
                   disabled
@@ -251,7 +291,11 @@ const Home = () => {
           <Accordion.Header>
             السنة الحالية{" "}
             <span className='year eng-text rtl pr-1'>
-              {data.data.profitDetails.currYear.year}
+              {isAraNum
+                ? data.data.profitDetails.currYear.year
+                    .toString()
+                    .EngNumbersToArabic()
+                : data.data.profitDetails.currYear.year}
             </span>
           </Accordion.Header>
           <Accordion.Body>
@@ -260,7 +304,11 @@ const Home = () => {
                 <div className='right'>
                   <div className='value'>
                     <span>
-                      {beautifyNum(data.data.profitDetails.currYear.profit)}
+                      {isAraNum
+                        ? beautifyNum(
+                            data.data.profitDetails.currYear.profit
+                          ).EngNumbersToArabic()
+                        : beautifyNum(data.data.profitDetails.currYear.profit)}
                     </span>
                     <span className='upcoming ara-text'>الربح</span>
                   </div>
@@ -268,7 +316,11 @@ const Home = () => {
                 <div className='left'>
                   <div className='value'>
                     <span>
-                      {beautifyNum(data.data.profitDetails.currYear.paid)}
+                      {isAraNum
+                        ? beautifyNum(
+                            data.data.profitDetails.currYear.paid
+                          ).EngNumbersToArabic()
+                        : beautifyNum(data.data.profitDetails.currYear.paid)}
                     </span>
                     <span className='upcoming ara-text'>صُرف منه</span>
                   </div>
@@ -297,7 +349,11 @@ const Home = () => {
           <Accordion.Header>
             السنة السابقة{" "}
             <span className='year eng-text rtl pr-1'>
-              {data.data.profitDetails.lastYear.year}
+              {isAraNum
+                ? data.data.profitDetails.lastYear.year
+                    .toString()
+                    .EngNumbersToArabic()
+                : data.data.profitDetails.lastYear.year}
             </span>
           </Accordion.Header>
           <Accordion.Body>
@@ -306,7 +362,11 @@ const Home = () => {
                 <div className='right'>
                   <div className='value'>
                     <span>
-                      {beautifyNum(data.data.profitDetails.lastYear.profit)}
+                      {isAraNum
+                        ? beautifyNum(
+                            data.data.profitDetails.lastYear.profit
+                          ).EngNumbersToArabic()
+                        : beautifyNum(data.data.profitDetails.lastYear.profit)}
                     </span>
                     <span className='upcoming ara-text'>الربح</span>
                   </div>
@@ -314,7 +374,11 @@ const Home = () => {
                 <div className='left'>
                   <div className='value'>
                     <span>
-                      {beautifyNum(data.data.profitDetails.lastYear.paid)}
+                      {isAraNum
+                        ? beautifyNum(
+                            data.data.profitDetails.lastYear.paid
+                          ).EngNumbersToArabic()
+                        : beautifyNum(data.data.profitDetails.lastYear.paid)}
                     </span>
                     <span className='upcoming ara-text'>صُرف منه</span>
                   </div>
@@ -343,7 +407,11 @@ const Home = () => {
           <Accordion.Header>
             السنة قبل السابقة{" "}
             <span className='year eng-text rtl pr-1'>
-              {data.data.profitDetails.yearBefore.year}
+              {isAraNum
+                ? data.data.profitDetails.yearBefore.year
+                    .toString()
+                    .EngNumbersToArabic()
+                : data.data.profitDetails.yearBefore.year}
             </span>
           </Accordion.Header>
           <Accordion.Body>
@@ -352,7 +420,13 @@ const Home = () => {
                 <div className='right'>
                   <div className='value'>
                     <span>
-                      {beautifyNum(data.data.profitDetails.yearBefore.profit)}
+                      {isAraNum
+                        ? beautifyNum(
+                            data.data.profitDetails.yearBefore.profit
+                          ).EngNumbersToArabic()
+                        : beautifyNum(
+                            data.data.profitDetails.yearBefore.profit
+                          )}
                     </span>
                     <span className='upcoming ara-text'>الربح</span>
                   </div>
@@ -360,7 +434,11 @@ const Home = () => {
                 <div className='left'>
                   <div className='value'>
                     <span>
-                      {beautifyNum(data.data.profitDetails.yearBefore.paid)}
+                      {isAraNum
+                        ? beautifyNum(
+                            data.data.profitDetails.yearBefore.paid
+                          ).EngNumbersToArabic()
+                        : beautifyNum(data.data.profitDetails.yearBefore.paid)}
                     </span>
                     <span className='upcoming ara-text'>صُرف منه</span>
                   </div>
@@ -399,6 +477,8 @@ const Home = () => {
             handleOpenSupportModal={handleOpenSupportModal}
             handleOpenSupportModalMobile={handleOpenSupportModalMobile}
             userFullName={data.user.fullName}
+            setIsAraNum={setIsAraNum}
+            isAraNum={isAraNum}
           />
           <Container fluid='sm'>
             <div className='home-content'>
@@ -412,6 +492,7 @@ const Home = () => {
                       icon={SVGCapitalIcon}
                       hasSubData={true}
                       subDataValue={JSXCapitalCardSubData}
+                      isAraNum={isAraNum}
                     />
                   </Col>
                   <Col className='main-col'>
@@ -421,6 +502,7 @@ const Home = () => {
                       icon={SVGProjectTypeIcon}
                       hasSubData={true}
                       subDataValue={data.data.capital.invSubType}
+                      isAraNum={isAraNum}
                     />
                   </Col>
                 </Row>
@@ -435,6 +517,7 @@ const Home = () => {
                         data.data.profitAccount.profitVal
                       )}
                       icon={SVGProfitAccountIcon}
+                      isAraNum={isAraNum}
                     />
                   </Col>
                   <Col className='main-col'>
@@ -444,6 +527,9 @@ const Home = () => {
                       icon={SVGProfitAccountIcon}
                       hasInfoIcon={true}
                       action={handleOpenCardInfoModal}
+                      isAraNum={isAraNum}
+                      isDate={true}
+                      reverseDateText={reverseDateText}
                     />
                   </Col>
                 </Row>

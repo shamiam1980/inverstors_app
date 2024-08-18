@@ -98,7 +98,7 @@
   right: -20rem;
   background: #f7f2fa;
   width: 70%;
-  max-width: 250px;
+  max-width: 300px;
   direction: rtl;
   box-shadow: 0px 5px 9px 0px rgba(0, 0, 0, 0.15);
   -webkit-box-shadow: 0px 5px 9px 0px rgba(0, 0, 0, 0.15);
@@ -147,6 +147,20 @@
 #nav-mobile .nav-item {
   margin: 1rem 0;
   padding: 1rem;
+}
+
+#origin-of-numbers {
+  background-color: #c5e97a;
+}
+
+#origin-of-numbers .origin-of-numbers-title {
+  white-space: normal;
+  padding-right: 15px;
+  display: inline-block;
+}
+
+#navbar #origin-of-numbers .nav-link.active {
+  color: #083937 !important;
 }
 
 /* MEDIA QUERIES */

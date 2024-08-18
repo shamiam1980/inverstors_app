@@ -4,6 +4,10 @@ import "./Card.css";
 const Card = (props) => {
   let arabicChars = /[\u0600-\u06FF]/;
 
+  String.prototype.EngNumbersToArabic = function () {
+    return this.replace(/\d/g, (d) => String.fromCharCode("0x066" + d));
+  };
+
   return (
     <div
       id='home-card'
@@ -17,7 +21,11 @@ const Card = (props) => {
           className={`row home-card-value text-uppercase rtl ${
             !arabicChars.test(props.titleValue) && "eng-text"
           }`}>
-          {props.titleValue}
+          {props.isAraNum
+            ? props.isDate
+              ? props.reverseDateText(props.titleValue.EngNumbersToArabic())
+              : props.titleValue.EngNumbersToArabic()
+            : props.titleValue}
           {props.hasInfoIcon && (
             <span className='home-card-info-icon' onClick={props.action}>
               <svg
