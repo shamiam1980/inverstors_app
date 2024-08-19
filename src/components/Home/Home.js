@@ -21,6 +21,7 @@ const Home = () => {
   const [data, setData] = useState([]);
   // Arabic Numerals
   const [isAraNum, setIsAraNum] = useState(false);
+  const [showAraNumInfo, setShowAraNumInfo] = useState(false);
 
   String.prototype.EngNumbersToArabic = function () {
     return this.replace(/\d/g, (d) => String.fromCharCode("0x066" + d));
@@ -119,6 +120,48 @@ const Home = () => {
     setIsModal(false);
     data.length === 0 && getData();
   };
+
+  const openOriginOfNumsModal = () => {
+    setIsModal(true);
+    setModalTitle("نبذة عن تاريخ الأرقام");
+    setModalSubTitle("وبصمة العرب المسلمون في تطويرها");
+    setModalMessage(JSXOriginOfANums);
+  };
+
+  const JSXOriginOfANums = (
+    <div style={{ display: "block !important" }}>
+      <p>
+        اختلف المؤرخون حول نشأة الأرقام التي يطلق عليها "العربية" على 3 أقسام،
+        قسم يقول بأن أصلها هندي ونقلها العرب عنهم، وقسم آخر يرى أن أصلها عربي
+        ونقلها عنهم الهنود، وفريق أخير يرى أن أصلها عندي لكن العرب نقلوها عنهم
+        وطوروها حتى وصلت إلى شكلها الحالي
+      </p>
+      <p>
+        أما الأرقام التي يطلق عليها الإنجليزية، فأجمع المؤرخون أنها عربية الأصل
+        وتسمى الأرقام "الغُبارية"، لكن اختلفوا إذا كان مبتكرها هو عالم الرياضيات
+        البغدادي الأشهر محمد بن موسى الخوارزمي في القرن الثاني الهجري، أم عالم
+        الرياضيات المغربي الفاسي ابن الياسَمين في القرن السادس الهجري
+      </p>
+      <p>
+        في جميع الأحوال، اتفق الجميع على "فضل" العرب المسلمون في وصول الأرقام
+        سواء العربية أو الإنجليزية إلى شكلها الحالي، فلا نبالغ حين نقول: أن
+        الأرقام التي يستخدمها البشر اليوم عليها "بصمة" العرب المسلمون!
+      </p>
+      <h5>المصادر</h5>
+      <div>
+        <a
+          href='https://misbar.com/qna/2022/12/26/%D9%87%D9%84-%D8%A7%D9%84%D8%A3%D8%B1%D9%82%D8%A7%D9%85-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9-%D8%A3%D8%B5%D9%84%D9%87%D8%A7-%D9%87%D9%86%D8%AF%D9%8A%D8%A9'
+          target='_blank'>
+          رابط 1 (مقال)
+        </a>
+      </div>
+      <div>
+        <a href='https://www.youtube.com/watch?v=diAIioE1V4s' target='_blank'>
+          رابط 2 (فيديو)
+        </a>
+      </div>
+    </div>
+  );
 
   const SVGCapitalIcon = (
     <svg
@@ -479,6 +522,9 @@ const Home = () => {
             userFullName={data.user.fullName}
             setIsAraNum={setIsAraNum}
             isAraNum={isAraNum}
+            showAraNumInfo={showAraNumInfo}
+            setShowAraNumInfo={setShowAraNumInfo}
+            openOriginOfNumsModal={openOriginOfNumsModal}
           />
           <Container fluid='sm'>
             <div className='home-content'>
