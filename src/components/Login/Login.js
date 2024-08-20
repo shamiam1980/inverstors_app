@@ -173,6 +173,7 @@ const Login = () => {
           </div>
           <div
             className='login-lang-sel flex-it'
+            style={{ zIndex: success ? "100" : "1000000" }}
             ref={target}
             onClick={() => (
               setShow(!show),
