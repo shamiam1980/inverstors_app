@@ -74,7 +74,6 @@
   bottom: 4rem;
   flex-direction: row-reverse;
   border-radius: 4px;
-  z-index: 1000000;
   cursor: pointer;
 }
 
