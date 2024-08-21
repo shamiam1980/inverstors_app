@@ -104,10 +104,36 @@
       "responses": [
         {
           "uuid": "9d90d0be-82e9-4567-9969-1d065ce6367d",
-          "body": "{\n  \"user\": {\n    \"id\": 1,\n    \"fullName\": \"هشام إبراهيم القرم\",\n    \"email\": \"el_erm@yahoo.com\"\n  },\n  \"data\": {\n    \"capital\": {\n      \"capitalVal\": 10000,\n      \"capitalValBack\": 0,\n      \"capitalValRem\": 10000,\n      \"invType\": \"project\",\n      \"invSubType\": \"PROCYON ENERGY, CAMEROON\"\n    },\n    \"profitAccount\": {\n      \"profitVal\": 2000,\n      \"paymentDue\": \"9/2024\",\n      \"paymentsHistory\": [\n        {\n          \"value\": 1000,\n          \"date\": \"3/2024\",\n          \"done\": true\n        },\n        {\n          \"value\": 2000,\n          \"date\": \"5/2024\",\n          \"done\": true\n        },\n        {\n          \"value\": 3000,\n          \"date\": \"9/2024\",\n          \"done\": false\n        }\n      ]\n    },\n    \"profitDetails\": {\n      \"currYear\": {\n        \"year\": 2024,\n        \"profit\": 0,\n        \"paid\": 0\n      },\n      \"lastYear\": {\n        \"year\": 2023,\n        \"profit\": 1200,\n        \"paid\": 1200\n      },\n      \"yearBefore\": {\n        \"year\": 2022,\n        \"profit\": 1400,\n        \"paid\": 1000\n      }\n    },\n    \"stock\": {\n      \"numStocks\": 1000,\n      \"perStockVal\": {\n        \"currVal\": 110,\n        \"expectedValThisYear\": 120,\n        \"expectedValNextYear\": 130\n      },\n      \"stockProfit\": {\n        \"perStockProfitThisYear\": 3.5,\n        \"totalProfitThisYear\": 3500,\n        \"perStockProfitNextYear\": 4.5,\n        \"totalProfitNextYear\": 4500\n      }\n    }\n  }\n}",
+          "body": "{\n  \"user\": {\n    \"id\": 1,\n    \"fullName\": \"هشام إبراهيم القرم\",\n    \"email\": \"el_erm@yahoo.com\"\n  },\n  \"data\": {\n    \"capital\": {\n      \"capitalVal\": 10000,\n      \"capitalValBack\": 0,\n      \"capitalValRem\": 10000,\n      \"invType\": \"project\",\n      \"invSubType\": \"PROCYON ENERGY, CAMEROON\"\n    },\n    \"profitAccount\": {\n      \"profitVal\": 2000,\n      \"paymentDue\": \"9/2024\",\n      \"paymentsHistory\": [\n        {\n          \"value\": 1000,\n          \"date\": \"3/2024\",\n          \"done\": true\n        },\n        {\n          \"value\": 2000,\n          \"date\": \"5/2024\",\n          \"done\": true\n        },\n        {\n          \"value\": 3000,\n          \"date\": \"9/2024\",\n          \"done\": false\n        }\n      ]\n    },\n    \"profitDetails\": {\n      \"currYear\": {\n        \"year\": 2024,\n        \"profit\": 1000,\n        \"paid\": 1000\n      },\n      \"lastYear\": {\n        \"year\": 2023,\n        \"profit\": 1200,\n        \"paid\": 500\n      },\n      \"yearBefore\": {\n        \"year\": 2022,\n        \"profit\": 1400,\n        \"paid\": 0\n      }\n    },\n    \"stock\": {\n      \"numStocks\": 1000,\n      \"perStockVal\": {\n        \"currVal\": 110,\n        \"expectedValThisYear\": 120,\n        \"expectedValNextYear\": 130\n      },\n      \"stockProfit\": {\n        \"perStockProfitThisYear\": 3.5,\n        \"totalProfiThisYear\": 3500,\n        \"perStockProfitNextYear\": 4.5,\n        \"totalProfitNextYear\": 4500\n      }\n    }\n  }\n}",
           "latency": 0,
           "statusCode": 200,
-          "label": "",
+          "label": "V1.0",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "5114b8c2-68ac-4b0f-90fa-4096fe79c0c0",
+          "body": "{\n  \"userId\": 1,\n  \"userFullName\": \"هشام إبراهيم القرم\",\n  \"userEmail\": \"el_erm@yahoo.com\",\n  \"capitalVal\": 10000,\n  \"capitalValPaid\": 0,\n  \"capitalValRem\": 10000,\n  \"investmentType\": \"project\",\n  \"investmentSubType\": \"PROCYON ENERGY, CAMEROON\",\n  \"profitAccountProfitVal\": 2000,\n  \"profitAccountPaymentDue\": \"9/2024\",\n  \"currYearVal\": 2024,\n  \"currYearProfit\": 1000,\n  \"currYearPaid\": 1000,\n  \"lastYearVal\": 2023,\n  \"lastYearProfit\": 1000,\n  \"lastYearPaid\": 500,\n  \"yearBeforeVal\": 2022,\n  \"yearBeforeProfit\": 1000,\n  \"yearBeforePaid\": 0,\n  \"stockNumStocks\": 1000,\n  \"stockCurrValPerStock\": 110,\n  \"stockExpValThisYearPerStock\": 120,\n  \"stockExpValNextYearPerStock\": 130,\n  \"stockProfitThisYearPerStock\": 3.5,\n  \"totalProfitThisYear\": 3500,\n  \"stockProfitNextYearPerStock\": 4.5,\n  \"totalProfitNextYear\": 4500,\n  \"paymentsHistory\": [\n    {\n      \"value\": 1000,\n      \"date\": \"3/2024\",\n      \"done\": true\n    },\n    {\n      \"value\": 2000,\n      \"date\": \"5/2024\",\n      \"done\": true\n    },\n    {\n      \"value\": 3000,\n      \"date\": \"9/2024\",\n      \"done\": false\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "V2.0",
           "headers": [
             {
               "key": "Content-Type",

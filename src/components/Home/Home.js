@@ -195,23 +195,22 @@ const Home = () => {
       <div className='custom-column'>
         <div className='row ara-text'>إجمالي المسترّد منه</div>
         <div className='row eng-text rtl'>
-          {data.length !== 0 && beautifyNum(data.data.capital.capitalValBack)}
+          {data.length !== 0 && beautifyNum(data.capitalValPaid)}
         </div>
       </div>
       <div className='custom-column'>
         <div className='row ara-text'>الرصيد المتبقي منه</div>
         <div className='row eng-text rtl'>
-          {data.length !== 0 && beautifyNum(data.data.capital.capitalValRem)}
+          {data.length !== 0 && beautifyNum(data.capitalValRem)}
         </div>
       </div>
     </div>
   );
 
   const JSXCardInfoModalData =
-    data.length !== 0 &&
-    data.data.profitAccount.paymentsHistory.length !== 0 ? (
+    data.length !== 0 && data.paymentsHistory.length !== 0 ? (
       <div id='data-row' className='payments-history'>
-        {data.data.profitAccount.paymentsHistory.map((obj, index) => {
+        {data.paymentsHistory.map((obj, index) => {
           return (
             <div className='row eng-text rtl' key={index}>
               <div className='right'>
@@ -250,33 +249,26 @@ const Home = () => {
         <Accordion.Item eventKey='0'>
           <Accordion.Header>
             السنة الحالية{" "}
-            <span className='year eng-text rtl pr-1'>
-              {data.data.profitDetails.currYear.year}
-            </span>
+            <span className='year eng-text rtl pr-1'>{data.currYearVal}</span>
           </Accordion.Header>
           <Accordion.Body>
             <div id='data-row' className='profit-by-year'>
               <div className='row eng-text rtl'>
                 <div className='right'>
                   <div className='value'>
-                    <span>
-                      {beautifyNum(data.data.profitDetails.currYear.profit)}
-                    </span>
+                    <span>{beautifyNum(data.currYearProfit)}</span>
                     <span className='upcoming ara-text'>الربح</span>
                   </div>
                 </div>
                 <div className='left'>
                   <div className='value'>
-                    <span>
-                      {beautifyNum(data.data.profitDetails.currYear.paid)}
-                    </span>
+                    <span>{beautifyNum(data.currYearPaid)}</span>
                     <span className='upcoming ara-text'>صُرف منه</span>
                   </div>
                 </div>
               </div>
-              {data.data.profitDetails.currYear.profit != 0 &&
-                data.data.profitDetails.currYear.profit ==
-                  data.data.profitDetails.currYear.paid && (
+              {data.currYearProfit != 0 &&
+                data.currYearProfit == data.currYearPaid && (
                   <svg
                     width='32'
                     height='32'
@@ -296,33 +288,26 @@ const Home = () => {
         <Accordion.Item eventKey='1'>
           <Accordion.Header>
             السنة السابقة{" "}
-            <span className='year eng-text rtl pr-1'>
-              {data.data.profitDetails.lastYear.year}
-            </span>
+            <span className='year eng-text rtl pr-1'>{data.lastYearVal}</span>
           </Accordion.Header>
           <Accordion.Body>
             <div id='data-row' className='profit-by-year'>
               <div className='row eng-text rtl'>
                 <div className='right'>
                   <div className='value'>
-                    <span>
-                      {beautifyNum(data.data.profitDetails.lastYear.profit)}
-                    </span>
+                    <span>{beautifyNum(data.lastYearProfit)}</span>
                     <span className='upcoming ara-text'>الربح</span>
                   </div>
                 </div>
                 <div className='left'>
                   <div className='value'>
-                    <span>
-                      {beautifyNum(data.data.profitDetails.lastYear.paid)}
-                    </span>
+                    <span>{beautifyNum(data.lastYearPaid)}</span>
                     <span className='upcoming ara-text'>صُرف منه</span>
                   </div>
                 </div>
               </div>
-              {data.data.profitDetails.lastYear.profit != 0 &&
-                data.data.profitDetails.lastYear.profit ==
-                  data.data.profitDetails.lastYear.paid && (
+              {data.lastYearProfit != 0 &&
+                data.lastYearProfit == data.lastYearPaid && (
                   <svg
                     width='32'
                     height='32'
@@ -342,33 +327,26 @@ const Home = () => {
         <Accordion.Item eventKey='2'>
           <Accordion.Header>
             السنة قبل السابقة{" "}
-            <span className='year eng-text rtl pr-1'>
-              {data.data.profitDetails.yearBefore.year}
-            </span>
+            <span className='year eng-text rtl pr-1'>{data.yearBeforeVal}</span>
           </Accordion.Header>
           <Accordion.Body>
             <div id='data-row' className='profit-by-year'>
               <div className='row eng-text rtl'>
                 <div className='right'>
                   <div className='value'>
-                    <span>
-                      {beautifyNum(data.data.profitDetails.yearBefore.profit)}
-                    </span>
+                    <span>{beautifyNum(data.yearBeforeProfit)}</span>
                     <span className='upcoming ara-text'>الربح</span>
                   </div>
                 </div>
                 <div className='left'>
                   <div className='value'>
-                    <span>
-                      {beautifyNum(data.data.profitDetails.yearBefore.paid)}
-                    </span>
+                    <span>{beautifyNum(data.yearBeforePaid)}</span>
                     <span className='upcoming ara-text'>صُرف منه</span>
                   </div>
                 </div>
               </div>
-              {data.data.profitDetails.yearBefore.profit != 0 &&
-                data.data.profitDetails.yearBefore.profit ==
-                  data.data.profitDetails.yearBefore.paid && (
+              {data.yearBeforeProfit != 0 &&
+                data.yearBeforeProfit == data.yearBeforePaid && (
                   <svg
                     width='32'
                     height='32'
@@ -398,7 +376,7 @@ const Home = () => {
           <Navbar
             handleOpenSupportModal={handleOpenSupportModal}
             handleOpenSupportModalMobile={handleOpenSupportModalMobile}
-            userFullName={data.user.fullName}
+            userFullName={data.userFullName}
           />
           <Container fluid='sm'>
             <div className='home-content'>
@@ -408,7 +386,7 @@ const Home = () => {
                   <Col className='main-col'>
                     <Card
                       title='رأس المال'
-                      titleValue={beautifyNum(data.data.capital.capitalVal)}
+                      titleValue={beautifyNum(data.capitalVal)}
                       icon={SVGCapitalIcon}
                       hasSubData={true}
                       subDataValue={JSXCapitalCardSubData}
@@ -417,10 +395,10 @@ const Home = () => {
                   <Col className='main-col'>
                     <Card
                       title='نوع الاستثمار'
-                      titleValue={data.data.capital.invType}
+                      titleValue={data.investmentType}
                       icon={SVGProjectTypeIcon}
                       hasSubData={true}
-                      subDataValue={data.data.capital.invSubType}
+                      subDataValue={data.investmentSubType}
                     />
                   </Col>
                 </Row>
@@ -431,16 +409,14 @@ const Home = () => {
                   <Col className='main-col'>
                     <Card
                       title='الربح التالي المستحق'
-                      titleValue={beautifyNum(
-                        data.data.profitAccount.profitVal
-                      )}
+                      titleValue={beautifyNum(data.profitAccountProfitVal)}
                       icon={SVGProfitAccountIcon}
                     />
                   </Col>
                   <Col className='main-col'>
                     <Card
                       title='موعد الصرف المتوقع'
-                      titleValue={data.data.profitAccount.paymentDue}
+                      titleValue={data.profitAccountPaymentDue}
                       icon={SVGProfitAccountIcon}
                       hasInfoIcon={true}
                       action={handleOpenCardInfoModal}
