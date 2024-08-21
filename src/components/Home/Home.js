@@ -259,10 +259,8 @@ const Home = () => {
         <div className='row eng-text rtl'>
           {data.length !== 0 &&
             (isAraNum
-              ? beautifyNum(
-                  data.data.capital.capitalValBack
-                ).EngNumbersToArabic()
-              : beautifyNum(data.data.capital.capitalValBack))}
+              ? beautifyNum(data.capitalValPaid).EngNumbersToArabic()
+              : beautifyNum(data.capitalValPaid))}
         </div>
       </div>
       <div className='custom-column'>
@@ -270,20 +268,17 @@ const Home = () => {
         <div className='row eng-text rtl'>
           {data.length !== 0 &&
             (isAraNum
-              ? beautifyNum(
-                  data.data.capital.capitalValRem
-                ).EngNumbersToArabic()
-              : beautifyNum(data.data.capital.capitalValRem))}
+              ? beautifyNum(data.capitalValRem).EngNumbersToArabic()
+              : beautifyNum(data.capitalValRem))}
         </div>
       </div>
     </div>
   );
 
   const JSXCardInfoModalData =
-    data.length !== 0 &&
-    data.data.profitAccount.paymentsHistory.length !== 0 ? (
+    data.length !== 0 && data.paymentsHistory.length !== 0 ? (
       <div id='data-row' className='payments-history'>
-        {data.data.profitAccount.paymentsHistory.map((obj, index) => {
+        {data.paymentsHistory.map((obj, index) => {
           return (
             <div className='row eng-text rtl' key={index}>
               <div className='right'>
@@ -336,10 +331,8 @@ const Home = () => {
             السنة الحالية{" "}
             <span className='year eng-text rtl pr-1'>
               {isAraNum
-                ? data.data.profitDetails.currYear.year
-                    .toString()
-                    .EngNumbersToArabic()
-                : data.data.profitDetails.currYear.year}
+                ? data.currYearVal.toString().EngNumbersToArabic()
+                : data.currYearVal}
             </span>
           </Accordion.Header>
           <Accordion.Body>
@@ -349,10 +342,8 @@ const Home = () => {
                   <div className='value'>
                     <span>
                       {isAraNum
-                        ? beautifyNum(
-                            data.data.profitDetails.currYear.profit
-                          ).EngNumbersToArabic()
-                        : beautifyNum(data.data.profitDetails.currYear.profit)}
+                        ? beautifyNum(data.currYearProfit).EngNumbersToArabic()
+                        : beautifyNum(data.currYearProfit)}
                     </span>
                     <span className='upcoming ara-text'>الربح</span>
                   </div>
@@ -361,18 +352,15 @@ const Home = () => {
                   <div className='value'>
                     <span>
                       {isAraNum
-                        ? beautifyNum(
-                            data.data.profitDetails.currYear.paid
-                          ).EngNumbersToArabic()
-                        : beautifyNum(data.data.profitDetails.currYear.paid)}
+                        ? beautifyNum(data.currYearPaid).EngNumbersToArabic()
+                        : beautifyNum(data.currYearPaid)}
                     </span>
                     <span className='upcoming ara-text'>صُرف منه</span>
                   </div>
                 </div>
               </div>
-              {data.data.profitDetails.currYear.profit != 0 &&
-                data.data.profitDetails.currYear.profit ==
-                  data.data.profitDetails.currYear.paid && (
+              {data.currYearProfit != 0 &&
+                data.currYearProfit == data.currYearPaid && (
                   <svg
                     width='32'
                     height='32'
@@ -394,10 +382,8 @@ const Home = () => {
             السنة السابقة{" "}
             <span className='year eng-text rtl pr-1'>
               {isAraNum
-                ? data.data.profitDetails.lastYear.year
-                    .toString()
-                    .EngNumbersToArabic()
-                : data.data.profitDetails.lastYear.year}
+                ? data.lastYearVal.toString().EngNumbersToArabic()
+                : data.lastYearVal}
             </span>
           </Accordion.Header>
           <Accordion.Body>
@@ -407,10 +393,8 @@ const Home = () => {
                   <div className='value'>
                     <span>
                       {isAraNum
-                        ? beautifyNum(
-                            data.data.profitDetails.lastYear.profit
-                          ).EngNumbersToArabic()
-                        : beautifyNum(data.data.profitDetails.lastYear.profit)}
+                        ? beautifyNum(data.lastYearProfit).EngNumbersToArabic()
+                        : beautifyNum(data.lastYearProfit)}
                     </span>
                     <span className='upcoming ara-text'>الربح</span>
                   </div>
@@ -419,18 +403,15 @@ const Home = () => {
                   <div className='value'>
                     <span>
                       {isAraNum
-                        ? beautifyNum(
-                            data.data.profitDetails.lastYear.paid
-                          ).EngNumbersToArabic()
-                        : beautifyNum(data.data.profitDetails.lastYear.paid)}
+                        ? beautifyNum(data.lastYearPaid).EngNumbersToArabic()
+                        : beautifyNum(data.lastYearPaid)}
                     </span>
                     <span className='upcoming ara-text'>صُرف منه</span>
                   </div>
                 </div>
               </div>
-              {data.data.profitDetails.lastYear.profit != 0 &&
-                data.data.profitDetails.lastYear.profit ==
-                  data.data.profitDetails.lastYear.paid && (
+              {data.lastYearProfit != 0 &&
+                data.lastYearProfit == data.lastYearPaid && (
                   <svg
                     width='32'
                     height='32'
@@ -452,10 +433,8 @@ const Home = () => {
             السنة قبل السابقة{" "}
             <span className='year eng-text rtl pr-1'>
               {isAraNum
-                ? data.data.profitDetails.yearBefore.year
-                    .toString()
-                    .EngNumbersToArabic()
-                : data.data.profitDetails.yearBefore.year}
+                ? data.yearBeforeVal.toString().EngNumbersToArabic()
+                : data.yearBeforeVal}
             </span>
           </Accordion.Header>
           <Accordion.Body>
@@ -466,11 +445,9 @@ const Home = () => {
                     <span>
                       {isAraNum
                         ? beautifyNum(
-                            data.data.profitDetails.yearBefore.profit
+                            data.yearBeforeProfit
                           ).EngNumbersToArabic()
-                        : beautifyNum(
-                            data.data.profitDetails.yearBefore.profit
-                          )}
+                        : beautifyNum(data.yearBeforeProfit)}
                     </span>
                     <span className='upcoming ara-text'>الربح</span>
                   </div>
@@ -479,18 +456,15 @@ const Home = () => {
                   <div className='value'>
                     <span>
                       {isAraNum
-                        ? beautifyNum(
-                            data.data.profitDetails.yearBefore.paid
-                          ).EngNumbersToArabic()
-                        : beautifyNum(data.data.profitDetails.yearBefore.paid)}
+                        ? beautifyNum(data.yearBeforePaid).EngNumbersToArabic()
+                        : beautifyNum(data.yearBeforePaid)}
                     </span>
                     <span className='upcoming ara-text'>صُرف منه</span>
                   </div>
                 </div>
               </div>
-              {data.data.profitDetails.yearBefore.profit != 0 &&
-                data.data.profitDetails.yearBefore.profit ==
-                  data.data.profitDetails.yearBefore.paid && (
+              {data.yearBeforeProfit != 0 &&
+                data.yearBeforeProfit == data.yearBeforePaid && (
                   <svg
                     width='32'
                     height='32'
@@ -520,7 +494,7 @@ const Home = () => {
           <Navbar
             handleOpenSupportModal={handleOpenSupportModal}
             handleOpenSupportModalMobile={handleOpenSupportModalMobile}
-            userFullName={data.user.fullName}
+            userFullName={data.userFullName}
             setIsAraNum={setIsAraNum}
             isAraNum={isAraNum}
             showAraNumInfo={showAraNumInfo}
@@ -535,7 +509,7 @@ const Home = () => {
                   <Col className='main-col'>
                     <Card
                       title='رأس المال'
-                      titleValue={beautifyNum(data.data.capital.capitalVal)}
+                      titleValue={beautifyNum(data.capitalVal)}
                       icon={SVGCapitalIcon}
                       hasSubData={true}
                       subDataValue={JSXCapitalCardSubData}
@@ -545,10 +519,10 @@ const Home = () => {
                   <Col className='main-col'>
                     <Card
                       title='نوع الاستثمار'
-                      titleValue={data.data.capital.invType}
+                      titleValue={data.investmentType}
                       icon={SVGProjectTypeIcon}
                       hasSubData={true}
-                      subDataValue={data.data.capital.invSubType}
+                      subDataValue={data.investmentSubType}
                       isAraNum={isAraNum}
                     />
                   </Col>
@@ -560,9 +534,7 @@ const Home = () => {
                   <Col className='main-col'>
                     <Card
                       title='الربح التالي المستحق'
-                      titleValue={beautifyNum(
-                        data.data.profitAccount.profitVal
-                      )}
+                      titleValue={beautifyNum(data.profitAccountProfitVal)}
                       icon={SVGProfitAccountIcon}
                       isAraNum={isAraNum}
                     />
@@ -570,7 +542,7 @@ const Home = () => {
                   <Col className='main-col'>
                     <Card
                       title='موعد الصرف المتوقع'
-                      titleValue={data.data.profitAccount.paymentDue}
+                      titleValue={data.profitAccountPaymentDue}
                       icon={SVGProfitAccountIcon}
                       hasInfoIcon={true}
                       action={handleOpenCardInfoModal}
