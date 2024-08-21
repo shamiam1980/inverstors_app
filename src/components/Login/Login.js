@@ -235,6 +235,7 @@ const Login = () => {
                     // textAlign: email === "" ? "right" : "left",
                     textAlign: "right",
                   }}
+                  onKeyUp={(e) => handleKeyboardSubmit(e)}
                   value={email}
                   onChange={(e) => {
                     setErrMsg("");
