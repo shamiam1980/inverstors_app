@@ -331,8 +331,15 @@ const Home = () => {
             السنة الحالية{" "}
             <span className='year eng-text rtl pr-1'>
               {isAraNum
-                ? data.currYearVal.toString().EngNumbersToArabic()
-                : data.currYearVal}
+                ? (data.currYearVal != 0
+                    ? data.currYearVal
+                    : new Date().getFullYear()
+                  )
+                    .toString()
+                    .EngNumbersToArabic()
+                : data.currYearVal != 0
+                ? data.currYearVal
+                : new Date().getFullYear()}
             </span>
           </Accordion.Header>
           <Accordion.Body>
@@ -382,8 +389,15 @@ const Home = () => {
             السنة السابقة{" "}
             <span className='year eng-text rtl pr-1'>
               {isAraNum
-                ? data.lastYearVal.toString().EngNumbersToArabic()
-                : data.lastYearVal}
+                ? (data.lastYearVal != 0
+                    ? data.lastYearVal
+                    : new Date().getFullYear() - 1
+                  )
+                    .toString()
+                    .EngNumbersToArabic()
+                : data.lastYearVal != 0
+                ? data.lastYearVal
+                : new Date().getFullYear() - 1}
             </span>
           </Accordion.Header>
           <Accordion.Body>
@@ -433,8 +447,15 @@ const Home = () => {
             السنة قبل السابقة{" "}
             <span className='year eng-text rtl pr-1'>
               {isAraNum
-                ? data.yearBeforeVal.toString().EngNumbersToArabic()
-                : data.yearBeforeVal}
+                ? (data.yearBeforeVal != 0
+                    ? data.yearBeforeVal
+                    : new Date().getFullYear() - 2
+                  )
+                    .toString()
+                    .EngNumbersToArabic()
+                : data.yearBeforeVal != 0
+                ? data.yearBeforeVal
+                : new Date().getFullYear() - 2}
             </span>
           </Accordion.Header>
           <Accordion.Body>
