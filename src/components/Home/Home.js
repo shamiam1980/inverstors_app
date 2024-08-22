@@ -249,7 +249,11 @@ const Home = () => {
         <Accordion.Item eventKey='0'>
           <Accordion.Header>
             السنة الحالية{" "}
-            <span className='year eng-text rtl pr-1'>{data.currYearVal}</span>
+            <span className='year eng-text rtl pr-1'>
+              {data.currYearVal != 0
+                ? data.currYearVal
+                : new Date().getFullYear()}
+            </span>
           </Accordion.Header>
           <Accordion.Body>
             <div id='data-row' className='profit-by-year'>
@@ -288,7 +292,11 @@ const Home = () => {
         <Accordion.Item eventKey='1'>
           <Accordion.Header>
             السنة السابقة{" "}
-            <span className='year eng-text rtl pr-1'>{data.lastYearVal}</span>
+            <span className='year eng-text rtl pr-1'>
+              {data.lastYearVal != 0
+                ? data.lastYearVal
+                : new Date().getFullYear() - 1}
+            </span>
           </Accordion.Header>
           <Accordion.Body>
             <div id='data-row' className='profit-by-year'>
@@ -327,7 +335,11 @@ const Home = () => {
         <Accordion.Item eventKey='2'>
           <Accordion.Header>
             السنة قبل السابقة{" "}
-            <span className='year eng-text rtl pr-1'>{data.yearBeforeVal}</span>
+            <span className='year eng-text rtl pr-1'>
+              {data.yearBeforeVal != 0
+                ? data.yearBeforeVal
+                : new Date().getFullYear() - 2}
+            </span>
           </Accordion.Header>
           <Accordion.Body>
             <div id='data-row' className='profit-by-year'>
