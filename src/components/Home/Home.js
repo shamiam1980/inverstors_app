@@ -257,19 +257,21 @@ const Home = () => {
       <div className='custom-column'>
         <div className='row ara-text'>إجمالي المسترّد منه</div>
         <div className='row eng-text rtl'>
-          {data.length !== 0 &&
-            (isAraNum
+          {data.length !== 0 && data.capitalValPaid !== null
+            ? isAraNum
               ? beautifyNum(data.capitalValPaid).EngNumbersToArabic()
-              : beautifyNum(data.capitalValPaid))}
+              : beautifyNum(data.capitalValPaid)
+            : "N/A"}
         </div>
       </div>
       <div className='custom-column'>
         <div className='row ara-text'>الرصيد المتبقي منه</div>
         <div className='row eng-text rtl'>
-          {data.length !== 0 &&
-            (isAraNum
+          {data.length !== 0 && data.capitalValRem !== null
+            ? isAraNum
               ? beautifyNum(data.capitalValRem).EngNumbersToArabic()
-              : beautifyNum(data.capitalValRem))}
+              : beautifyNum(data.capitalValRem)
+            : "N/A"}
         </div>
       </div>
     </div>
@@ -285,11 +287,13 @@ const Home = () => {
                 <div className='circle flex-it'>{index + 1} </div>
                 <div className='value'>
                   <span className='eng-text rtl'>
-                    {isAraNum
-                      ? beautifyNum(obj.value).EngNumbersToArabic()
-                      : beautifyNum(obj.value)}
+                    {obj.value !== null
+                      ? isAraNum
+                        ? beautifyNum(obj.value).EngNumbersToArabic()
+                        : beautifyNum(obj.value)
+                      : "N/A"}
                   </span>
-                  {!obj.done && (
+                  {obj.done !== null && !obj.done && (
                     <span className='upcoming ara-text'>قادمة</span>
                   )}
                 </div>
@@ -297,11 +301,13 @@ const Home = () => {
               <div className='left'>
                 <div className='eng-text rtl'>
                   <span>
-                    {isAraNum
-                      ? reverseDateText(
-                          obj.date.toString().EngNumbersToArabic()
-                        )
-                      : obj.date}
+                    {obj.date
+                      ? isAraNum
+                        ? reverseDateText(
+                            obj.date.toString().EngNumbersToArabic()
+                          )
+                        : obj.date
+                      : "N/A"}
                   </span>
                 </div>
                 <Form.Check
@@ -330,15 +336,17 @@ const Home = () => {
           <Accordion.Header>
             السنة الحالية{" "}
             <span className='year eng-text rtl pr-1'>
-              {isAraNum
-                ? (data.currYearVal != 0
-                    ? data.currYearVal
-                    : new Date().getFullYear()
-                  )
-                    .toString()
-                    .EngNumbersToArabic()
-                : data.currYearVal != 0
-                ? data.currYearVal
+              {data.currYearVal
+                ? isAraNum
+                  ? (data.currYearVal != 0
+                      ? data.currYearVal
+                      : new Date().getFullYear()
+                    )
+                      .toString()
+                      .EngNumbersToArabic()
+                  : data.currYearVal != 0
+                  ? data.currYearVal
+                  : new Date().getFullYear()
                 : new Date().getFullYear()}
             </span>
           </Accordion.Header>
@@ -348,9 +356,13 @@ const Home = () => {
                 <div className='right'>
                   <div className='value'>
                     <span>
-                      {isAraNum
-                        ? beautifyNum(data.currYearProfit).EngNumbersToArabic()
-                        : beautifyNum(data.currYearProfit)}
+                      {data.currYearProfit !== null
+                        ? isAraNum
+                          ? beautifyNum(
+                              data.currYearProfit
+                            ).EngNumbersToArabic()
+                          : beautifyNum(data.currYearProfit)
+                        : "N/A"}
                     </span>
                     <span className='upcoming ara-text'>الربح</span>
                   </div>
@@ -358,29 +370,33 @@ const Home = () => {
                 <div className='left'>
                   <div className='value'>
                     <span>
-                      {isAraNum
-                        ? beautifyNum(data.currYearPaid).EngNumbersToArabic()
-                        : beautifyNum(data.currYearPaid)}
+                      {data.currYearPaid !== null
+                        ? isAraNum
+                          ? beautifyNum(data.currYearPaid).EngNumbersToArabic()
+                          : beautifyNum(data.currYearPaid)
+                        : "N/A"}
                     </span>
                     <span className='upcoming ara-text'>صُرف منه</span>
                   </div>
                 </div>
               </div>
-              {data.currYearProfit != 0 &&
-                data.currYearProfit == data.currYearPaid && (
-                  <svg
-                    width='32'
-                    height='32'
-                    viewBox='0 0 32 32'
-                    fill='none'
-                    className='profit-fully-paid-svg'
-                    xmlns='http://www.w3.org/2000/svg'>
-                    <path
-                      d='M16 2C13.2311 2 10.5243 2.82109 8.22202 4.35943C5.91973 5.89777 4.12532 8.08427 3.06569 10.6424C2.00607 13.2006 1.72882 16.0155 2.26901 18.7313C2.80921 21.447 4.14258 23.9416 6.10051 25.8995C8.05845 27.8574 10.553 29.1908 13.2687 29.731C15.9845 30.2712 18.7994 29.9939 21.3576 28.9343C23.9157 27.8747 26.1022 26.0803 27.6406 23.778C29.1789 21.4757 30 18.7689 30 16C30 12.287 28.525 8.72601 25.8995 6.1005C23.274 3.475 19.713 2 16 2ZM14 21.59L9.00001 16.59L10.59 15L14 18.41L21.41 11L23.006 12.586L14 21.59Z'
-                      fill='#7AC142'
-                    />
-                  </svg>
-                )}
+              {data.currYearProfit &&
+              data.currYearPaid &&
+              data.currYearProfit != 0 &&
+              data.currYearProfit == data.currYearPaid ? (
+                <svg
+                  width='32'
+                  height='32'
+                  viewBox='0 0 32 32'
+                  fill='none'
+                  className='profit-fully-paid-svg'
+                  xmlns='http://www.w3.org/2000/svg'>
+                  <path
+                    d='M16 2C13.2311 2 10.5243 2.82109 8.22202 4.35943C5.91973 5.89777 4.12532 8.08427 3.06569 10.6424C2.00607 13.2006 1.72882 16.0155 2.26901 18.7313C2.80921 21.447 4.14258 23.9416 6.10051 25.8995C8.05845 27.8574 10.553 29.1908 13.2687 29.731C15.9845 30.2712 18.7994 29.9939 21.3576 28.9343C23.9157 27.8747 26.1022 26.0803 27.6406 23.778C29.1789 21.4757 30 18.7689 30 16C30 12.287 28.525 8.72601 25.8995 6.1005C23.274 3.475 19.713 2 16 2ZM14 21.59L9.00001 16.59L10.59 15L14 18.41L21.41 11L23.006 12.586L14 21.59Z'
+                    fill='#7AC142'
+                  />
+                </svg>
+              ) : null}
             </div>
           </Accordion.Body>
         </Accordion.Item>
@@ -388,15 +404,17 @@ const Home = () => {
           <Accordion.Header>
             السنة السابقة{" "}
             <span className='year eng-text rtl pr-1'>
-              {isAraNum
-                ? (data.lastYearVal != 0
-                    ? data.lastYearVal
-                    : new Date().getFullYear() - 1
-                  )
-                    .toString()
-                    .EngNumbersToArabic()
-                : data.lastYearVal != 0
-                ? data.lastYearVal
+              {data.lastYearVal !== null
+                ? isAraNum
+                  ? (data.lastYearVal != 0
+                      ? data.lastYearVal
+                      : new Date().getFullYear() - 1
+                    )
+                      .toString()
+                      .EngNumbersToArabic()
+                  : data.lastYearVal != 0
+                  ? data.lastYearVal
+                  : new Date().getFullYear() - 1
                 : new Date().getFullYear() - 1}
             </span>
           </Accordion.Header>
@@ -406,9 +424,13 @@ const Home = () => {
                 <div className='right'>
                   <div className='value'>
                     <span>
-                      {isAraNum
-                        ? beautifyNum(data.lastYearProfit).EngNumbersToArabic()
-                        : beautifyNum(data.lastYearProfit)}
+                      {data.lastYearProfit !== null
+                        ? isAraNum
+                          ? beautifyNum(
+                              data.lastYearProfit
+                            ).EngNumbersToArabic()
+                          : beautifyNum(data.lastYearProfit)
+                        : "N/A"}
                     </span>
                     <span className='upcoming ara-text'>الربح</span>
                   </div>
@@ -416,29 +438,33 @@ const Home = () => {
                 <div className='left'>
                   <div className='value'>
                     <span>
-                      {isAraNum
-                        ? beautifyNum(data.lastYearPaid).EngNumbersToArabic()
-                        : beautifyNum(data.lastYearPaid)}
+                      {data.lastYearPaid !== null
+                        ? isAraNum
+                          ? beautifyNum(data.lastYearPaid).EngNumbersToArabic()
+                          : beautifyNum(data.lastYearPaid)
+                        : "N/A"}
                     </span>
                     <span className='upcoming ara-text'>صُرف منه</span>
                   </div>
                 </div>
               </div>
-              {data.lastYearProfit != 0 &&
-                data.lastYearProfit == data.lastYearPaid && (
-                  <svg
-                    width='32'
-                    height='32'
-                    viewBox='0 0 32 32'
-                    fill='none'
-                    className='profit-fully-paid-svg'
-                    xmlns='http://www.w3.org/2000/svg'>
-                    <path
-                      d='M16 2C13.2311 2 10.5243 2.82109 8.22202 4.35943C5.91973 5.89777 4.12532 8.08427 3.06569 10.6424C2.00607 13.2006 1.72882 16.0155 2.26901 18.7313C2.80921 21.447 4.14258 23.9416 6.10051 25.8995C8.05845 27.8574 10.553 29.1908 13.2687 29.731C15.9845 30.2712 18.7994 29.9939 21.3576 28.9343C23.9157 27.8747 26.1022 26.0803 27.6406 23.778C29.1789 21.4757 30 18.7689 30 16C30 12.287 28.525 8.72601 25.8995 6.1005C23.274 3.475 19.713 2 16 2ZM14 21.59L9.00001 16.59L10.59 15L14 18.41L21.41 11L23.006 12.586L14 21.59Z'
-                      fill='#7AC142'
-                    />
-                  </svg>
-                )}
+              {data.lastYearProfit &&
+              data.lastYearPaid &&
+              data.lastYearProfit != 0 &&
+              data.lastYearProfit == data.lastYearPaid ? (
+                <svg
+                  width='32'
+                  height='32'
+                  viewBox='0 0 32 32'
+                  fill='none'
+                  className='profit-fully-paid-svg'
+                  xmlns='http://www.w3.org/2000/svg'>
+                  <path
+                    d='M16 2C13.2311 2 10.5243 2.82109 8.22202 4.35943C5.91973 5.89777 4.12532 8.08427 3.06569 10.6424C2.00607 13.2006 1.72882 16.0155 2.26901 18.7313C2.80921 21.447 4.14258 23.9416 6.10051 25.8995C8.05845 27.8574 10.553 29.1908 13.2687 29.731C15.9845 30.2712 18.7994 29.9939 21.3576 28.9343C23.9157 27.8747 26.1022 26.0803 27.6406 23.778C29.1789 21.4757 30 18.7689 30 16C30 12.287 28.525 8.72601 25.8995 6.1005C23.274 3.475 19.713 2 16 2ZM14 21.59L9.00001 16.59L10.59 15L14 18.41L21.41 11L23.006 12.586L14 21.59Z'
+                    fill='#7AC142'
+                  />
+                </svg>
+              ) : null}
             </div>
           </Accordion.Body>
         </Accordion.Item>
@@ -446,15 +472,17 @@ const Home = () => {
           <Accordion.Header>
             السنة قبل السابقة{" "}
             <span className='year eng-text rtl pr-1'>
-              {isAraNum
-                ? (data.yearBeforeVal != 0
-                    ? data.yearBeforeVal
-                    : new Date().getFullYear() - 2
-                  )
-                    .toString()
-                    .EngNumbersToArabic()
-                : data.yearBeforeVal != 0
-                ? data.yearBeforeVal
+              {data.yearBeforeVal !== null
+                ? isAraNum
+                  ? (data.yearBeforeVal != 0
+                      ? data.yearBeforeVal
+                      : new Date().getFullYear() - 2
+                    )
+                      .toString()
+                      .EngNumbersToArabic()
+                  : data.yearBeforeVal != 0
+                  ? data.yearBeforeVal
+                  : new Date().getFullYear() - 2
                 : new Date().getFullYear() - 2}
             </span>
           </Accordion.Header>
@@ -464,11 +492,13 @@ const Home = () => {
                 <div className='right'>
                   <div className='value'>
                     <span>
-                      {isAraNum
-                        ? beautifyNum(
-                            data.yearBeforeProfit
-                          ).EngNumbersToArabic()
-                        : beautifyNum(data.yearBeforeProfit)}
+                      {data.yearBeforeProfit !== null
+                        ? isAraNum
+                          ? beautifyNum(
+                              data.yearBeforeProfit
+                            ).EngNumbersToArabic()
+                          : beautifyNum(data.yearBeforeProfit)
+                        : "N/A"}
                     </span>
                     <span className='upcoming ara-text'>الربح</span>
                   </div>
@@ -476,29 +506,35 @@ const Home = () => {
                 <div className='left'>
                   <div className='value'>
                     <span>
-                      {isAraNum
-                        ? beautifyNum(data.yearBeforePaid).EngNumbersToArabic()
-                        : beautifyNum(data.yearBeforePaid)}
+                      {data.yearBeforePaid !== null
+                        ? isAraNum
+                          ? beautifyNum(
+                              data.yearBeforePaid
+                            ).EngNumbersToArabic()
+                          : beautifyNum(data.yearBeforePaid)
+                        : "N/A"}
                     </span>
                     <span className='upcoming ara-text'>صُرف منه</span>
                   </div>
                 </div>
               </div>
-              {data.yearBeforeProfit != 0 &&
-                data.yearBeforeProfit == data.yearBeforePaid && (
-                  <svg
-                    width='32'
-                    height='32'
-                    viewBox='0 0 32 32'
-                    fill='none'
-                    className='profit-fully-paid-svg'
-                    xmlns='http://www.w3.org/2000/svg'>
-                    <path
-                      d='M16 2C13.2311 2 10.5243 2.82109 8.22202 4.35943C5.91973 5.89777 4.12532 8.08427 3.06569 10.6424C2.00607 13.2006 1.72882 16.0155 2.26901 18.7313C2.80921 21.447 4.14258 23.9416 6.10051 25.8995C8.05845 27.8574 10.553 29.1908 13.2687 29.731C15.9845 30.2712 18.7994 29.9939 21.3576 28.9343C23.9157 27.8747 26.1022 26.0803 27.6406 23.778C29.1789 21.4757 30 18.7689 30 16C30 12.287 28.525 8.72601 25.8995 6.1005C23.274 3.475 19.713 2 16 2ZM14 21.59L9.00001 16.59L10.59 15L14 18.41L21.41 11L23.006 12.586L14 21.59Z'
-                      fill='#7AC142'
-                    />
-                  </svg>
-                )}
+              {data.yearBeforeProfit &&
+              data.yearBeforePaid &&
+              data.yearBeforeProfit != 0 &&
+              data.yearBeforeProfit == data.yearBeforePaid ? (
+                <svg
+                  width='32'
+                  height='32'
+                  viewBox='0 0 32 32'
+                  fill='none'
+                  className='profit-fully-paid-svg'
+                  xmlns='http://www.w3.org/2000/svg'>
+                  <path
+                    d='M16 2C13.2311 2 10.5243 2.82109 8.22202 4.35943C5.91973 5.89777 4.12532 8.08427 3.06569 10.6424C2.00607 13.2006 1.72882 16.0155 2.26901 18.7313C2.80921 21.447 4.14258 23.9416 6.10051 25.8995C8.05845 27.8574 10.553 29.1908 13.2687 29.731C15.9845 30.2712 18.7994 29.9939 21.3576 28.9343C23.9157 27.8747 26.1022 26.0803 27.6406 23.778C29.1789 21.4757 30 18.7689 30 16C30 12.287 28.525 8.72601 25.8995 6.1005C23.274 3.475 19.713 2 16 2ZM14 21.59L9.00001 16.59L10.59 15L14 18.41L21.41 11L23.006 12.586L14 21.59Z'
+                    fill='#7AC142'
+                  />
+                </svg>
+              ) : null}
             </div>
           </Accordion.Body>
         </Accordion.Item>
@@ -530,7 +566,11 @@ const Home = () => {
                   <Col className='main-col'>
                     <Card
                       title='رأس المال'
-                      titleValue={beautifyNum(data.capitalVal)}
+                      titleValue={
+                        data.capitalVal !== null
+                          ? beautifyNum(data.capitalVal)
+                          : "N/A"
+                      }
                       icon={SVGCapitalIcon}
                       hasSubData={true}
                       subDataValue={JSXCapitalCardSubData}
@@ -555,7 +595,11 @@ const Home = () => {
                   <Col className='main-col'>
                     <Card
                       title='الربح التالي المستحق'
-                      titleValue={beautifyNum(data.profitAccountProfitVal)}
+                      titleValue={
+                        data.profitAccountProfitVal !== null
+                          ? beautifyNum(data.profitAccountProfitVal)
+                          : "N/A"
+                      }
                       icon={SVGProfitAccountIcon}
                       isAraNum={isAraNum}
                     />

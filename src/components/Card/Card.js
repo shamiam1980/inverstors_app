@@ -21,11 +21,13 @@ const Card = (props) => {
           className={`row home-card-value text-uppercase rtl ${
             !arabicChars.test(props.titleValue) && "eng-text"
           }`}>
-          {props.isAraNum
-            ? props.isDate
-              ? props.reverseDateText(props.titleValue.EngNumbersToArabic())
-              : props.titleValue.EngNumbersToArabic()
-            : props.titleValue}
+          {props.titleValue
+            ? props.isAraNum
+              ? props.isDate
+                ? props.reverseDateText(props.titleValue.EngNumbersToArabic())
+                : props.titleValue.EngNumbersToArabic()
+              : props.titleValue
+            : "N/A"}
           {props.hasInfoIcon && (
             <span className='home-card-info-icon' onClick={props.action}>
               <svg
@@ -47,7 +49,7 @@ const Card = (props) => {
             className={`row card-sub-data text-uppercase rtl ${
               !arabicChars.test(props.subDataValue) && "eng-text"
             }`}>
-            {props.subDataValue}
+            {props.subDataValue ? props.subDataValue : "N/A"}
           </div>
         )}
       </div>
