@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useHistory, useRouteMatch } from "react-router";
+import { useHistory } from "react-router";
 import { NavLink } from "react-router-dom";
 import Overlay from "react-bootstrap/Overlay";
 import Tooltip from "react-bootstrap/Tooltip";
@@ -33,9 +33,9 @@ const Login = () => {
   const history = useHistory();
 
   const getCSRFToken = () => {
-    const url = new URL("./api/get_csrf_token/", baseURL);
+    const url = new URL("./get_cookie", baseURL);
 
-    fetch(url, { method: "GET" })
+    fetch(url, { method: "GET", credentials: "include" })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch.");
@@ -43,7 +43,20 @@ const Login = () => {
         return response.json();
       })
       .then((data) => {
-        setToken(data.csrfToken);
+        // setToken(data.csrfToken);
+        // console.log(data.message);
+        const csrfCookie = document.cookie
+          .split(";")
+          .map((cookie) => cookie.trim())
+          .find((cookie) => cookie.startsWith("csrftoken="));
+
+        if (csrfCookie) {
+          let csrfTokenFinal = csrfCookie.split("=")[1];
+          setToken(csrfTokenFinal);
+          // console.log("🚀 ~ csrfTokenFinal:", csrfTokenFinal);
+        } else {
+          console.log("CSRF TOKEN NOT FOUND!!");
+        }
       })
       .catch((err) => {
         console.log(err);

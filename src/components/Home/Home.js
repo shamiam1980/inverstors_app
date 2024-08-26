@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
+import { useHistory } from "react-router";
 import Container from "react-bootstrap/Container";
 import { NavLink } from "react-router-dom";
 import Row from "react-bootstrap/Row";
@@ -17,11 +18,14 @@ const Home = () => {
   const [modalMessage, setModalMessage] = useState("");
   const [modalTitle, setModalTitle] = useState("");
   const [modalSubTitle, setModalSubTitle] = useState(null);
+  const [modalCTA, setModalCTA] = useState(null);
   // Data
   const [data, setData] = useState([]);
   // Arabic Numerals
   const [isAraNum, setIsAraNum] = useState(false);
   const [showAraNumInfo, setShowAraNumInfo] = useState(false);
+
+  const history = useHistory();
 
   String.prototype.EngNumbersToArabic = function () {
     return this.replace(/\d/g, (d) => String.fromCharCode("0x066" + d));
@@ -40,10 +44,13 @@ const Home = () => {
   };
 
   const getData = () => {
-    const url = new URL("./get_data", baseURL);
+    const url = new URL("./user_data", baseURL);
 
     fetch(url, { method: "GET" })
       .then((response) => {
+        if (response.status == 401) {
+          history.push("/");
+        }
         if (!response.ok) {
           throw new Error("Failed to fetch.");
         }
@@ -56,6 +63,7 @@ const Home = () => {
         setIsModal(true);
         setModalTitle("خطأ!");
         setModalMessage("فشل طلب البيانات! حاول مرة أخرى!");
+        setModalCTA("حاول مرة أخرى");
         console.log(err);
       });
   };
@@ -118,6 +126,7 @@ const Home = () => {
 
   const handleCloseModal = () => {
     setIsModal(false);
+    setModalCTA(null);
     data.length === 0 && getData();
   };
 
@@ -643,6 +652,7 @@ const Home = () => {
         modalMessage={modalMessage}
         isModal={isModal}
         handleCloseModal={handleCloseModal}
+        cta={modalCTA}
       />
     </div>
   );

@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef, Fragment } from "react";
+import { useHistory } from "react-router";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
+import LoginFormIcon from "../../images/login-form-icon.png";
+import baseURL from "../../baseURL";
 import "./Navbar.css";
 // import logo from "../../images/logo.png";
 
@@ -14,6 +17,8 @@ const AppNavbar = (props) => {
 
   const isMobileNav = useMediaQuery({ maxWidth: 992 });
   const isSmlMobile = useMediaQuery({ maxWidth: 470 });
+
+  const history = useHistory();
 
   let arabicChars = /[\u0600-\u06FF]/;
 
@@ -39,6 +44,21 @@ const AppNavbar = (props) => {
 
   const closeNav = () => {
     setNavbarOpen(false);
+  };
+
+  const handleLogout = () => {
+    const url = new URL("./logout", baseURL);
+
+    fetch(url, { method: "GET" })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch.");
+        }
+        history.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const JSXSupport = (
@@ -149,7 +169,9 @@ const AppNavbar = (props) => {
               )}
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link to='/' as={Link} className='nav-link nav-link-custom'>
+              <Nav.Link
+                onClick={handleLogout}
+                className='nav-link nav-link-custom'>
                 {JSXLogout}
               </Nav.Link>
             </Nav.Item>

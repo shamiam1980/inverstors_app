@@ -35,7 +35,7 @@ const Modal = (props) => {
           className='modal-card-foot'
           style={{ justifyContent: "flex-end" }}>
           <button className='button' onClick={props.handleCloseModal}>
-            إغلاق
+            {props.cta || "إغلاق"}
           </button>
         </footer>
       </div>

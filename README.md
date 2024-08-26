@@ -68,3 +68,145 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# API Requests
+
+`/get_cookie `
+
+GET request at start to get CSRF token
+
+Response :
+
+```
+{"message": "welcome"}
+```
+
+with header that includes CSRF token in cookie as following:
+
+`set-cookie:
+csrftoken=9xt4TBwB7mWgWDHvQbJKjWjXJbB7ngeB; expires=Sun, 24 Aug 2025 23:32:55 GMT; Max-Age=31449600; Path=/; SameSite=Lax`
+
+You can extract csrftoken by code js :
+
+export function getCsrfToken() {
+const csrfToken = document.cookie.split('; ')
+.find(row => row.startsWith('csrftoken'))
+?.split('=')[1];
+return csrfToken || '';
+}
+
+or
+
+const getCsrfToken = () => {
+const csrfCookie = document.cookie
+.split(';')
+.map(cookie => cookie.trim())
+.find(cookie => cookie.startsWith('csrftoken='));
+
+    if (csrfCookie) {
+      return csrfCookie.split('=')[1];
+    }
+
+    return null;
+
+};
+
+Now, in any post request we need to include the CSRF token in the request headers using the X-CSRFToken header.
+
+---
+
+`/login`
+
+POST request include data for logging in as username and password
+must include extracted CSRF token in header X-CSRFToken
+
+Response:
+
+Success 200 :
+
+```
+{'message': 'Login successful'}
+```
+
+Fail :
+
+```
+{'error': 'Invalid credentials'}, code =401
+```
+
+```
+{'error': 'Invalid request method'}, code =405
+```
+
+---
+
+`/logout`
+
+GET request for logout
+
+Response :
+
+```
+{"message": "Logout successful"} code = 200
+```
+
+---
+
+`/user_data`
+
+Responds with data of current logged in user with JSON:
+
+```
+{
+  "userId": 1,
+  "userFullName": "هشام إبراهيم القرم",
+  "userEmail": "el_erm@yahoo.com",
+  "capitalVal": 10000,
+  "capitalValPaid": 0,
+  "capitalValRem": 10000,
+  "investmentType": "project",
+  "investmentSubType": "PROCYON ENERGY, CAMEROON",
+  "profitAccountProfitVal": 2000,
+  "profitAccountPaymentDue": "9/2024",
+  "currYearVal": 2024,
+  "currYearProfit": 1000,
+  "currYearPaid": 1000,
+  "lastYearVal": 2023,
+  "lastYearProfit": 950,
+  "lastYearPaid": 500,
+  "yearBeforeVal": 2022,
+  "yearBeforeProfit": 800,
+  "yearBeforePaid": 0,
+  "stockNumStocks": 1000,
+  "stockCurrValPerStock": 110,
+  "stockExpValThisYearPerStock": 120,
+  "stockExpValNextYearPerStock": 130,
+  "stockProfitThisYearPerStock": 3.5,
+  "stockTotalProfitThisYear": 3500,
+  "stockProfitNextYearPerStock": 4.5,
+  "stockTotalProfitNextYear": 4500,
+  "paymentsHistory": [
+    {
+      "value": 1000,
+      "date": "3/2024",
+      "done": true
+    },
+    {
+      "value": 2000,
+      "date": "5/2024",
+      "done": true
+    },
+    {
+      "value": 3000,
+      "date": "9/2024",
+      "done": false
+    }
+  ]
+}
+```
+
+If user tried the request without logging-in, response will be code = 401:
+
+```
+{'error': 'Unauthorized'}
+```
