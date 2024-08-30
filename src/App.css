@@ -6,6 +6,26 @@
   box-sizing: border-box;
 }
 
+/* .App::before {
+  position: absolute;
+  width: 100%;
+  height: 100svh;
+  max-height: 100svh;
+  overflow: hidden;
+  display: inline-block;
+  content: url(../src/images/bg-space-desktop.png);
+} */
+
+#app-bg-img {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  height: 100svh;
+  max-height: 100svh;
+  overflow: hidden;
+  background-color: #0b0b27;
+}
+
 * {
   transition: color 0.2s, background-color 0.2s, fill 0.2s, stroke 0.2s;
 }
