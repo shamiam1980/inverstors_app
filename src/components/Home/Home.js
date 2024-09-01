@@ -266,7 +266,9 @@ const Home = () => {
       <div className='custom-column'>
         <div className='row ara-text'>إجمالي المسترّد منه</div>
         <div className='row eng-text rtl'>
-          {data.length !== 0 && data.capitalValPaid !== null
+          {data.length !== 0 &&
+          data.capitalValPaid !== undefined &&
+          data.capitalValPaid !== null
             ? isAraNum
               ? beautifyNum(data.capitalValPaid).EngNumbersToArabic()
               : beautifyNum(data.capitalValPaid)
@@ -276,7 +278,9 @@ const Home = () => {
       <div className='custom-column'>
         <div className='row ara-text'>الرصيد المتبقي منه</div>
         <div className='row eng-text rtl'>
-          {data.length !== 0 && data.capitalValRem !== null
+          {data.length !== 0 &&
+          data.capitalValRem !== undefined &&
+          data.capitalValRem !== null
             ? isAraNum
               ? beautifyNum(data.capitalValRem).EngNumbersToArabic()
               : beautifyNum(data.capitalValRem)
@@ -287,7 +291,9 @@ const Home = () => {
   );
 
   const JSXCardInfoModalData =
-    data.length !== 0 && data.paymentsHistory.length !== 0 ? (
+    data.length !== 0 &&
+    data.paymentsHistory !== undefined &&
+    data.paymentsHistory.length !== 0 ? (
       <div id='data-row' className='payments-history'>
         {data.paymentsHistory.map((obj, index) => {
           return (
@@ -296,7 +302,7 @@ const Home = () => {
                 <div className='circle flex-it'>{index + 1} </div>
                 <div className='value'>
                   <span className='eng-text rtl'>
-                    {obj.value !== null
+                    {obj.value !== undefined && obj.value !== null
                       ? isAraNum
                         ? beautifyNum(obj.value).EngNumbersToArabic()
                         : beautifyNum(obj.value)
@@ -365,7 +371,8 @@ const Home = () => {
                 <div className='right'>
                   <div className='value'>
                     <span>
-                      {data.currYearProfit !== null
+                      {data.currYearProfit !== undefined &&
+                      data.currYearProfit !== null
                         ? isAraNum
                           ? beautifyNum(
                               data.currYearProfit
@@ -379,7 +386,8 @@ const Home = () => {
                 <div className='left'>
                   <div className='value'>
                     <span>
-                      {data.currYearPaid !== null
+                      {data.currYearPaid !== undefined &&
+                      data.currYearPaid !== null
                         ? isAraNum
                           ? beautifyNum(data.currYearPaid).EngNumbersToArabic()
                           : beautifyNum(data.currYearPaid)
@@ -433,7 +441,8 @@ const Home = () => {
                 <div className='right'>
                   <div className='value'>
                     <span>
-                      {data.lastYearProfit !== null
+                      {data.lastYearProfit !== undefined &&
+                      data.lastYearProfit !== null
                         ? isAraNum
                           ? beautifyNum(
                               data.lastYearProfit
@@ -447,7 +456,8 @@ const Home = () => {
                 <div className='left'>
                   <div className='value'>
                     <span>
-                      {data.lastYearPaid !== null
+                      {data.lastYearPaid !== undefined &&
+                      data.lastYearPaid !== null
                         ? isAraNum
                           ? beautifyNum(data.lastYearPaid).EngNumbersToArabic()
                           : beautifyNum(data.lastYearPaid)
@@ -501,7 +511,8 @@ const Home = () => {
                 <div className='right'>
                   <div className='value'>
                     <span>
-                      {data.yearBeforeProfit !== null
+                      {data.yearBeforeProfit !== undefined &&
+                      data.yearBeforeProfit !== null
                         ? isAraNum
                           ? beautifyNum(
                               data.yearBeforeProfit
@@ -515,7 +526,8 @@ const Home = () => {
                 <div className='left'>
                   <div className='value'>
                     <span>
-                      {data.yearBeforePaid !== null
+                      {data.yearBeforePaid !== undefined &&
+                      data.yearBeforePaid !== null
                         ? isAraNum
                           ? beautifyNum(
                               data.yearBeforePaid
@@ -576,6 +588,7 @@ const Home = () => {
                     <Card
                       title='رأس المال'
                       titleValue={
+                        data.capitalVal !== undefined &&
                         data.capitalVal !== null
                           ? beautifyNum(data.capitalVal)
                           : "N/A"
@@ -605,6 +618,7 @@ const Home = () => {
                     <Card
                       title='الربح التالي المستحق'
                       titleValue={
+                        data.profitAccountProfitVal !== undefined &&
                         data.profitAccountProfitVal !== null
                           ? beautifyNum(data.profitAccountProfitVal)
                           : "N/A"
@@ -618,7 +632,10 @@ const Home = () => {
                       title='موعد الصرف المتوقع'
                       titleValue={data.profitAccountPaymentDue}
                       icon={SVGProfitAccountIcon}
-                      hasInfoIcon={true}
+                      hasInfoIcon={
+                        data.paymentsHistory !== undefined &&
+                        data.paymentsHistory.length !== 0
+                      }
                       action={handleOpenCardInfoModal}
                       isAraNum={isAraNum}
                       isDate={true}
