@@ -9,6 +9,7 @@ import LoginPalestineMap from "../../images/login-palestine-map.svg";
 import LoginPalestineOldKeyIcon from "../../images/login-palestine-old-key.svg";
 import LoginFormIcon from "../../images/login-form-icon.png";
 import baseURL from "../../baseURL";
+import packageJson from "../../../package.json";
 import "./Login.css";
 
 const Login = () => {
@@ -183,6 +184,9 @@ const Login = () => {
             شعار
             <br />
             الشركة
+          </div>
+          <div className='hidden-app-version eng-text'>
+            v{packageJson.version}
           </div>
           <div
             className='login-lang-sel flex-it'

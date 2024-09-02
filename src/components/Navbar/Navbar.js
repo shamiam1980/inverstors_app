@@ -196,8 +196,12 @@ const AppNavbar = (props) => {
                   <Nav.Link disabled>
                     <div className='nav-username-mobile'>
                       <span className='nav-username-text'>أهلاً</span>{" "}
-                      <span className='nav-username-name'>
-                        هشام إبراهيم القرم
+                      <span
+                        className={`nav-username-name ${
+                          !arabicChars.test(props.userFullName) &&
+                          "eng-text rtl pb-1"
+                        }`}>
+                        {props.userFullName}
                       </span>
                       <span className='nav-username-text'>,</span>
                     </div>

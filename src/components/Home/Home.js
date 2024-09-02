@@ -351,7 +351,7 @@ const Home = () => {
           <Accordion.Header>
             السنة الحالية{" "}
             <span className='year eng-text rtl pr-1'>
-              {data.currYearVal
+              {data.currYearVal !== undefined && data.currYearVal !== null
                 ? isAraNum
                   ? (data.currYearVal != 0
                       ? data.currYearVal
@@ -362,6 +362,8 @@ const Home = () => {
                   : data.currYearVal != 0
                   ? data.currYearVal
                   : new Date().getFullYear()
+                : isAraNum
+                ? new Date().getFullYear().toString().EngNumbersToArabic()
                 : new Date().getFullYear()}
             </span>
           </Accordion.Header>
@@ -421,7 +423,7 @@ const Home = () => {
           <Accordion.Header>
             السنة السابقة{" "}
             <span className='year eng-text rtl pr-1'>
-              {data.lastYearVal !== null
+              {data.lastYearVal !== undefined && data.lastYearVal !== null
                 ? isAraNum
                   ? (data.lastYearVal != 0
                       ? data.lastYearVal
@@ -432,6 +434,8 @@ const Home = () => {
                   : data.lastYearVal != 0
                   ? data.lastYearVal
                   : new Date().getFullYear() - 1
+                : isAraNum
+                ? (new Date().getFullYear() - 1).toString().EngNumbersToArabic()
                 : new Date().getFullYear() - 1}
             </span>
           </Accordion.Header>
@@ -491,7 +495,7 @@ const Home = () => {
           <Accordion.Header>
             السنة قبل السابقة{" "}
             <span className='year eng-text rtl pr-1'>
-              {data.yearBeforeVal !== null
+              {data.yearBeforeVal !== undefined && data.yearBeforeVal !== null
                 ? isAraNum
                   ? (data.yearBeforeVal != 0
                       ? data.yearBeforeVal
@@ -502,6 +506,8 @@ const Home = () => {
                   : data.yearBeforeVal != 0
                   ? data.yearBeforeVal
                   : new Date().getFullYear() - 2
+                : isAraNum
+                ? (new Date().getFullYear() - 2).toString().EngNumbersToArabic()
                 : new Date().getFullYear() - 2}
             </span>
           </Accordion.Header>
