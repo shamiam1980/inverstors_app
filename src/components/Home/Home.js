@@ -31,16 +31,20 @@ const Home = () => {
     return this.replace(/\d/g, (d) => String.fromCharCode("0x066" + d));
   };
 
-  const reverseDateText = (text) => {
-    const insert = (arr, index, newItem) => [
-      // part of the array before the specified index
-      ...arr.slice(0, index),
-      // inserted item
-      newItem,
-      // part of the array after the specified index
-      ...arr.slice(index),
-    ];
-    return insert(text.split("/").reverse(), 1, "/");
+  const convertLinuxDateToNormal = (linuxDate) => {
+    // Linux date YYYY-MM-DD
+    // Norma date format DD/MM/YYYY
+    let arrDate = linuxDate.split("-");
+
+    // With day shown
+    // return isAraNum
+    //   ? arrDate[0] + "/" + arrDate[1] + "/" + arrDate[2]
+    //   : arrDate[1] + "/" + arrDate[2] + "/" + arrDate[0];
+
+    // With day hidden
+    return isAraNum
+      ? arrDate[0] + "/" + arrDate[1]
+      : arrDate[1] + "/" + arrDate[0];
   };
 
   const getData = () => {
@@ -318,10 +322,10 @@ const Home = () => {
                   <span>
                     {obj.date
                       ? isAraNum
-                        ? reverseDateText(
+                        ? convertLinuxDateToNormal(
                             obj.date.toString().EngNumbersToArabic()
                           )
-                        : obj.date
+                        : convertLinuxDateToNormal(obj.date)
                       : "N/A"}
                   </span>
                 </div>
@@ -645,7 +649,7 @@ const Home = () => {
                       action={handleOpenCardInfoModal}
                       isAraNum={isAraNum}
                       isDate={true}
-                      reverseDateText={reverseDateText}
+                      convertLinuxDateToNormal={convertLinuxDateToNormal}
                     />
                   </Col>
                 </Row>

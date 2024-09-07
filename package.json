@@ -1,6 +1,6 @@
 {
   "name": "investors_app",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "homepage": ".",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",

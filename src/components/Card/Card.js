@@ -24,8 +24,12 @@ const Card = (props) => {
           {props.titleValue
             ? props.isAraNum
               ? props.isDate
-                ? props.reverseDateText(props.titleValue.EngNumbersToArabic())
+                ? props.convertLinuxDateToNormal(
+                    props.titleValue.EngNumbersToArabic()
+                  )
                 : props.titleValue.EngNumbersToArabic()
+              : props.isDate
+              ? props.convertLinuxDateToNormal(props.titleValue)
               : props.titleValue
             : "N/A"}
           {props.hasInfoIcon && (
