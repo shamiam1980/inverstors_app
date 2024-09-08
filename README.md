@@ -29,6 +29,16 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+## VIP NOTE
+
+<u>To correctly deploy a new build:</u>
+
+- Frontend developer runs `npm run build` to create a new build
+
+- Frontend developer uploads the build to the subdomain root folder
+
+- Frontend developer sends the build to the backend developer to inject the new `index.html` file only, to sync file hashes between frontend and backend
+
 ### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can't go back!**
@@ -167,7 +177,7 @@ Responds with data of current logged in user with JSON:
   "investmentType": "project",
   "investmentSubType": "PROCYON ENERGY, CAMEROON",
   "profitAccountProfitVal": 2000,
-  "profitAccountPaymentDue": "9/2024",
+  "profitAccountPaymentDue": "2024-09-06",
   "currYearVal": 2024,
   "currYearProfit": 1000,
   "currYearPaid": 1000,
@@ -188,17 +198,17 @@ Responds with data of current logged in user with JSON:
   "paymentsHistory": [
     {
       "value": 1000,
-      "date": "3/2024",
+      "date": "2024-03-01",
       "done": true
     },
     {
       "value": 2000,
-      "date": "5/2024",
+      "date": "2024-05-01",
       "done": true
     },
     {
       "value": 3000,
-      "date": "9/2024",
+      "date": "2024-09-01",
       "done": false
     }
   ]
