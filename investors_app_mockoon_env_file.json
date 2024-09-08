@@ -100,11 +100,117 @@
       "uuid": "8f9c36de-ed40-45be-a0af-177fb282bf59",
       "documentation": "",
       "method": "get",
-      "endpoint": "get_data",
+      "endpoint": "user_data",
       "responses": [
         {
           "uuid": "9d90d0be-82e9-4567-9969-1d065ce6367d",
           "body": "{\n  \"user\": {\n    \"id\": 1,\n    \"fullName\": \"هشام إبراهيم القرم\",\n    \"email\": \"el_erm@yahoo.com\"\n  },\n  \"data\": {\n    \"capital\": {\n      \"capitalVal\": 10000,\n      \"capitalValBack\": 0,\n      \"capitalValRem\": 10000,\n      \"invType\": \"project\",\n      \"invSubType\": \"PROCYON ENERGY, CAMEROON\"\n    },\n    \"profitAccount\": {\n      \"profitVal\": 2000,\n      \"paymentDue\": \"9/2024\",\n      \"paymentsHistory\": [\n        {\n          \"value\": 1000,\n          \"date\": \"3/2024\",\n          \"done\": true\n        },\n        {\n          \"value\": 2000,\n          \"date\": \"5/2024\",\n          \"done\": true\n        },\n        {\n          \"value\": 3000,\n          \"date\": \"9/2024\",\n          \"done\": false\n        }\n      ]\n    },\n    \"profitDetails\": {\n      \"currYear\": {\n        \"year\": 2024,\n        \"profit\": 1000,\n        \"paid\": 1000\n      },\n      \"lastYear\": {\n        \"year\": 2023,\n        \"profit\": 1200,\n        \"paid\": 500\n      },\n      \"yearBefore\": {\n        \"year\": 2022,\n        \"profit\": 1400,\n        \"paid\": 0\n      }\n    },\n    \"stock\": {\n      \"numStocks\": 1000,\n      \"perStockVal\": {\n        \"currVal\": 110,\n        \"expectedValThisYear\": 120,\n        \"expectedValNextYear\": 130\n      },\n      \"stockProfit\": {\n        \"perStockProfitThisYear\": 3.5,\n        \"totalProfiThisYear\": 3500,\n        \"perStockProfitNextYear\": 4.5,\n        \"totalProfitNextYear\": 4500\n      }\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "V1.0",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "5114b8c2-68ac-4b0f-90fa-4096fe79c0c0",
+          "body": "{\n  \"userId\": 1,\n  \"userFullName\": \"هشام إبراهيم القرم\",\n  \"userEmail\": \"el_erm@yahoo.com\",\n  \"capitalVal\": 10000,\n  \"capitalValPaid\": 0,\n  \"capitalValRem\": 10000,\n  \"investmentType\": \"project\",\n  \"investmentSubType\": \"PROCYON ENERGY, CAMEROON\",\n  \"profitAccountProfitVal\": 2000,\n  \"profitAccountPaymentDue\": \"2024-09-06\",\n  \"currYearVal\": 2024,\n  \"currYearProfit\": 1000,\n  \"currYearPaid\": 1000,\n  \"lastYearVal\": 2023,\n  \"lastYearProfit\": 950,\n  \"lastYearPaid\": 500,\n  \"yearBeforeVal\": 2022,\n  \"yearBeforeProfit\": 800,\n  \"yearBeforePaid\": 0,\n  \"stockNumStocks\": 1000,\n  \"stockCurrValPerStock\": 110,\n  \"stockExpValThisYearPerStock\": 120,\n  \"stockExpValNextYearPerStock\": 130,\n  \"stockProfitThisYearPerStock\": 3.5,\n  \"stockTotalProfitThisYear\": 3500,\n  \"stockProfitNextYearPerStock\": 4.5,\n  \"stockTotalProfitNextYear\": 4500,\n  \"paymentsHistory\": [\n    {\n      \"value\": 1000,\n      \"date\": \"2024-03-01\",\n      \"done\": true\n    },\n    {\n      \"value\": 2000,\n      \"date\": \"2024-05-01\",\n      \"done\": true\n    },\n    {\n      \"value\": 3000,\n      \"date\": \"2024-09-01\",\n      \"done\": false\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "V2.0",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "635f4762-3be3-449f-b715-64f751e55024",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "get_cookie",
+      "responses": [
+        {
+          "uuid": "1558a27f-ba34-4602-ac83-1d01a88fded5",
+          "body": "{\n  \"message\": \"welcome\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "http://localhost:3000"
+            },
+            {
+              "key": "Set-Cookie",
+              "value": "csrftoken=9xt4TBwB7mWgWDHvQbJKjWjXJbB7ngeB; expires=Sun, 24 Aug 2025 23:32:55 GMT; Max-Age=31449600; Path=/; SameSite=Lax"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "e9687a48-97a1-4eff-b344-f2363c9debaa",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "logout",
+      "responses": [
+        {
+          "uuid": "317a9737-c8a7-4087-86c6-ace7624e1c1e",
+          "body": "{\n  \"message\": \"Logout successful\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "V1.0",
@@ -171,6 +277,14 @@
     {
       "type": "route",
       "uuid": "8f9c36de-ed40-45be-a0af-177fb282bf59"
+    },
+    {
+      "type": "route",
+      "uuid": "635f4762-3be3-449f-b715-64f751e55024"
+    },
+    {
+      "type": "route",
+      "uuid": "e9687a48-97a1-4eff-b344-f2363c9debaa"
     }
   ],
   "proxyMode": false,
@@ -193,7 +307,7 @@
     },
     {
       "key": "Access-Control-Allow-Origin",
-      "value": "*"
+      "value": "http://localhost:3000"
     },
     {
       "key": "Access-Control-Allow-Methods",

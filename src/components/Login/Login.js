@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useHistory, useRouteMatch } from "react-router";
+import { useHistory } from "react-router";
 import { NavLink } from "react-router-dom";
 import Overlay from "react-bootstrap/Overlay";
 import Tooltip from "react-bootstrap/Tooltip";
@@ -9,6 +9,7 @@ import LoginPalestineMap from "../../images/login-palestine-map.svg";
 import LoginPalestineOldKeyIcon from "../../images/login-palestine-old-key.svg";
 import LoginFormIcon from "../../images/login-form-icon.png";
 import baseURL from "../../baseURL";
+import packageJson from "../../../package.json";
 import "./Login.css";
 
 const Login = () => {
@@ -33,9 +34,9 @@ const Login = () => {
   const history = useHistory();
 
   const getCSRFToken = () => {
-    const url = new URL("./api/get_csrf_token/", baseURL);
+    const url = new URL("./get_cookie", baseURL);
 
-    fetch(url, { method: "GET" })
+    fetch(url, { method: "GET", credentials: "include" })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch.");
@@ -43,7 +44,20 @@ const Login = () => {
         return response.json();
       })
       .then((data) => {
-        setToken(data.csrfToken);
+        // setToken(data.csrfToken);
+        // console.log(data.message);
+        const csrfCookie = document.cookie
+          .split(";")
+          .map((cookie) => cookie.trim())
+          .find((cookie) => cookie.startsWith("csrftoken="));
+
+        if (csrfCookie) {
+          let csrfTokenFinal = csrfCookie.split("=")[1];
+          setToken(csrfTokenFinal);
+          // console.log("🚀 ~ csrfTokenFinal:", csrfTokenFinal);
+        } else {
+          console.log("CSRF TOKEN NOT FOUND!!");
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -171,6 +185,9 @@ const Login = () => {
             <br />
             الشركة
           </div>
+          <div className='hidden-app-version eng-text'>
+            v{packageJson.version}
+          </div>
           <div
             className='login-lang-sel flex-it'
             style={{ zIndex: success ? "100" : "1000000" }}
@@ -235,6 +252,7 @@ const Login = () => {
                     // textAlign: email === "" ? "right" : "left",
                     textAlign: "right",
                   }}
+                  onKeyUp={(e) => handleKeyboardSubmit(e)}
                   value={email}
                   onChange={(e) => {
                     setErrMsg("");

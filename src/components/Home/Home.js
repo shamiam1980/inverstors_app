@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
+import { useHistory } from "react-router";
 import Container from "react-bootstrap/Container";
 import { NavLink } from "react-router-dom";
 import Row from "react-bootstrap/Row";
@@ -17,14 +18,43 @@ const Home = () => {
   const [modalMessage, setModalMessage] = useState("");
   const [modalTitle, setModalTitle] = useState("");
   const [modalSubTitle, setModalSubTitle] = useState(null);
+  const [modalCTA, setModalCTA] = useState(null);
   // Data
   const [data, setData] = useState([]);
+  // Arabic Numerals
+  const [isAraNum, setIsAraNum] = useState(false);
+  const [showAraNumInfo, setShowAraNumInfo] = useState(false);
+
+  const history = useHistory();
+
+  String.prototype.EngNumbersToArabic = function () {
+    return this.replace(/\d/g, (d) => String.fromCharCode("0x066" + d));
+  };
+
+  const convertLinuxDateToNormal = (linuxDate) => {
+    // Linux date YYYY-MM-DD
+    // Norma date format DD/MM/YYYY
+    let arrDate = linuxDate.split("-");
+
+    // With day shown
+    // return isAraNum
+    //   ? arrDate[0] + "/" + arrDate[1] + "/" + arrDate[2]
+    //   : arrDate[1] + "/" + arrDate[2] + "/" + arrDate[0];
+
+    // With day hidden
+    return isAraNum
+      ? arrDate[0] + "/" + arrDate[1]
+      : arrDate[1] + "/" + arrDate[0];
+  };
 
   const getData = () => {
-    const url = new URL("./get_data", baseURL);
+    const url = new URL("./user_data", baseURL);
 
     fetch(url, { method: "GET" })
       .then((response) => {
+        if (response.status == 401) {
+          history.push("/");
+        }
         if (!response.ok) {
           throw new Error("Failed to fetch.");
         }
@@ -37,6 +67,7 @@ const Home = () => {
         setIsModal(true);
         setModalTitle("خطأ!");
         setModalMessage("فشل طلب البيانات! حاول مرة أخرى!");
+        setModalCTA("حاول مرة أخرى");
         console.log(err);
       });
   };
@@ -99,8 +130,52 @@ const Home = () => {
 
   const handleCloseModal = () => {
     setIsModal(false);
+    setModalCTA(null);
     data.length === 0 && getData();
   };
+
+  const openOriginOfNumsModal = () => {
+    setIsModal(true);
+    setModalTitle("نبذة عن تاريخ الأرقام");
+    setModalSubTitle("وبصمة العرب المسلمون في تطويرها");
+    setModalMessage(JSXOriginOfANums);
+  };
+
+  const JSXOriginOfANums = (
+    <div style={{ display: "block !important" }}>
+      <p>
+        اختلف المؤرخون حول نشأة الأرقام التي يطلق عليها "العربية" على 3 أقسام،
+        قسم يقول بأن أصلها هندي ونقلها العرب عنهم، وقسم آخر يرى أن أصلها عربي
+        ونقلها عنهم الهنود، وفريق أخير يرى أن أصلها هندي لكن العرب نقلوها عنهم
+        وطوروها حتى وصلت إلى شكلها الحالي..
+      </p>
+      <p>
+        أما الأرقام التي يطلق عليها عامة الناس "الإنجليزية"، فأجمع المؤرخون أنها
+        عربية الأصل وتسمى الأرقام "الغُبارية"، لكن اختلفوا إذا كان مبتكرها هو
+        عالم الرياضيات البغدادي الأشهر محمد بن موسى الخوارزمي في القرن الثاني
+        الهجري، أم عالم الرياضيات المغربي الفاسي ابن الياسَمين في القرن السادس
+        الهجري..
+      </p>
+      <p style={{ color: "#ff8080" }}>
+        ففي جميع الأحوال، اتفق المؤرخون على "فضل" العرب المسلمون في وصول الأرقام
+        سواء العربية أو الإنجليزية إلى شكلها الحالي، فلا نبالغ حين نقول: أن
+        الأرقام التي يستخدمها البشر اليوم عليها "بصمة" العرب المسلمون!
+      </p>
+      <h5>المصادر</h5>
+      <div>
+        <a
+          href='https://misbar.com/qna/2022/12/26/%D9%87%D9%84-%D8%A7%D9%84%D8%A3%D8%B1%D9%82%D8%A7%D9%85-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9-%D8%A3%D8%B5%D9%84%D9%87%D8%A7-%D9%87%D9%86%D8%AF%D9%8A%D8%A9'
+          target='_blank'>
+          رابط 1 (مقال)
+        </a>
+      </div>
+      <div>
+        <a href='https://www.youtube.com/watch?v=diAIioE1V4s' target='_blank'>
+          رابط 2 (فيديو)
+        </a>
+      </div>
+    </div>
+  );
 
   const SVGCapitalIcon = (
     <svg
@@ -195,20 +270,34 @@ const Home = () => {
       <div className='custom-column'>
         <div className='row ara-text'>إجمالي المسترّد منه</div>
         <div className='row eng-text rtl'>
-          {data.length !== 0 && beautifyNum(data.capitalValPaid)}
+          {data.length !== 0 &&
+          data.capitalValPaid !== undefined &&
+          data.capitalValPaid !== null
+            ? isAraNum
+              ? beautifyNum(data.capitalValPaid).EngNumbersToArabic()
+              : beautifyNum(data.capitalValPaid)
+            : "N/A"}
         </div>
       </div>
       <div className='custom-column'>
         <div className='row ara-text'>الرصيد المتبقي منه</div>
         <div className='row eng-text rtl'>
-          {data.length !== 0 && beautifyNum(data.capitalValRem)}
+          {data.length !== 0 &&
+          data.capitalValRem !== undefined &&
+          data.capitalValRem !== null
+            ? isAraNum
+              ? beautifyNum(data.capitalValRem).EngNumbersToArabic()
+              : beautifyNum(data.capitalValRem)
+            : "N/A"}
         </div>
       </div>
     </div>
   );
 
   const JSXCardInfoModalData =
-    data.length !== 0 && data.paymentsHistory.length !== 0 ? (
+    data.length !== 0 &&
+    data.paymentsHistory !== undefined &&
+    data.paymentsHistory.length !== 0 ? (
       <div id='data-row' className='payments-history'>
         {data.paymentsHistory.map((obj, index) => {
           return (
@@ -216,14 +305,30 @@ const Home = () => {
               <div className='right'>
                 <div className='circle flex-it'>{index + 1} </div>
                 <div className='value'>
-                  <span className='eng-text rtl'>{beautifyNum(obj.value)}</span>
-                  {!obj.done && (
+                  <span className='eng-text rtl'>
+                    {obj.value !== undefined && obj.value !== null
+                      ? isAraNum
+                        ? beautifyNum(obj.value).EngNumbersToArabic()
+                        : beautifyNum(obj.value)
+                      : "N/A"}
+                  </span>
+                  {obj.done !== null && !obj.done && (
                     <span className='upcoming ara-text'>قادمة</span>
                   )}
                 </div>
               </div>
               <div className='left'>
-                <div className='eng-text rtl'>{obj.date}</div>
+                <div className='eng-text rtl'>
+                  <span>
+                    {obj.date
+                      ? isAraNum
+                        ? convertLinuxDateToNormal(
+                            obj.date.toString().EngNumbersToArabic()
+                          )
+                        : convertLinuxDateToNormal(obj.date)
+                      : "N/A"}
+                  </span>
+                </div>
                 <Form.Check
                   inline
                   disabled
@@ -250,8 +355,19 @@ const Home = () => {
           <Accordion.Header>
             السنة الحالية{" "}
             <span className='year eng-text rtl pr-1'>
-              {data.currYearVal != 0
-                ? data.currYearVal
+              {data.currYearVal !== undefined && data.currYearVal !== null
+                ? isAraNum
+                  ? (data.currYearVal != 0
+                      ? data.currYearVal
+                      : new Date().getFullYear()
+                    )
+                      .toString()
+                      .EngNumbersToArabic()
+                  : data.currYearVal != 0
+                  ? data.currYearVal
+                  : new Date().getFullYear()
+                : isAraNum
+                ? new Date().getFullYear().toString().EngNumbersToArabic()
                 : new Date().getFullYear()}
             </span>
           </Accordion.Header>
@@ -260,32 +376,50 @@ const Home = () => {
               <div className='row eng-text rtl'>
                 <div className='right'>
                   <div className='value'>
-                    <span>{beautifyNum(data.currYearProfit)}</span>
+                    <span>
+                      {data.currYearProfit !== undefined &&
+                      data.currYearProfit !== null
+                        ? isAraNum
+                          ? beautifyNum(
+                              data.currYearProfit
+                            ).EngNumbersToArabic()
+                          : beautifyNum(data.currYearProfit)
+                        : "N/A"}
+                    </span>
                     <span className='upcoming ara-text'>الربح</span>
                   </div>
                 </div>
                 <div className='left'>
                   <div className='value'>
-                    <span>{beautifyNum(data.currYearPaid)}</span>
+                    <span>
+                      {data.currYearPaid !== undefined &&
+                      data.currYearPaid !== null
+                        ? isAraNum
+                          ? beautifyNum(data.currYearPaid).EngNumbersToArabic()
+                          : beautifyNum(data.currYearPaid)
+                        : "N/A"}
+                    </span>
                     <span className='upcoming ara-text'>صُرف منه</span>
                   </div>
                 </div>
               </div>
-              {data.currYearProfit != 0 &&
-                data.currYearProfit == data.currYearPaid && (
-                  <svg
-                    width='32'
-                    height='32'
-                    viewBox='0 0 32 32'
-                    fill='none'
-                    className='profit-fully-paid-svg'
-                    xmlns='http://www.w3.org/2000/svg'>
-                    <path
-                      d='M16 2C13.2311 2 10.5243 2.82109 8.22202 4.35943C5.91973 5.89777 4.12532 8.08427 3.06569 10.6424C2.00607 13.2006 1.72882 16.0155 2.26901 18.7313C2.80921 21.447 4.14258 23.9416 6.10051 25.8995C8.05845 27.8574 10.553 29.1908 13.2687 29.731C15.9845 30.2712 18.7994 29.9939 21.3576 28.9343C23.9157 27.8747 26.1022 26.0803 27.6406 23.778C29.1789 21.4757 30 18.7689 30 16C30 12.287 28.525 8.72601 25.8995 6.1005C23.274 3.475 19.713 2 16 2ZM14 21.59L9.00001 16.59L10.59 15L14 18.41L21.41 11L23.006 12.586L14 21.59Z'
-                      fill='#7AC142'
-                    />
-                  </svg>
-                )}
+              {data.currYearProfit &&
+              data.currYearPaid &&
+              data.currYearProfit != 0 &&
+              data.currYearProfit == data.currYearPaid ? (
+                <svg
+                  width='32'
+                  height='32'
+                  viewBox='0 0 32 32'
+                  fill='none'
+                  className='profit-fully-paid-svg'
+                  xmlns='http://www.w3.org/2000/svg'>
+                  <path
+                    d='M16 2C13.2311 2 10.5243 2.82109 8.22202 4.35943C5.91973 5.89777 4.12532 8.08427 3.06569 10.6424C2.00607 13.2006 1.72882 16.0155 2.26901 18.7313C2.80921 21.447 4.14258 23.9416 6.10051 25.8995C8.05845 27.8574 10.553 29.1908 13.2687 29.731C15.9845 30.2712 18.7994 29.9939 21.3576 28.9343C23.9157 27.8747 26.1022 26.0803 27.6406 23.778C29.1789 21.4757 30 18.7689 30 16C30 12.287 28.525 8.72601 25.8995 6.1005C23.274 3.475 19.713 2 16 2ZM14 21.59L9.00001 16.59L10.59 15L14 18.41L21.41 11L23.006 12.586L14 21.59Z'
+                    fill='#7AC142'
+                  />
+                </svg>
+              ) : null}
             </div>
           </Accordion.Body>
         </Accordion.Item>
@@ -293,8 +427,19 @@ const Home = () => {
           <Accordion.Header>
             السنة السابقة{" "}
             <span className='year eng-text rtl pr-1'>
-              {data.lastYearVal != 0
-                ? data.lastYearVal
+              {data.lastYearVal !== undefined && data.lastYearVal !== null
+                ? isAraNum
+                  ? (data.lastYearVal != 0
+                      ? data.lastYearVal
+                      : new Date().getFullYear() - 1
+                    )
+                      .toString()
+                      .EngNumbersToArabic()
+                  : data.lastYearVal != 0
+                  ? data.lastYearVal
+                  : new Date().getFullYear() - 1
+                : isAraNum
+                ? (new Date().getFullYear() - 1).toString().EngNumbersToArabic()
                 : new Date().getFullYear() - 1}
             </span>
           </Accordion.Header>
@@ -303,32 +448,50 @@ const Home = () => {
               <div className='row eng-text rtl'>
                 <div className='right'>
                   <div className='value'>
-                    <span>{beautifyNum(data.lastYearProfit)}</span>
+                    <span>
+                      {data.lastYearProfit !== undefined &&
+                      data.lastYearProfit !== null
+                        ? isAraNum
+                          ? beautifyNum(
+                              data.lastYearProfit
+                            ).EngNumbersToArabic()
+                          : beautifyNum(data.lastYearProfit)
+                        : "N/A"}
+                    </span>
                     <span className='upcoming ara-text'>الربح</span>
                   </div>
                 </div>
                 <div className='left'>
                   <div className='value'>
-                    <span>{beautifyNum(data.lastYearPaid)}</span>
+                    <span>
+                      {data.lastYearPaid !== undefined &&
+                      data.lastYearPaid !== null
+                        ? isAraNum
+                          ? beautifyNum(data.lastYearPaid).EngNumbersToArabic()
+                          : beautifyNum(data.lastYearPaid)
+                        : "N/A"}
+                    </span>
                     <span className='upcoming ara-text'>صُرف منه</span>
                   </div>
                 </div>
               </div>
-              {data.lastYearProfit != 0 &&
-                data.lastYearProfit == data.lastYearPaid && (
-                  <svg
-                    width='32'
-                    height='32'
-                    viewBox='0 0 32 32'
-                    fill='none'
-                    className='profit-fully-paid-svg'
-                    xmlns='http://www.w3.org/2000/svg'>
-                    <path
-                      d='M16 2C13.2311 2 10.5243 2.82109 8.22202 4.35943C5.91973 5.89777 4.12532 8.08427 3.06569 10.6424C2.00607 13.2006 1.72882 16.0155 2.26901 18.7313C2.80921 21.447 4.14258 23.9416 6.10051 25.8995C8.05845 27.8574 10.553 29.1908 13.2687 29.731C15.9845 30.2712 18.7994 29.9939 21.3576 28.9343C23.9157 27.8747 26.1022 26.0803 27.6406 23.778C29.1789 21.4757 30 18.7689 30 16C30 12.287 28.525 8.72601 25.8995 6.1005C23.274 3.475 19.713 2 16 2ZM14 21.59L9.00001 16.59L10.59 15L14 18.41L21.41 11L23.006 12.586L14 21.59Z'
-                      fill='#7AC142'
-                    />
-                  </svg>
-                )}
+              {data.lastYearProfit &&
+              data.lastYearPaid &&
+              data.lastYearProfit != 0 &&
+              data.lastYearProfit == data.lastYearPaid ? (
+                <svg
+                  width='32'
+                  height='32'
+                  viewBox='0 0 32 32'
+                  fill='none'
+                  className='profit-fully-paid-svg'
+                  xmlns='http://www.w3.org/2000/svg'>
+                  <path
+                    d='M16 2C13.2311 2 10.5243 2.82109 8.22202 4.35943C5.91973 5.89777 4.12532 8.08427 3.06569 10.6424C2.00607 13.2006 1.72882 16.0155 2.26901 18.7313C2.80921 21.447 4.14258 23.9416 6.10051 25.8995C8.05845 27.8574 10.553 29.1908 13.2687 29.731C15.9845 30.2712 18.7994 29.9939 21.3576 28.9343C23.9157 27.8747 26.1022 26.0803 27.6406 23.778C29.1789 21.4757 30 18.7689 30 16C30 12.287 28.525 8.72601 25.8995 6.1005C23.274 3.475 19.713 2 16 2ZM14 21.59L9.00001 16.59L10.59 15L14 18.41L21.41 11L23.006 12.586L14 21.59Z'
+                    fill='#7AC142'
+                  />
+                </svg>
+              ) : null}
             </div>
           </Accordion.Body>
         </Accordion.Item>
@@ -336,8 +499,19 @@ const Home = () => {
           <Accordion.Header>
             السنة قبل السابقة{" "}
             <span className='year eng-text rtl pr-1'>
-              {data.yearBeforeVal != 0
-                ? data.yearBeforeVal
+              {data.yearBeforeVal !== undefined && data.yearBeforeVal !== null
+                ? isAraNum
+                  ? (data.yearBeforeVal != 0
+                      ? data.yearBeforeVal
+                      : new Date().getFullYear() - 2
+                    )
+                      .toString()
+                      .EngNumbersToArabic()
+                  : data.yearBeforeVal != 0
+                  ? data.yearBeforeVal
+                  : new Date().getFullYear() - 2
+                : isAraNum
+                ? (new Date().getFullYear() - 2).toString().EngNumbersToArabic()
                 : new Date().getFullYear() - 2}
             </span>
           </Accordion.Header>
@@ -346,32 +520,52 @@ const Home = () => {
               <div className='row eng-text rtl'>
                 <div className='right'>
                   <div className='value'>
-                    <span>{beautifyNum(data.yearBeforeProfit)}</span>
+                    <span>
+                      {data.yearBeforeProfit !== undefined &&
+                      data.yearBeforeProfit !== null
+                        ? isAraNum
+                          ? beautifyNum(
+                              data.yearBeforeProfit
+                            ).EngNumbersToArabic()
+                          : beautifyNum(data.yearBeforeProfit)
+                        : "N/A"}
+                    </span>
                     <span className='upcoming ara-text'>الربح</span>
                   </div>
                 </div>
                 <div className='left'>
                   <div className='value'>
-                    <span>{beautifyNum(data.yearBeforePaid)}</span>
+                    <span>
+                      {data.yearBeforePaid !== undefined &&
+                      data.yearBeforePaid !== null
+                        ? isAraNum
+                          ? beautifyNum(
+                              data.yearBeforePaid
+                            ).EngNumbersToArabic()
+                          : beautifyNum(data.yearBeforePaid)
+                        : "N/A"}
+                    </span>
                     <span className='upcoming ara-text'>صُرف منه</span>
                   </div>
                 </div>
               </div>
-              {data.yearBeforeProfit != 0 &&
-                data.yearBeforeProfit == data.yearBeforePaid && (
-                  <svg
-                    width='32'
-                    height='32'
-                    viewBox='0 0 32 32'
-                    fill='none'
-                    className='profit-fully-paid-svg'
-                    xmlns='http://www.w3.org/2000/svg'>
-                    <path
-                      d='M16 2C13.2311 2 10.5243 2.82109 8.22202 4.35943C5.91973 5.89777 4.12532 8.08427 3.06569 10.6424C2.00607 13.2006 1.72882 16.0155 2.26901 18.7313C2.80921 21.447 4.14258 23.9416 6.10051 25.8995C8.05845 27.8574 10.553 29.1908 13.2687 29.731C15.9845 30.2712 18.7994 29.9939 21.3576 28.9343C23.9157 27.8747 26.1022 26.0803 27.6406 23.778C29.1789 21.4757 30 18.7689 30 16C30 12.287 28.525 8.72601 25.8995 6.1005C23.274 3.475 19.713 2 16 2ZM14 21.59L9.00001 16.59L10.59 15L14 18.41L21.41 11L23.006 12.586L14 21.59Z'
-                      fill='#7AC142'
-                    />
-                  </svg>
-                )}
+              {data.yearBeforeProfit &&
+              data.yearBeforePaid &&
+              data.yearBeforeProfit != 0 &&
+              data.yearBeforeProfit == data.yearBeforePaid ? (
+                <svg
+                  width='32'
+                  height='32'
+                  viewBox='0 0 32 32'
+                  fill='none'
+                  className='profit-fully-paid-svg'
+                  xmlns='http://www.w3.org/2000/svg'>
+                  <path
+                    d='M16 2C13.2311 2 10.5243 2.82109 8.22202 4.35943C5.91973 5.89777 4.12532 8.08427 3.06569 10.6424C2.00607 13.2006 1.72882 16.0155 2.26901 18.7313C2.80921 21.447 4.14258 23.9416 6.10051 25.8995C8.05845 27.8574 10.553 29.1908 13.2687 29.731C15.9845 30.2712 18.7994 29.9939 21.3576 28.9343C23.9157 27.8747 26.1022 26.0803 27.6406 23.778C29.1789 21.4757 30 18.7689 30 16C30 12.287 28.525 8.72601 25.8995 6.1005C23.274 3.475 19.713 2 16 2ZM14 21.59L9.00001 16.59L10.59 15L14 18.41L21.41 11L23.006 12.586L14 21.59Z'
+                    fill='#7AC142'
+                  />
+                </svg>
+              ) : null}
             </div>
           </Accordion.Body>
         </Accordion.Item>
@@ -389,6 +583,11 @@ const Home = () => {
             handleOpenSupportModal={handleOpenSupportModal}
             handleOpenSupportModalMobile={handleOpenSupportModalMobile}
             userFullName={data.userFullName}
+            setIsAraNum={setIsAraNum}
+            isAraNum={isAraNum}
+            showAraNumInfo={showAraNumInfo}
+            setShowAraNumInfo={setShowAraNumInfo}
+            openOriginOfNumsModal={openOriginOfNumsModal}
           />
           <Container fluid='sm'>
             <div className='home-content'>
@@ -398,10 +597,16 @@ const Home = () => {
                   <Col className='main-col'>
                     <Card
                       title='رأس المال'
-                      titleValue={beautifyNum(data.capitalVal)}
+                      titleValue={
+                        data.capitalVal !== undefined &&
+                        data.capitalVal !== null
+                          ? beautifyNum(data.capitalVal)
+                          : "N/A"
+                      }
                       icon={SVGCapitalIcon}
                       hasSubData={true}
                       subDataValue={JSXCapitalCardSubData}
+                      isAraNum={isAraNum}
                     />
                   </Col>
                   <Col className='main-col'>
@@ -411,6 +616,7 @@ const Home = () => {
                       icon={SVGProjectTypeIcon}
                       hasSubData={true}
                       subDataValue={data.investmentSubType}
+                      isAraNum={isAraNum}
                     />
                   </Col>
                 </Row>
@@ -421,8 +627,14 @@ const Home = () => {
                   <Col className='main-col'>
                     <Card
                       title='الربح التالي المستحق'
-                      titleValue={beautifyNum(data.profitAccountProfitVal)}
+                      titleValue={
+                        data.profitAccountProfitVal !== undefined &&
+                        data.profitAccountProfitVal !== null
+                          ? beautifyNum(data.profitAccountProfitVal)
+                          : "N/A"
+                      }
                       icon={SVGProfitAccountIcon}
+                      isAraNum={isAraNum}
                     />
                   </Col>
                   <Col className='main-col'>
@@ -430,8 +642,14 @@ const Home = () => {
                       title='موعد الصرف المتوقع'
                       titleValue={data.profitAccountPaymentDue}
                       icon={SVGProfitAccountIcon}
-                      hasInfoIcon={true}
+                      hasInfoIcon={
+                        data.paymentsHistory !== undefined &&
+                        data.paymentsHistory.length !== 0
+                      }
                       action={handleOpenCardInfoModal}
+                      isAraNum={isAraNum}
+                      isDate={true}
+                      convertLinuxDateToNormal={convertLinuxDateToNormal}
                     />
                   </Col>
                 </Row>
@@ -461,6 +679,7 @@ const Home = () => {
         modalMessage={modalMessage}
         isModal={isModal}
         handleCloseModal={handleCloseModal}
+        cta={modalCTA}
       />
     </div>
   );
