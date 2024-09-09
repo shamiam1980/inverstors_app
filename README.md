@@ -169,8 +169,8 @@ Responds with data of current logged in user with JSON:
 ```
 {
   "userId": 1,
+  "username": "el_erm@yahoo.com",
   "userFullName": "هشام إبراهيم القرم",
-  "userEmail": "el_erm@yahoo.com",
   "capitalVal": 10000,
   "capitalValPaid": 0,
   "capitalValRem": 10000,
