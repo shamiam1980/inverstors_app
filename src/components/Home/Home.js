@@ -61,6 +61,18 @@ const Home = () => {
         return response.json();
       })
       .then((data) => {
+        let sortedPaymentsHistory = [];
+        if (
+          data.paymentsHistory &&
+          data.paymentsHistory !== undefined &&
+          data.paymentsHistory.length !== 0
+        ) {
+          data.paymentsHistory.sort(function (a, b) {
+            // Turn your strings into dates, and then subtract them
+            // to get a value that is either negative, positive, or zero.
+            return new Date(a.date) - new Date(b.date);
+          });
+        }
         setData(data);
       })
       .catch((err) => {
@@ -112,9 +124,6 @@ const Home = () => {
     setModalSubTitle(
       "هنا تظهر تفاصيل دفعات الأرباح المستلمة و المخططة مستقبلاً إن وجد"
     );
-    // Placeholder
-    // setModalMessage(<span>بيانات دفعات الأرباح</span>);
-    // Real data
     setModalMessage(JSXCardInfoModalData);
   };
 
@@ -122,9 +131,6 @@ const Home = () => {
     setIsModal(true);
     setModalTitle("الأرباح السنوية");
     setModalSubTitle("هنا تظهر تفاصيل الأرباح لكل سنـة");
-    // Placeholder
-    // setModalMessage(<span>بيانات تفاصيل الأرباح سنوياً</span>);
-    // Real data
     setModalMessage(JSXCardProfitDetailsData);
   };
 

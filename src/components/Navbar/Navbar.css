@@ -24,13 +24,17 @@
 }
 
 .nav-logo {
-  background-color: #dedede;
   color: #202020;
   font-weight: 500;
   font-size: 10px;
   width: 65px;
   height: 65px;
   text-align: center;
+}
+
+.nav-logo img {
+  -webkit-filter: grayscale(1) invert(1);
+  filter: grayscale(1) invert(1);
 }
 
 #navbar .nav-link {

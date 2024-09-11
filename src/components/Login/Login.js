@@ -8,6 +8,7 @@ import AlAqsaMob from "../../images/login-al-aqsa-mobile.png";
 import LoginPalestineMap from "../../images/login-palestine-map.svg";
 import LoginPalestineOldKeyIcon from "../../images/login-palestine-old-key.svg";
 import LoginFormIcon from "../../images/login-form-icon.png";
+import Logo from "../../images/mzs-group-logo.png";
 import baseURL from "../../baseURL";
 import packageJson from "../../../package.json";
 import "./Login.css";
@@ -180,10 +181,13 @@ const Login = () => {
     <div style={{ position: "relative" }}>
       <div className='login wrapper'>
         <div className='login-svg-wrapper'>
-          <div className='login-logo flex-it'>
-            شعار
-            <br />
-            الشركة
+          <div className='login-logo'>
+            <img src={Logo} alt='MZS Group logo' />
+            <div
+              className='eng-text'
+              style={{ color: "#fff", fontWeight: "100", marginTop: "4px" }}>
+              MZS Group
+            </div>
           </div>
           <div className='hidden-app-version eng-text'>
             v{packageJson.version}
