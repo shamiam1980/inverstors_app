@@ -6,6 +6,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import LoginFormIcon from "../../images/login-form-icon.png";
+import Logo from "../../images/mzs-group-logo.png";
 import baseURL from "../../baseURL";
 import "./Navbar.css";
 // import logo from "../../images/logo.png";
@@ -118,10 +119,13 @@ const AppNavbar = (props) => {
     <Navbar collapseOnSelect expand='lg' expanded={null} id='navbar'>
       <Container fluid='xxl'>
         <Navbar.Brand>
-          <div className='nav-logo flex-it'>
-            شعار
-            <br />
-            الشركة
+          <div className='nav-logo'>
+            <img src={Logo} alt='MZS Group logo' />
+            <div
+              className='eng-text'
+              style={{ color: "#202020", fontWeight: "100", marginTop: "4px" }}>
+              MZS Group
+            </div>
           </div>
           <div className='nav-username'>
             <span className='nav-username-text'>أهلاً</span>{" "}
@@ -137,11 +141,11 @@ const AppNavbar = (props) => {
         <Navbar.Toggle onClick={openNav} />
         <Navbar.Collapse>
           <Nav id='nav' className='me-auto flex-grow-1 justify-content-end'>
-            <Nav.Item>
+            {/* <Nav.Item>
               <Nav.Link onClick={props.handleOpenSupportModal}>
                 {JSXSupport}
               </Nav.Link>
-            </Nav.Item>
+            </Nav.Item> */}
             <Nav.Item className='nav-item-ara-nums'>
               <Nav.Link
                 onClick={() => (
@@ -208,7 +212,7 @@ const AppNavbar = (props) => {
                   </Nav.Link>
                 </Nav.Item>
               )}
-              <Nav.Item>
+              {/* <Nav.Item>
                 <Nav.Link
                   onClick={() => (
                     isMobileNav
@@ -218,7 +222,7 @@ const AppNavbar = (props) => {
                   )}>
                   {JSXSupport}
                 </Nav.Link>
-              </Nav.Item>
+              </Nav.Item> */}
               <Nav.Item>
                 <Nav.Link
                   onClick={() => (
