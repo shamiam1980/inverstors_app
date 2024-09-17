@@ -213,7 +213,33 @@
           "body": "{\n  \"message\": \"Logout successful\"\n}",
           "latency": 0,
           "statusCode": 200,
-          "label": "",
+          "label": "V1.0",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "5114b8c2-68ac-4b0f-90fa-4096fe79c0c0",
+          "body": "{\n  \"userId\": 1,\n  \"userFullName\": \"هشام إبراهيم القرم\",\n  \"userEmail\": \"el_erm@yahoo.com\",\n  \"capitalVal\": 10000,\n  \"capitalValPaid\": 0,\n  \"capitalValRem\": 10000,\n  \"investmentType\": \"project\",\n  \"investmentSubType\": \"PROCYON ENERGY, CAMEROON\",\n  \"profitAccountProfitVal\": 2000,\n  \"profitAccountPaymentDue\": \"9/2024\",\n  \"currYearVal\": 2024,\n  \"currYearProfit\": 1000,\n  \"currYearPaid\": 1000,\n  \"lastYearVal\": 2023,\n  \"lastYearProfit\": 950,\n  \"lastYearPaid\": 500,\n  \"yearBeforeVal\": 2022,\n  \"yearBeforeProfit\": 800,\n  \"yearBeforePaid\": 0,\n  \"stockNumStocks\": 1000,\n  \"stockCurrValPerStock\": 110,\n  \"stockExpValThisYearPerStock\": 120,\n  \"stockExpValNextYearPerStock\": 130,\n  \"stockProfitThisYearPerStock\": 3.5,\n  \"stockTotalProfitThisYear\": 3500,\n  \"stockProfitNextYearPerStock\": 4.5,\n  \"stockTotalProfitNextYear\": 4500,\n  \"paymentsHistory\": [\n    {\n      \"value\": 1000,\n      \"date\": \"3/2024\",\n      \"done\": true\n    },\n    {\n      \"value\": 2000,\n      \"date\": \"5/2024\",\n      \"done\": true\n    },\n    {\n      \"value\": 3000,\n      \"date\": \"9/2024\",\n      \"done\": false\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "V2.0",
           "headers": [
             {
               "key": "Content-Type",
