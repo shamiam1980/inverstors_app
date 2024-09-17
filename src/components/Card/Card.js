@@ -20,7 +20,16 @@ const Card = (props) => {
         <div
           className={`row home-card-value text-uppercase rtl ${
             !arabicChars.test(props.titleValue) && "eng-text"
-          }`}>
+          }`}
+          style={{
+            fontSize: !arabicChars.test(props.titleValue)
+              ? props.titleValue.length > 9 && props.titleValue.length <= 15
+                ? "26px"
+                : props.titleValue.length > 15
+                ? "24px"
+                : null
+              : null,
+          }}>
           {props.titleValue
             ? props.isAraNum
               ? props.isDate

@@ -41,7 +41,3 @@
 #home-card .home-card-info-icon {
   cursor: pointer;
 }
-
-#home-card .card-sub-data {
-  min-height: 51px;
-}

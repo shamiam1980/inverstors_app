@@ -281,7 +281,7 @@ const Login = () => {
                   //   textAlign: password === "" ? "right" : "left",
                   // }}
                   type={pwInputType}
-                  maxLength='20'
+                  // maxLength='20'
                   onChange={handlePwOnChange}
                   onKeyUp={(e) => handleKeyboardSubmit(e)}
                   value={password}
