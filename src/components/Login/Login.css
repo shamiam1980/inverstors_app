@@ -169,10 +169,11 @@
 
 .eye-icon {
   position: absolute;
-  top: 8px;
+  top: 0;
   left: 8px;
   cursor: pointer;
   background-color: #ececec;
+  height: 100%;
 }
 
 .eye-icon path {
