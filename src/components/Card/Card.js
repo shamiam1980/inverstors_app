@@ -1,8 +1,12 @@
 import React from "react";
+import { useMediaQuery } from "react-responsive";
 import "./Card.css";
 
 const Card = (props) => {
   let arabicChars = /[\u0600-\u06FF]/;
+
+  const isMobile = useMediaQuery({ maxWidth: 492 });
+  const isSmlMobile = useMediaQuery({ maxWidth: 375 });
 
   String.prototype.EngNumbersToArabic = function () {
     return this.replace(/\d/g, (d) => String.fromCharCode("0x066" + d));
@@ -22,13 +26,21 @@ const Card = (props) => {
             !arabicChars.test(props.titleValue) && "eng-text"
           }`}
           style={{
-            fontSize: !arabicChars.test(props.titleValue)
-              ? props.titleValue.length > 9 && props.titleValue.length <= 15
-                ? "26px"
-                : props.titleValue.length > 15
-                ? "24px"
-                : null
-              : null,
+            fontSize:
+              !arabicChars.test(props.titleValue) &&
+              isNaN(Array.from(props.titleValue)[0])
+                ? props.titleValue.length > 9 && props.titleValue.length <= 15
+                  ? isMobile
+                    ? "26px"
+                    : "30px"
+                  : props.titleValue.length > 15
+                  ? isMobile && !isSmlMobile
+                    ? "24px"
+                    : isSmlMobile
+                    ? "20px"
+                    : "30px"
+                  : null
+                : null,
           }}>
           {props.titleValue
             ? props.isAraNum
